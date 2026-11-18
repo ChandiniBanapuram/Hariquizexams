@@ -11,7 +11,7 @@ const sendOTP = async (email, otp) => {
 
   const BREVO_API_KEY = process.env.BREVO_API_KEY;
   const SENDER_EMAIL = process.env.BREVO_SENDER_EMAIL || 'noreply@examportal.com';
-  const SENDER_NAME = 'GNITS Examination System';
+  const SENDER_NAME = 'Hariquizexams Examination System';
 
   if (!BREVO_API_KEY) {
     console.warn('⚠️ BREVO_API_KEY is not set. Email will not be sent.');
@@ -44,7 +44,7 @@ const sendOTP = async (email, otp) => {
             </div>
             <p>This code will expire in 10 minutes. If you did not request this, please ignore this email.</p>
             <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-            <p style="font-size: 12px; color: #666; text-align: center;">&copy; 2026 GNITS Examination Portal</p>
+            <p style="font-size: 12px; color: #666; text-align: center;">&copy; 2026 Hariquizexams Examination Portal</p>
           </div>
         `
       })

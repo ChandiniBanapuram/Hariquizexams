@@ -55,7 +55,7 @@ export interface Response {
 // Two backends supported:
 //   1) College LAN server:  http://172.30.4.5:5000   (used when on intranet)
 //   2) Render (HTTPS):      VITE_RENDER_API env var  (used when on public web)
-const DEFAULT_CLOUD_API = 'https://sairohit45-examination-backend.hf.space';
+const DEFAULT_CLOUD_API = 'https://hariquizexams.onrender.com';
 const RENDER_API = (import.meta.env.VITE_RENDER_API as string | undefined)?.trim() || DEFAULT_CLOUD_API;
 const LOCAL_API  = (import.meta.env.VITE_LOCAL_API  as string | undefined)?.trim() || 'http://172.30.4.5:5000';
 
