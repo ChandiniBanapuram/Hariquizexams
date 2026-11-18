@@ -1,0 +1,103 @@
+# ════════════════════════════════════════════════════════════
+#  Exam Platform – Docker Compose (AI/ML Sandbox Runtimes)
+# ════════════════════════════════════════════════════════════
+#
+#  Usage:
+#    docker compose up -d          # start all runtimes
+#    docker compose down           # stop all
+#    docker compose build          # rebuild images
+#
+#  NOTE: These containers are not persistent services.
+#  The execution engine creates and destroys containers
+#  on demand using `docker run --rm`.
+#  This Compose file is only used to BUILD the images.
+# ════════════════════════════════════════════════════════════
+
+version: '3.9'
+
+services:
+
+  # ── Standard C runtime ──────────────────────────────────
+  exam-c-runtime:
+    build:
+      context: ./docker/c-runtime
+      dockerfile: Dockerfile
+    image: exam-c-runtime:latest
+    profiles: [build-only]
+
+  # ── Standard C++ runtime ────────────────────────────────
+  exam-cpp-runtime:
+    build:
+      context: ./docker/cpp-runtime
+      dockerfile: Dockerfile
+    image: exam-cpp-runtime:latest
+    profiles: [build-only]
+
+  # ── Standard Java runtime ───────────────────────────────
+  exam-java-runtime:
+    build:
+      context: ./docker/java-runtime
+      dockerfile: Dockerfile
+    image: exam-java-runtime:latest
+    profiles: [build-only]
+
+  # ── Standard Python runtime ─────────────────────────────
+  exam-python-runtime:
+    build:
+      context: ./docker/python-runtime
+      dockerfile: Dockerfile
+    image: exam-python-runtime:latest
+    profiles: [build-only]
+
+  # ── ML / Data Science runtime ───────────────────────────
+  exam-ml-runtime:
+    build:
+      context: ./docker/ml-runtime
+      dockerfile: Dockerfile
+    image: exam-ml-runtime:latest
+    profiles: [build-only]
+
+  # ── CVPR runtime ────────────────────────────────────────
+  exam-cvpr-runtime:
+    build:
+      context: ./docker/cvpr-runtime
+      dockerfile: Dockerfile
+    image: exam-cvpr-runtime:latest
+    profiles: [build-only]
+
+  # ── Reinforcement Learning runtime ──────────────────────
+  exam-rl-runtime:
+    build:
+      context: ./docker/rl-runtime
+      dockerfile: Dockerfile
+    image: exam-rl-runtime:latest
+    profiles: [build-only]
+
+  # ── Deep Learning / CNN runtime ─────────────────────────
+  exam-dl-runtime:
+    build:
+      context: ./docker/dl-runtime
+      dockerfile: Dockerfile
+    image: exam-dl-runtime:latest
+    profiles: [build-only]
+
+  # ── Speech AI runtime ───────────────────────────────────
+  exam-speech-runtime:
+    build:
+      context: ./docker/speech-runtime
+      dockerfile: Dockerfile
+    image: exam-speech-runtime:latest
+    profiles: [build-only]
+
+  # ── Nginx reverse proxy (optional) ──────────────────────
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/ssl:/etc/nginx/ssl:ro
+    depends_on: []
+    profiles: [production]
+    restart: unless-stopped

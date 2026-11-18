@@ -1,0 +1,74 @@
+# =============================================================================
+# Antigravity Exam Platform – Python ML/AI Requirements
+# Render-safe: removed packages that compile from source and exceed 8 GB build RAM.
+# Removed: face-recognition (dlib C++ compile), albumentations, jupyter stack,
+#          flask/fastapi/uvicorn (Node backend already serves HTTP), audio libs,
+#          plotly/bokeh (heavy optional viz), praw (Reddit, non-core).
+# NOTE: tensorflow-cpu requires Python 3.8–3.12.
+# =============================================================================
+
+# ── Numerical Computing ──────────────────────────────────
+numpy
+pandas
+scipy
+
+# ── Visualization ────────────────────────────────────────
+matplotlib
+seaborn
+
+# ── Machine Learning ─────────────────────────────────────
+scikit-learn
+xgboost
+lightgbm
+imbalanced-learn
+joblib
+
+# ── Deep Learning (NNDL) - TensorFlow ────────────────────
+tensorflow-cpu
+keras
+
+# ── Deep Learning (NNDL) - PyTorch (CPU wheels are smaller) ─
+torch
+torchvision
+torchaudio
+
+# ── Reinforcement Learning (RL) ──────────────────────────
+gymnasium
+stable-baselines3
+
+# ── Computer Vision (CVPR) ───────────────────────────────
+opencv-python-headless
+Pillow
+scikit-image
+imageio
+ultralytics
+
+# ── Natural Language Processing ──────────────────────────
+nltk
+spacy
+textblob
+vaderSentiment
+transformers
+gensim
+wordcloud
+missingno
+
+# ── Web & Social Media Analytics (WSMA) ──────────────────
+requests
+tweepy
+beautifulsoup4
+lxml
+networkx
+
+# ── Databases ────────────────────────────────────────────
+mysql-connector-python
+psycopg2-binary
+pymongo
+SQLAlchemy
+
+# ── File Handling ────────────────────────────────────────
+openpyxl
+xlsxwriter
+
+# ── Statistics ───────────────────────────────────────────
+statsmodels
