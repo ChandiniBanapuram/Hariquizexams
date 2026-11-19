@@ -114,7 +114,21 @@ export default function ResponsesTable() {
         subject: normalizedSubject,
       });
 
-      let fetchedResponses = Array.isArray(result) ? result : [];
+      // Detect backend error responses (non-array = error object)
+      if (!Array.isArray(result)) {
+        console.error('[Responses] API returned error:', result);
+        if (!silent) {
+          toast({
+            title: 'Error',
+            description: result?.message || 'Failed to fetch responses',
+            variant: 'destructive',
+          });
+        }
+        setResponses([]);
+        return;
+      }
+
+      let fetchedResponses = result;
       // Ignore NULL/empty section rows when a section filter is active
       if (normalizedSection) {
         fetchedResponses = fetchedResponses.filter(r => r.section && r.section.trim() !== '');
@@ -122,7 +136,8 @@ export default function ResponsesTable() {
       fetchedResponses.sort((a, b) => (a.roll_number || '').localeCompare(b.roll_number || ''));
       console.log('[Responses] Filtered response count:', fetchedResponses.length);
       setResponses(fetchedResponses);
-    } catch {
+    } catch (err) {
+      console.error('[Responses] Fetch error:', err);
       if (!silent) {
         toast({
           title: 'Error',
@@ -296,10 +311,7 @@ export default function ResponsesTable() {
               <InputLabel>Section</InputLabel>
               <Select value={filterSection} label="Section" onChange={(e) => setFilterSection(e.target.value)}>
                 <MenuItem value="ALL">All Sections</MenuItem>
-                <MenuItem value="A">Section A</MenuItem>
-                <MenuItem value="B">Section B</MenuItem>
-                <MenuItem value="C">Section C</MenuItem>
-                <MenuItem value="D">Section D</MenuItem>
+                {SECTIONS.map((s) => <MenuItem key={s.value} value={s.value}>{s.label}</MenuItem>)}
               </Select>
             </FormControl>
           </Grid>

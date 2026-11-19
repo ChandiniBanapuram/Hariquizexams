@@ -614,8 +614,9 @@ router.get('/responses', authMiddleware, async (req, res) => {
 
     // SELECT responses without expensive correlated subqueries
     let query = `
-      SELECT r.id, r.roll_number, r.name, r.department, r.section, r.subject, 
-             r.score, r.total_marks, r.tab_switched, r.submitted_at
+      SELECT r.id, r.roll_number, r.name, r.department, r.section,
+             r.year, r.semester, r.subject,
+             r.score, r.total_marks, r.tab_switched, r.exam_date, r.submitted_at
       FROM responses r 
       WHERE 1=1
     `;
