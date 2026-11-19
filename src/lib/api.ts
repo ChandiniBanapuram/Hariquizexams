@@ -87,7 +87,10 @@ console.log('[api] BASE_SERVER_URL =', BASE_SERVER_URL);
 
 // ==================== GENERIC FETCH ====================
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
-  const token = localStorage.getItem('studentToken') || localStorage.getItem('adminToken');
+  const isAdminEndpoint = endpoint.startsWith('/admin') || endpoint.startsWith('/it-admin');
+  const token = isAdminEndpoint
+    ? (localStorage.getItem('adminToken') || localStorage.getItem('itAdminToken'))
+    : (localStorage.getItem('adminToken') || localStorage.getItem('studentToken'));
 
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
@@ -277,7 +280,10 @@ export const studentAPI = {
 const CODING_BASE = `${BASE_SERVER_URL}/api/coding`;
 
 async function codingFetch(path: string, opts: RequestInit = {}) {
-  const token = localStorage.getItem('studentToken') || localStorage.getItem('adminToken') || '';
+  const isAdminPath = path.includes('/admin') || path.includes('/analytics');
+  const token = isAdminPath
+    ? (localStorage.getItem('adminToken') || localStorage.getItem('studentToken') || '')
+    : (localStorage.getItem('studentToken') || localStorage.getItem('adminToken') || '');
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),

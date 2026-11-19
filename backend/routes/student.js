@@ -478,8 +478,22 @@ router.post('/submit-exam', async (req, res) => {
 
     let [questions] = await db.query(qQuery, qParams);
 
-    // Safety fallback: if the client did not pass the exact exam date, score only
-    // the question ids that were actually shown/answered instead of mixing exams.
+    // If date-specific search returned nothing, fall back to matching by dept/sec/year/sem/subject
+    if (questions.length === 0) {
+      const [allDeptQuestions] = await db.query(
+        `SELECT id, correct_option, question_type, correct_answer_index, accepted_answers,
+          options, option_a, option_b, option_c, option_d
+          FROM questions
+          WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
+          AND (section = ? OR section = 'ALL') AND year = ? AND semester = ? AND subject = ?`,
+        [normalizedDept, normalizedSection, year || '1', semester || '1', subject || '']
+      );
+      if (allDeptQuestions.length > 0) {
+        questions = allDeptQuestions;
+      }
+    }
+
+    // Safety fallback: if still no questions found, score the question ids present in answers
     if (questions.length === 0 && answers && Object.keys(answers).length > 0) {
       const answeredIds = Object.keys(answers).map(Number).filter(Number.isFinite);
       if (answeredIds.length > 0) {

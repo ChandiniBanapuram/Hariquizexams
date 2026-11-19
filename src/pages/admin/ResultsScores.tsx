@@ -43,13 +43,7 @@ export default function ResultsScores() {
   const { logout, isAuthenticated, department } = useAdmin();
   const lookup = useLookupData();
 
-  const [responses, setResponses] = useState<Response[]>(() => {
-    try {
-      const cached = sessionStorage.getItem('results_responses_cache');
-      if (cached) return JSON.parse(cached);
-    } catch (_) {}
-    return [];
-  });
+  const [responses, setResponses] = useState<Response[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
   const [hasApplied, setHasApplied] = useState(true);
@@ -58,43 +52,14 @@ export default function ResultsScores() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(25);
 
-  // Filters
-  const [filterDate, setFilterDate] = useState(() => {
-    return localStorage.getItem('results_filterDate') || '';
-  });
-  const [filterDept, setFilterDept] = useState(() => {
-    // Use admin's own department if dept-scoped, else empty (show all)
-    return department || '';
-  });
+  // Filters - start clean on each session to avoid stale browser cache
+  const [filterDate, setFilterDate] = useState('');
+  const [filterDept, setFilterDept] = useState(department || '');
   const [filterSection, setFilterSection] = useState('');
   const [filterYear, setFilterYear] = useState('');
   const [filterSemester, setFilterSemester] = useState('');
   const [filterSubject, setFilterSubject] = useState('');
   const [search, setSearch] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('results_filterDate', filterDate);
-  }, [filterDate]);
-
-  useEffect(() => {
-    localStorage.setItem('results_filterDept', filterDept);
-  }, [filterDept]);
-
-  useEffect(() => {
-    localStorage.setItem('results_filterSection', filterSection);
-  }, [filterSection]);
-
-  useEffect(() => {
-    localStorage.setItem('results_filterYear', filterYear);
-  }, [filterYear]);
-
-  useEffect(() => {
-    localStorage.setItem('results_filterSemester', filterSemester);
-  }, [filterSemester]);
-
-  useEffect(() => {
-    localStorage.setItem('results_filterSubject', filterSubject);
-  }, [filterSubject]);
 
   // Distinct values that actually exist in MySQL (responses table).
   // Falls back to lookup data if the API call hasn't returned yet or is empty.

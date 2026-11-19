@@ -37,8 +37,12 @@ router.get('/global-responses-count', baseAuthMiddleware, async (req, res) => {
     let query = 'SELECT COUNT(*) as count FROM responses';
     const params = [];
     if (req.admin && req.admin.department && !isSuperDept(req.admin.department)) {
-      query += ` WHERE REPLACE(REPLACE(REPLACE(department,' ',''),'(',''),')','') = ?`;
-      params.push(req.admin.department.replace(/[\s()]/g, ''));
+      query += ` WHERE (
+        department = ?
+        OR LOWER(REPLACE(REPLACE(REPLACE(REPLACE(department,' ',''),'(',''),')',''),'-','')) = ?
+      )`;
+      const normD = String(req.admin.department || '').toLowerCase().replace(/[\s()._\-]/g, '');
+      params.push(req.admin.department, normD);
     }
     const [rows] = await db.query(query, params);
     const totalCount = rows[0]?.count || 0;
@@ -588,7 +592,8 @@ async function autoRescoreResponses(responses) {
     if (!qRows || qRows.length === 0) continue;
 
     const recalculatedScore = scoreQuestionSet(qRows, parsedAnswers);
-    const newTotal = qRows.length;
+    const examTotal = Math.max(Number(r.total_marks) || 0, qRows.length);
+    const newTotal = examTotal > 0 ? examTotal : qRows.length;
 
     if (r.score !== recalculatedScore || r.total_marks !== newTotal) {
       r.score = recalculatedScore;
@@ -636,12 +641,19 @@ router.get('/responses', authMiddleware, async (req, res) => {
     }
     if (department) {
       const normalizedDept = stripAll(department);
-      query += ` AND (r.department = ? OR LOWER(REPLACE(r.department, ' ', '')) = ?)`;
-      params.push(department, normalizedDept);
+      query += ` AND (
+        r.department = ? 
+        OR LOWER(REPLACE(REPLACE(REPLACE(REPLACE(r.department, ' ', ''), '(', ''), ')', ''), '-', '')) = ?
+        OR LOWER(REPLACE(r.department, ' ', '')) = ?
+      )`;
+      params.push(department, normalizedDept, normalizedDept);
     }
     if (section) {
       const normalizedSection = stripWord(section, ['section']);
-      query += ` AND r.section IS NOT NULL AND r.section != '' AND (r.section = ? OR LOWER(REPLACE(r.section, ' ', '')) = ?)`;
+      query += ` AND r.section IS NOT NULL AND r.section != '' AND (
+        r.section = ? 
+        OR LOWER(REPLACE(REPLACE(REPLACE(r.section, ' ', ''), '(', ''), ')', '')) = ?
+      )`;
       params.push(section, normalizedSection);
     }
     if (year) {
@@ -656,7 +668,10 @@ router.get('/responses', authMiddleware, async (req, res) => {
     }
     if (subject) {
       const normalizedSubject = stripAll(subject);
-      query += ` AND (r.subject = ? OR LOWER(REPLACE(r.subject, ' ', '')) = ?)`;
+      query += ` AND (
+        r.subject = ? 
+        OR LOWER(REPLACE(REPLACE(REPLACE(REPLACE(r.subject, ' ', ''), '(', ''), ')', ''), '-', '')) = ?
+      )`;
       params.push(subject, normalizedSubject);
     }
 
@@ -885,7 +900,14 @@ router.get('/filter-options', authMiddleware, async (req, res) => {
 
     const scope = [];
     const scopeParams = [];
-    if (department) { scope.push('department = ?'); scopeParams.push(department); }
+    if (department) {
+      scope.push(`(
+        department = ? 
+        OR LOWER(REPLACE(REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', ''), '-', '')) = ?
+      )`);
+      const normD = String(department || '').toLowerCase().replace(/[\s()._\-]/g, '');
+      scopeParams.push(department, normD);
+    }
 
     const distinct = async (col, extraWhere = [], extraParams = []) => {
       const whereParts = [...scope, ...extraWhere, `${col} IS NOT NULL`, `${col} <> ''`];
