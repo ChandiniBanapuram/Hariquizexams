@@ -10,7 +10,7 @@ import { useITAdmin } from '@/context/ITAdminContext';
 import { adminLoginSchema, AdminLogin } from '@/lib/validation';
 import { itAdminAPI } from '@/lib/itadmin-api';
 import { Loader2, Settings, User, Lock } from 'lucide-react';
-import hariLogo from '@/assets/hari-logo.jpg';
+import hariLogo from '@/assets/hari-logo.png';
 
 export default function ITAdminLoginPage() {
   const navigate = useNavigate();

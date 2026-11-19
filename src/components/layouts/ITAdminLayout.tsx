@@ -8,7 +8,7 @@ import {
   SpaceDashboard as DashboardIcon,
   Settings as SettingsIcon,
 } from '@mui/icons-material';
-import hariLogo from '@/assets/hari-logo.jpg';
+import hariLogo from '@/assets/hari-logo.png';
 import { ThemeToggle } from '../ThemeToggle';
 import FooterWithContact from '@/components/FooterWithContact';
 import { useBranding } from '@/context/BrandingContext';

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-import hariLogo from '@/assets/hari-logo.jpg';
+import hariLogo from '@/assets/hari-logo.png';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useThemeContext } from '@/context/ThemeContext';
 import { useBranding } from '@/context/BrandingContext';

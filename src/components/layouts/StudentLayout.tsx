@@ -40,7 +40,7 @@ import {
   KeyboardArrowRight as ChevronRightIcon,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import hariLogo from '@/assets/hari-logo.jpg';
+import hariLogo from '@/assets/hari-logo.png';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { studentAuthAPI } from '@/lib/student-auth-api';
 import { useToast } from '@/hooks/use-toast';
