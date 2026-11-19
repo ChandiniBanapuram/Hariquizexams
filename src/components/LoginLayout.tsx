@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-import gnitsLogo from '@/assets/gnits-logo.webp';
+import hariLogo from '@/assets/hari-logo.jpg';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useThemeContext } from '@/context/ThemeContext';
 import { useBranding } from '@/context/BrandingContext';
@@ -157,7 +157,7 @@ const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
           >
             <Box
               component="img"
-              src={settings.login_logo || gnitsLogo}
+              src={settings.login_logo || hariLogo}
               alt="Logo"
               sx={{
                 width: '100%',
@@ -178,7 +178,7 @@ const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
                 fontFamily: "'Poppins', sans-serif",
               }}
             >
-              {settings.login_header_title || 'GNITS Portal'}
+              {settings.login_header_title || 'HARI Portal'}
             </Box>
             <Box
               component="span"

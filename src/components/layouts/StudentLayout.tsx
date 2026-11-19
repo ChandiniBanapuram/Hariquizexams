@@ -40,7 +40,7 @@ import {
   KeyboardArrowRight as ChevronRightIcon,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import gnitsLogo from '@/assets/gnits-logo.webp';
+import hariLogo from '@/assets/hari-logo.jpg';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { studentAuthAPI } from '@/lib/student-auth-api';
 import { useToast } from '@/hooks/use-toast';
@@ -357,7 +357,7 @@ const StudentLayout: React.FC<StudentLayoutProps> = ({ children, user, onLogout,
                       width: 'max-content',
                     }}
                   >
-                    <Box component="img" src={settings.student_logo || gnitsLogo} alt="GNITS Logo" sx={{ width: 36, height: 36, bgcolor: '#fff', p: '4px', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }} />
+                    <Box component="img" src={settings.student_logo || hariLogo} alt="HARI Logo" sx={{ width: 36, height: 36, bgcolor: '#fff', p: '4px', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }} />
                     <Typography
                       sx={{
                         fontWeight: 800,
@@ -367,7 +367,7 @@ const StudentLayout: React.FC<StudentLayoutProps> = ({ children, user, onLogout,
                         textShadow: '0 2px 4px rgba(0,0,0,0.3)',
                       }}
                     >
-                      {settings.student_header_title || 'Welcome To GNITS Examination Student Portal'}
+                      {settings.student_header_title || 'Welcome To HARI Examination Student Portal'}
                     </Typography>
                   </Stack>
                 </Box>

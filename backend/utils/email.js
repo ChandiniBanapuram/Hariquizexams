@@ -38,7 +38,7 @@ const sendOTP = async (email, otp) => {
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
             <h2 style="color: #3B82F6; text-align: center;">Verification Code</h2>
             <p>Hello,</p>
-            <p>You requested a password reset for your GNITS Examination account. Use the code below to proceed:</p>
+            <p>You requested a password reset for your HARI Examination account. Use the code below to proceed:</p>
             <div style="background: #f4f7ff; padding: 10px; text-align: center; border-radius: 8px; margin: 20px 0;">
               <span style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #1e3a8a;">${otp}</span>
             </div>

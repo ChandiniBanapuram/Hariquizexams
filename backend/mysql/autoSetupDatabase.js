@@ -325,13 +325,13 @@ const TABLES = [
 
 // Seed default departments
 const DEFAULT_DEPARTMENTS = [
-  { name: 'CSE (AI & ML)',     value: 'CSE(AI&ML)',      username: 'gnitscse',  password: 'gnitscse@1234'  },
-  { name: 'CSE (Data Science)',value: 'CSE(DataScience)', username: 'gnitsds',   password: 'gnitsds@1234'   },
-  { name: 'IT',                value: 'IT',               username: 'gnitsit',   password: 'gnitsit@1234'   },
-  { name: 'ECE',               value: 'ECE',              username: 'gnitsece',  password: 'gnitsece@1234'  },
-  { name: 'EEE',               value: 'EEE',              username: 'gnitseee',  password: 'gnitseee@1234'  },
-  { name: 'MECH',              value: 'MECH',             username: 'gnitsmech', password: 'gnitsmech@1234' },
-  { name: 'CIVIL',             value: 'CIVIL',            username: 'gnitscivil',password: 'gnitscivil@1234'},
+  { name: 'CSE (AI & ML)',     value: 'CSE(AI&ML)',      username: 'haricse',  password: 'haricse@1234'  },
+  { name: 'CSE (Data Science)',value: 'CSE(DataScience)', username: 'harics',   password: 'harics@1234'   },
+  { name: 'IT',                value: 'IT',               username: 'hariit',   password: 'hariit@1234'   },
+  { name: 'ECE',               value: 'ECE',              username: 'hariece',  password: 'hariece@1234'  },
+  { name: 'EEE',               value: 'EEE',              username: 'harieee',  password: 'harieee@1234'  },
+  { name: 'MECH',              value: 'MECH',             username: 'harimech', password: 'harimech@1234' },
+  { name: 'CIVIL',             value: 'CIVIL',            username: 'haricivil',password: 'haricivil@1234'},
 ];
 
 async function autoSetup() {

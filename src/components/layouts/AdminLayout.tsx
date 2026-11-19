@@ -19,7 +19,7 @@ import {
   ChevronRight as ChevronRightIcon,
   EventNote as EventNoteIcon,
 } from '@mui/icons-material';
-import gnitsLogo from '@/assets/gnits-logo.webp';
+import hariLogo from '@/assets/hari-logo.jpg';
 import { ThemeToggle } from '../ThemeToggle';
 import FooterWithContact from '@/components/FooterWithContact';
 import { useBranding } from '@/context/BrandingContext';
@@ -295,13 +295,13 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, onLogout }) => {
                   style={{ width: 'max-content' }}
                 >
                   <div className="bg-white p-1 rounded-xl shadow-md flex-shrink-0" style={{ width: 36, height: 36 }}>
-                    <img src={settings.admin_logo || gnitsLogo} alt="GNITS Logo" className="w-full h-full object-contain" />
+                    <img src={settings.admin_logo || hariLogo} alt="HARI Logo" className="w-full h-full object-contain" />
                   </div>
                   <span
                     className="text-base sm:text-lg font-extrabold text-white tracking-wide"
                     style={{ textShadow: '0 0 12px rgba(255,255,255,0.55), 0 0 24px rgba(99,102,241,0.45)' }}
                   >
-                    {settings.admin_header_title || 'Welcome To GNITS Examination Admin Portal'}
+                    {settings.admin_header_title || 'Welcome To HARI Examination Admin Portal'}
                   </span>
                 </div>
               </div>

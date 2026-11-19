@@ -21,13 +21,13 @@ interface BrandingContextType {
 }
 
 const defaultSettings: BrandingSettings = {
-  admin_header_title: 'Welcome To GNITS Examination Admin Portal',
+  admin_header_title: 'Welcome To HARI Examination Admin Portal',
   admin_footer_text: '',
   admin_logo: '',
-  student_header_title: 'Welcome To GNITS Examination Student Portal',
+  student_header_title: 'Welcome To HARI Examination Student Portal',
   student_footer_text: '',
   student_logo: '',
-  login_header_title: 'GNITS Portal',
+  login_header_title: 'HARI Portal',
   login_header_subtitle: 'EXAMINATION SYSTEM',
   login_footer_text: '',
   login_logo: '',

@@ -10,7 +10,7 @@ import { useITAdmin } from '@/context/ITAdminContext';
 import { adminLoginSchema, AdminLogin } from '@/lib/validation';
 import { itAdminAPI } from '@/lib/itadmin-api';
 import { Loader2, Settings, User, Lock } from 'lucide-react';
-import gnitsLogo from '@/assets/gnits-logo.webp';
+import hariLogo from '@/assets/hari-logo.jpg';
 
 export default function ITAdminLoginPage() {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ export default function ITAdminLoginPage() {
         <div className="bg-card rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
             <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-muted">
-              <img src={gnitsLogo} alt="GNITS Logo" className="h-16 w-16 rounded-full" />
+              <img src={hariLogo} alt="HARI Logo" className="h-16 w-16 rounded-full object-contain" />
             </div>
             <div className="flex items-center justify-center gap-2 mb-2">
               <Settings className="h-5 w-5 text-primary" />
