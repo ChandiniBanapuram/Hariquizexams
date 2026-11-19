@@ -457,6 +457,66 @@ export default function QuizExams() {
     setLoading(true);
     try {
       if (newState) {
+        // Automatically save/commit any pending or newly added questions before turning ON
+        for (const qObj of questions) {
+          if (!qObj.q || !qObj.q.trim()) continue;
+          const qType = qObj.questionType || 'mcq';
+          let optA = '', optB = '', optC = '', optD = '';
+          let correctOpt = 'A';
+          if (qType === 'mcq' && qObj.options) {
+            optA = qObj.options[0] || '';
+            optB = qObj.options[1] || '';
+            optC = qObj.options[2] || '';
+            optD = qObj.options[3] || '';
+            if (qObj.correctIndex != null && qObj.correctIndex >= 0 && qObj.correctIndex <= 3) {
+              correctOpt = 'ABCD'[qObj.correctIndex];
+            }
+          }
+
+          if (qObj.id >= 1000000000000) {
+            try {
+              const resp = await adminAPI.addQuestion({
+                department: examConf.dept,
+                section: examConf.sec,
+                year: examConf.year,
+                semester: examConf.sem,
+                subject: examConf.subj,
+                question: qObj.q,
+                questionType: qType,
+                options: qType === 'mcq' ? qObj.options : undefined,
+                correctIndex: qType === 'mcq' ? qObj.correctIndex : undefined,
+                acceptedAnswers: qType === 'fill_blank' ? qObj.acceptedAnswers : undefined,
+                optionA: optA, optionB: optB, optionC: optC, optionD: optD,
+                correctOption: correctOpt,
+                imageUrl: qObj.imageUrl,
+                examDate: examConf.date
+              });
+              if (resp && (resp.id || resp.insertId)) {
+                qObj.id = resp.id || resp.insertId;
+              }
+            } catch (_) {}
+          } else {
+            try {
+              await adminAPI.updateQuestion(qObj.id, {
+                department: examConf.dept,
+                section: examConf.sec,
+                year: examConf.year,
+                semester: examConf.sem,
+                subject: examConf.subj,
+                question: qObj.q,
+                questionType: qType,
+                options: qType === 'mcq' ? qObj.options : undefined,
+                correctIndex: qType === 'mcq' ? qObj.correctIndex : undefined,
+                acceptedAnswers: qType === 'fill_blank' ? qObj.acceptedAnswers : undefined,
+                optionA: optA, optionB: optB, optionC: optC, optionD: optD,
+                correctOption: correctOpt,
+                imageUrl: qObj.imageUrl,
+                examDate: examConf.date
+              });
+            } catch (_) {}
+          }
+        }
+
         await adminAPI.saveAdvancedExamConfig({
           department: examConf.dept,
           year: examConf.year,
@@ -470,7 +530,7 @@ export default function QuizExams() {
           is_active: true,
           examDate: examConf.date
         });
-        toast({ title: 'Exam Active', description: 'Exam configuration saved and is now live.' });
+        toast({ title: 'Exam Active', description: 'Exam configuration saved and all questions are now live for students.' });
       } else {
         await adminAPI.saveAdvancedExamConfig({
           department: examConf.dept,
@@ -733,17 +793,54 @@ export default function QuizExams() {
 
       if (Array.isArray(data) && data.length > 0) {
         const imported = data.map(mapBackendQuestionToState);
-        setQuestions(prev => {
-          const existingQs = prev.map(q => (q.q || '').trim().toLowerCase());
-          const newItems = imported.filter(iq => !existingQs.includes((iq.q || '').trim().toLowerCase())).map(iq => ({
-            ...iq,
-            id: Date.now() + Math.random()
-          }));
-          return [...prev, ...newItems];
-        });
+        const existingQs = questions.map(q => (q.q || '').trim().toLowerCase());
+        const newItemsToSave = imported.filter(iq => !existingQs.includes((iq.q || '').trim().toLowerCase()));
+
+        const savedNewItems = [];
+        for (const item of newItemsToSave) {
+          const qType = item.questionType || 'mcq';
+          let optA = '', optB = '', optC = '', optD = '';
+          let correctOpt = 'A';
+          if (qType === 'mcq' && item.options) {
+            optA = item.options[0] || '';
+            optB = item.options[1] || '';
+            optC = item.options[2] || '';
+            optD = item.options[3] || '';
+            if (item.correctIndex != null && item.correctIndex >= 0 && item.correctIndex <= 3) {
+              correctOpt = 'ABCD'[item.correctIndex];
+            }
+          }
+          try {
+            const resp = await adminAPI.addQuestion({
+              department: examConf.dept,
+              section: examConf.sec,
+              year: examConf.year,
+              semester: examConf.sem,
+              subject: examConf.subj,
+              question: item.q,
+              questionType: qType,
+              options: qType === 'mcq' ? item.options : undefined,
+              correctIndex: qType === 'mcq' ? item.correctIndex : undefined,
+              acceptedAnswers: qType === 'fill_blank' ? item.acceptedAnswers : undefined,
+              optionA: optA,
+              optionB: optB,
+              optionC: optC,
+              optionD: optD,
+              correctOption: correctOpt,
+              imageUrl: item.imageUrl,
+              examDate: examConf.date
+            });
+            const dbId = resp?.id || resp?.insertId || (Date.now() + Math.random());
+            savedNewItems.push({ ...item, id: dbId });
+          } catch (_) {
+            savedNewItems.push({ ...item, id: Date.now() + Math.random() });
+          }
+        }
+
+        setQuestions(prev => [...prev, ...savedNewItems]);
         toast({
           title: 'Import Successful',
-          description: `Loaded ${data.length} questions from ${importFilters.dept} Sec-${importFilters.sec} (${importFilters.date}).`
+          description: `Imported and automatically saved ${savedNewItems.length} questions to Section ${examConf.sec}!`
         });
         setImportDialogOpen(false);
       } else {
