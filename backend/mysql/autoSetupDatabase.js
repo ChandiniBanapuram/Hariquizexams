@@ -55,12 +55,56 @@ const TABLES = [
     name: 'departments',
     sql: `CREATE TABLE IF NOT EXISTS departments (
       id               INT          NOT NULL AUTO_INCREMENT,
-      name             VARCHAR(100) NOT NULL,
+      label            VARCHAR(100) NOT NULL,
       value            VARCHAR(100) NOT NULL UNIQUE,
       admin_username   VARCHAR(128) NULL,
       admin_password   VARCHAR(255) NULL,
       created_at       TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
       PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`
+  },
+  {
+    name: 'sections',
+    sql: `CREATE TABLE IF NOT EXISTS sections (
+      id         INT          NOT NULL AUTO_INCREMENT,
+      label      VARCHAR(100) NOT NULL,
+      value      VARCHAR(100) NOT NULL UNIQUE,
+      created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`
+  },
+  {
+    name: 'years',
+    sql: `CREATE TABLE IF NOT EXISTS years (
+      id         INT          NOT NULL AUTO_INCREMENT,
+      label      VARCHAR(100) NOT NULL,
+      value      VARCHAR(100) NOT NULL UNIQUE,
+      created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`
+  },
+  {
+    name: 'semesters',
+    sql: `CREATE TABLE IF NOT EXISTS semesters (
+      id         INT          NOT NULL AUTO_INCREMENT,
+      label      VARCHAR(100) NOT NULL,
+      value      VARCHAR(100) NOT NULL UNIQUE,
+      created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`
+  },
+  {
+    name: 'subjects',
+    sql: `CREATE TABLE IF NOT EXISTS subjects (
+      id               INT          NOT NULL AUTO_INCREMENT,
+      label            VARCHAR(255) NOT NULL,
+      value            VARCHAR(255) NOT NULL,
+      department_value VARCHAR(100) NOT NULL,
+      year_value       VARCHAR(50)  NOT NULL,
+      semester_value   VARCHAR(50)  NOT NULL,
+      created_at       TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id),
+      UNIQUE KEY uq_subject (department_value, year_value, semester_value, value)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`
   },
   {
@@ -321,17 +365,405 @@ const TABLES = [
       PRIMARY KEY (setting_key)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`
   },
+  {
+    name: 'coding_practice_questions',
+    sql: `CREATE TABLE IF NOT EXISTS coding_practice_questions (
+      id                  INT          NOT NULL AUTO_INCREMENT,
+      title               VARCHAR(255) NOT NULL,
+      description         LONGTEXT     NOT NULL,
+      difficulty          VARCHAR(20)  NOT NULL DEFAULT 'Easy',
+      topic               VARCHAR(100) NOT NULL,
+      input_format        TEXT         NULL,
+      output_format       TEXT         NULL,
+      visible_test_cases  JSON         NULL,
+      hidden_test_cases   JSON         NULL,
+      is_deleted          TINYINT(1)   NOT NULL DEFAULT 0,
+      created_at          TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id),
+      INDEX idx_cpq_diff  (difficulty),
+      INDEX idx_cpq_topic (topic)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`
+  },
 ];
 
 // Seed default departments
 const DEFAULT_DEPARTMENTS = [
-  { name: 'CSE (AI & ML)',     value: 'CSE(AI&ML)',      username: 'haricse',  password: 'haricse@1234'  },
-  { name: 'CSE (Data Science)',value: 'CSE(DataScience)', username: 'harics',   password: 'harics@1234'   },
-  { name: 'IT',                value: 'IT',               username: 'hariit',   password: 'hariit@1234'   },
-  { name: 'ECE',               value: 'ECE',              username: 'hariece',  password: 'hariece@1234'  },
-  { name: 'EEE',               value: 'EEE',              username: 'harieee',  password: 'harieee@1234'  },
-  { name: 'MECH',              value: 'MECH',             username: 'harimech', password: 'harimech@1234' },
-  { name: 'CIVIL',             value: 'CIVIL',            username: 'haricivil',password: 'haricivil@1234'},
+  { label: 'CSE (AI & ML)',      value: 'CSE(AI&ML)',      username: 'haricse',   password: 'haricse@1234'   },
+  { label: 'CSE (Data Science)', value: 'CSE(DataScience)', username: 'harics',    password: 'harics@1234'    },
+  { label: 'IT',                 value: 'IT',               username: 'hariit',    password: 'hariit@1234'    },
+  { label: 'ECE',                value: 'ECE',              username: 'hariece',   password: 'hariece@1234'   },
+  { label: 'EEE',                value: 'EEE',              username: 'harieee',   password: 'harieee@1234'   },
+  { label: 'MECH',               value: 'MECH',             username: 'harimech',  password: 'harimech@1234'  },
+  { label: 'CIVIL',              value: 'CIVIL',            username: 'haricivil', password: 'haricivil@1234' },
+];
+
+// Seed default sections
+const DEFAULT_SECTIONS = [
+  { label: 'Section A', value: 'A' },
+  { label: 'Section B', value: 'B' },
+  { label: 'Section C', value: 'C' },
+];
+
+// Seed default years
+const DEFAULT_YEARS = [
+  { label: '1st Year', value: '1' },
+  { label: '2nd Year', value: '2' },
+  { label: '3rd Year', value: '3' },
+  { label: '4th Year', value: '4' },
+];
+
+// Seed default semesters
+const DEFAULT_SEMESTERS = [
+  { label: 'Semester 1', value: '1' },
+  { label: 'Semester 2', value: '2' },
+  { label: 'Semester 3', value: '3' },
+  { label: 'Semester 4', value: '4' },
+  { label: 'Semester 5', value: '5' },
+  { label: 'Semester 6', value: '6' },
+  { label: 'Semester 7', value: '7' },
+  { label: 'Semester 8', value: '8' },
+];
+
+// ── Default Coding Practice Questions ────────────────────────────────────────
+const DEFAULT_CODING_QUESTIONS = [
+  // ════════════ EASY ════════════
+  {
+    title: 'Hello World',
+    description: 'Write a program that prints "Hello, World!" to the output.',
+    difficulty: 'Easy',
+    topic: 'Basics',
+    input_format: 'No input required.',
+    output_format: 'Print exactly: Hello, World!',
+    visible_test_cases: [
+      { input: '', output: 'Hello, World!' }
+    ],
+    hidden_test_cases: [
+      { input: '', output: 'Hello, World!' }
+    ]
+  },
+  {
+    title: 'Sum of Two Numbers',
+    description: 'Given two integers A and B, print their sum.',
+    difficulty: 'Easy',
+    topic: 'Basics',
+    input_format: 'Two space-separated integers A and B on a single line.',
+    output_format: 'Print the sum of A and B.',
+    visible_test_cases: [
+      { input: '3 5', output: '8' },
+      { input: '10 20', output: '30' }
+    ],
+    hidden_test_cases: [
+      { input: '0 0', output: '0' },
+      { input: '-5 5', output: '0' },
+      { input: '1000000 999999', output: '1999999' }
+    ]
+  },
+  {
+    title: 'Even or Odd',
+    description: 'Given an integer N, print "Even" if it is even, or "Odd" if it is odd.',
+    difficulty: 'Easy',
+    topic: 'Basics',
+    input_format: 'A single integer N.',
+    output_format: 'Print "Even" or "Odd" (without quotes).',
+    visible_test_cases: [
+      { input: '4', output: 'Even' },
+      { input: '7', output: 'Odd' }
+    ],
+    hidden_test_cases: [
+      { input: '0', output: 'Even' },
+      { input: '-3', output: 'Odd' },
+      { input: '1000', output: 'Even' }
+    ]
+  },
+  {
+    title: 'Factorial',
+    description: 'Given a non-negative integer N, compute N! (N factorial).\n\nN! = 1 × 2 × 3 × … × N\n0! = 1',
+    difficulty: 'Easy',
+    topic: 'Loops',
+    input_format: 'A single non-negative integer N (0 ≤ N ≤ 12).',
+    output_format: 'Print N!',
+    visible_test_cases: [
+      { input: '5', output: '120' },
+      { input: '0', output: '1' }
+    ],
+    hidden_test_cases: [
+      { input: '1', output: '1' },
+      { input: '10', output: '3628800' },
+      { input: '12', output: '479001600' }
+    ]
+  },
+  {
+    title: 'Reverse a String',
+    description: 'Given a string S, print it reversed.',
+    difficulty: 'Easy',
+    topic: 'Strings',
+    input_format: 'A single string S (no spaces, length ≤ 100).',
+    output_format: 'Print the reversed string.',
+    visible_test_cases: [
+      { input: 'hello', output: 'olleh' },
+      { input: 'HARI', output: 'IRAH' }
+    ],
+    hidden_test_cases: [
+      { input: 'a', output: 'a' },
+      { input: 'racecar', output: 'racecar' },
+      { input: 'abcdefg', output: 'gfedcba' }
+    ]
+  },
+  {
+    title: 'Count Vowels',
+    description: 'Given a string, count the number of vowels (a, e, i, o, u — both upper and lower case).',
+    difficulty: 'Easy',
+    topic: 'Strings',
+    input_format: 'A single string S.',
+    output_format: 'Print the count of vowels.',
+    visible_test_cases: [
+      { input: 'Hello World', output: '3' },
+      { input: 'AEIOU', output: '5' }
+    ],
+    hidden_test_cases: [
+      { input: 'xyz', output: '0' },
+      { input: 'Programming', output: '3' },
+      { input: 'aEiOu', output: '5' }
+    ]
+  },
+  {
+    title: 'Find Maximum in Array',
+    description: 'Given an array of N integers, find and print the maximum element.',
+    difficulty: 'Easy',
+    topic: 'Arrays',
+    input_format: 'First line: integer N.\nSecond line: N space-separated integers.',
+    output_format: 'Print the maximum element.',
+    visible_test_cases: [
+      { input: '5\n3 1 4 1 5', output: '5' },
+      { input: '3\n10 20 15', output: '20' }
+    ],
+    hidden_test_cases: [
+      { input: '1\n42', output: '42' },
+      { input: '4\n-5 -1 -3 -2', output: '-1' },
+      { input: '6\n100 200 150 300 250 50', output: '300' }
+    ]
+  },
+  // ════════════ MEDIUM ════════════
+  {
+    title: 'Fibonacci Series',
+    description: 'Print the first N terms of the Fibonacci sequence.\n\nFibonacci: 0, 1, 1, 2, 3, 5, 8, 13, …\nEach term is the sum of the two preceding ones.',
+    difficulty: 'Medium',
+    topic: 'Recursion',
+    input_format: 'A single integer N (1 ≤ N ≤ 20).',
+    output_format: 'Print N space-separated Fibonacci numbers.',
+    visible_test_cases: [
+      { input: '5', output: '0 1 1 2 3' },
+      { input: '1', output: '0' }
+    ],
+    hidden_test_cases: [
+      { input: '8', output: '0 1 1 2 3 5 8 13' },
+      { input: '10', output: '0 1 1 2 3 5 8 13 21 34' },
+      { input: '2', output: '0 1' }
+    ]
+  },
+  {
+    title: 'Check Prime Number',
+    description: 'Given an integer N, determine whether it is a prime number.\n\nA prime number is greater than 1 and has no divisors other than 1 and itself.',
+    difficulty: 'Medium',
+    topic: 'Number Theory',
+    input_format: 'A single integer N (1 ≤ N ≤ 10^6).',
+    output_format: 'Print "Prime" if N is prime, otherwise print "Not Prime".',
+    visible_test_cases: [
+      { input: '7', output: 'Prime' },
+      { input: '10', output: 'Not Prime' }
+    ],
+    hidden_test_cases: [
+      { input: '1', output: 'Not Prime' },
+      { input: '2', output: 'Prime' },
+      { input: '999983', output: 'Prime' },
+      { input: '1000000', output: 'Not Prime' }
+    ]
+  },
+  {
+    title: 'Palindrome Check',
+    description: 'Given a string S, determine if it reads the same forwards and backwards (case-insensitive, ignoring non-alphanumeric characters).',
+    difficulty: 'Medium',
+    topic: 'Strings',
+    input_format: 'A single string S.',
+    output_format: 'Print "Yes" if palindrome, "No" otherwise.',
+    visible_test_cases: [
+      { input: 'racecar', output: 'Yes' },
+      { input: 'hello', output: 'No' }
+    ],
+    hidden_test_cases: [
+      { input: 'A man a plan a canal Panama', output: 'Yes' },
+      { input: 'Was it a car or a cat I saw', output: 'Yes' },
+      { input: 'OpenAI', output: 'No' }
+    ]
+  },
+  {
+    title: 'Two Sum',
+    description: 'Given an array of N integers and a target value T, find two numbers that add up to T and print their indices (0-based). If no such pair exists, print -1.\n\nAssume exactly one valid pair exists.',
+    difficulty: 'Medium',
+    topic: 'Arrays',
+    input_format: 'First line: N T\nSecond line: N space-separated integers.',
+    output_format: 'Print two space-separated indices i j (i < j).',
+    visible_test_cases: [
+      { input: '4 9\n2 7 11 15', output: '0 1' },
+      { input: '3 6\n3 2 4', output: '1 2' }
+    ],
+    hidden_test_cases: [
+      { input: '2 6\n3 3', output: '0 1' },
+      { input: '5 10\n1 2 3 4 6', output: '3 4' },
+      { input: '4 100\n1 2 3 4', output: '-1' }
+    ]
+  },
+  {
+    title: 'Count Word Frequency',
+    description: 'Given a sentence, count the frequency of each word (case-insensitive) and print each word with its count in alphabetical order.',
+    difficulty: 'Medium',
+    topic: 'Strings',
+    input_format: 'A single line string (words separated by spaces).',
+    output_format: 'Each line: word count (sorted alphabetically by word).',
+    visible_test_cases: [
+      { input: 'the cat sat on the mat', output: 'cat 1\nmat 1\non 1\nsat 1\nthe 2' },
+      { input: 'hello hello world', output: 'hello 2\nworld 1' }
+    ],
+    hidden_test_cases: [
+      { input: 'a b a b a', output: 'a 3\nb 2' },
+      { input: 'one', output: 'one 1' }
+    ]
+  },
+  {
+    title: 'Binary Search',
+    description: 'Given a sorted array of N integers and a target T, find the index of T using binary search. If T is not found, print -1.',
+    difficulty: 'Medium',
+    topic: 'Searching',
+    input_format: 'First line: N T\nSecond line: N sorted integers.',
+    output_format: 'Print the 0-based index of T, or -1 if not found.',
+    visible_test_cases: [
+      { input: '5 3\n1 2 3 4 5', output: '2' },
+      { input: '5 6\n1 2 3 4 5', output: '-1' }
+    ],
+    hidden_test_cases: [
+      { input: '1 1\n1', output: '0' },
+      { input: '6 4\n1 2 3 4 5 6', output: '3' },
+      { input: '4 10\n2 5 7 9', output: '-1' }
+    ]
+  },
+  {
+    title: 'Bubble Sort',
+    description: 'Given an array of N integers, sort them in ascending order using the Bubble Sort algorithm and print the sorted array.',
+    difficulty: 'Medium',
+    topic: 'Sorting',
+    input_format: 'First line: integer N.\nSecond line: N space-separated integers.',
+    output_format: 'Print N sorted integers separated by spaces.',
+    visible_test_cases: [
+      { input: '5\n64 34 25 12 22', output: '12 22 25 34 64' },
+      { input: '4\n5 1 4 2', output: '1 2 4 5' }
+    ],
+    hidden_test_cases: [
+      { input: '1\n42', output: '42' },
+      { input: '3\n3 2 1', output: '1 2 3' },
+      { input: '5\n10 10 10 10 10', output: '10 10 10 10 10' }
+    ]
+  },
+  {
+    title: 'Stack using Array',
+    description: 'Implement a stack using an array and process Q operations:\n- PUSH x : push x onto the stack\n- POP : pop the top element and print it (print -1 if empty)\n- TOP : print the top element without removing (print -1 if empty)\n- SIZE : print the current size of the stack',
+    difficulty: 'Medium',
+    topic: 'Stack',
+    input_format: 'First line: Q (number of operations)\nNext Q lines: each operation.',
+    output_format: 'For POP, TOP, SIZE operations print the result on a new line.',
+    visible_test_cases: [
+      { input: '5\nPUSH 1\nPUSH 2\nTOP\nPOP\nSIZE', output: '2\n2\n1' },
+      { input: '3\nPOP\nSIZE\nPUSH 5', output: '-1\n0' }
+    ],
+    hidden_test_cases: [
+      { input: '4\nPUSH 10\nPUSH 20\nPOP\nTOP', output: '20\n10' },
+      { input: '2\nSIZE\nTOP', output: '0\n-1' }
+    ]
+  },
+  // ════════════ HARD ════════════
+  {
+    title: 'Longest Common Subsequence',
+    description: 'Given two strings A and B, find the length of their Longest Common Subsequence (LCS).\n\nA subsequence is a sequence that can be derived by deleting some characters without changing the order.',
+    difficulty: 'Hard',
+    topic: 'Dynamic Programming',
+    input_format: 'Two lines, each containing a string (length ≤ 100).',
+    output_format: 'Print the length of the LCS.',
+    visible_test_cases: [
+      { input: 'ABCBDAB\nBDCABA', output: '4' },
+      { input: 'AGGTAB\nGXTXAYB', output: '4' }
+    ],
+    hidden_test_cases: [
+      { input: 'abc\nabc', output: '3' },
+      { input: 'abc\ndef', output: '0' },
+      { input: 'ABCDE\nACE', output: '3' }
+    ]
+  },
+  {
+    title: '0/1 Knapsack Problem',
+    description: 'Given N items each with a weight W[i] and value V[i], and a knapsack with capacity C, find the maximum value you can carry.\n\nEach item can be taken at most once.',
+    difficulty: 'Hard',
+    topic: 'Dynamic Programming',
+    input_format: 'First line: N C\nSecond line: N weights\nThird line: N values.',
+    output_format: 'Print the maximum value achievable.',
+    visible_test_cases: [
+      { input: '4 8\n2 3 4 5\n3 4 5 6', output: '10' },
+      { input: '3 50\n10 20 30\n60 100 120', output: '220' }
+    ],
+    hidden_test_cases: [
+      { input: '1 1\n2\n10', output: '0' },
+      { input: '2 10\n5 5\n6 6', output: '12' },
+      { input: '5 10\n2 3 4 5 6\n3 4 5 6 7', output: '13' }
+    ]
+  },
+  {
+    title: 'Number of Islands',
+    description: 'Given a 2D grid of "1"s (land) and "0"s (water), count the number of islands.\n\nAn island is surrounded by water and formed by connecting adjacent lands horizontally or vertically.',
+    difficulty: 'Hard',
+    topic: 'Graphs',
+    input_format: 'First line: R C (rows and columns)\nNext R lines: C characters each ("1" or "0", space-separated).',
+    output_format: 'Print the number of islands.',
+    visible_test_cases: [
+      { input: '4 5\n1 1 1 1 0\n1 1 0 1 0\n1 1 0 0 0\n0 0 0 0 0', output: '1' },
+      { input: '4 5\n1 1 0 0 0\n1 1 0 0 0\n0 0 1 0 0\n0 0 0 1 1', output: '3' }
+    ],
+    hidden_test_cases: [
+      { input: '1 1\n1', output: '1' },
+      { input: '1 1\n0', output: '0' },
+      { input: '3 3\n1 0 1\n0 1 0\n1 0 1', output: '5' }
+    ]
+  },
+  {
+    title: 'Merge Sort',
+    description: 'Implement the Merge Sort algorithm to sort an array of N integers in ascending order.',
+    difficulty: 'Hard',
+    topic: 'Sorting',
+    input_format: 'First line: integer N.\nSecond line: N space-separated integers.',
+    output_format: 'Print N sorted integers separated by spaces.',
+    visible_test_cases: [
+      { input: '6\n38 27 43 3 9 82', output: '3 9 27 38 43 82' },
+      { input: '4\n5 2 4 1', output: '1 2 4 5' }
+    ],
+    hidden_test_cases: [
+      { input: '1\n99', output: '99' },
+      { input: '5\n5 4 3 2 1', output: '1 2 3 4 5' },
+      { input: '5\n1 1 1 1 1', output: '1 1 1 1 1' }
+    ]
+  },
+  {
+    title: 'Dijkstra\'s Shortest Path',
+    description: 'Given a weighted undirected graph with N nodes and E edges, find the shortest path from source node 1 to all other nodes.\n\nIf a node is unreachable, print -1 for it.',
+    difficulty: 'Hard',
+    topic: 'Graphs',
+    input_format: 'First line: N E\nNext E lines: u v w (edge between u and v with weight w)\nLast line: source node S.',
+    output_format: 'Print N-1 lines: "node distance" for nodes 2 to N.',
+    visible_test_cases: [
+      { input: '5 6\n1 2 2\n1 3 4\n2 3 1\n2 4 7\n3 5 3\n4 5 1\n1', output: '2 2\n3 3\n4 7\n5 6' },
+      { input: '3 2\n1 2 5\n2 3 3\n1', output: '2 5\n3 8' }
+    ],
+    hidden_test_cases: [
+      { input: '4 3\n1 2 1\n2 3 2\n3 4 3\n1', output: '2 1\n3 3\n4 6' },
+      { input: '3 1\n1 2 10\n1', output: '2 10\n3 -1' }
+    ]
+  }
 ];
 
 async function autoSetup() {
@@ -368,6 +800,17 @@ async function autoSetup() {
       }
     }
 
+    // Step 4b: Migrate departments.name -> departments.label if needed
+    try {
+      const [cols] = await rootConn.query(`SHOW COLUMNS FROM departments LIKE 'name'`);
+      if (cols.length > 0) {
+        await rootConn.query(`ALTER TABLE departments CHANGE COLUMN name label VARCHAR(100) NOT NULL`);
+        console.log('   ✅ departments.name renamed to departments.label');
+      }
+    } catch (err) {
+      console.warn('   ⚠️  departments column migration skipped:', err.message);
+    }
+
     // Step 5: Create leaderboard view (safe – skip on TiDB if unsupported)
     try {
       await rootConn.query(`
@@ -398,11 +841,57 @@ async function autoSetup() {
     if (deptRows[0].c === 0) {
       for (const dept of DEFAULT_DEPARTMENTS) {
         await rootConn.query(
-          'INSERT IGNORE INTO departments (name, value, admin_username, admin_password) VALUES (?, ?, ?, ?)',
-          [dept.name, dept.value, dept.username, dept.password]
+          'INSERT IGNORE INTO departments (label, value, admin_username, admin_password) VALUES (?, ?, ?, ?)',
+          [dept.label, dept.value, dept.username, dept.password]
         );
       }
       console.log('   ✅ Default departments seeded');
+    }
+
+    // Step 7: Seed default sections if empty
+    const [secRows] = await rootConn.query('SELECT COUNT(*) AS c FROM sections');
+    if (secRows[0].c === 0) {
+      for (const s of DEFAULT_SECTIONS) {
+        await rootConn.query('INSERT IGNORE INTO sections (label, value) VALUES (?, ?)', [s.label, s.value]);
+      }
+      console.log('   ✅ Default sections seeded');
+    }
+
+    // Step 8: Seed default years if empty
+    const [yearRows] = await rootConn.query('SELECT COUNT(*) AS c FROM years');
+    if (yearRows[0].c === 0) {
+      for (const y of DEFAULT_YEARS) {
+        await rootConn.query('INSERT IGNORE INTO years (label, value) VALUES (?, ?)', [y.label, y.value]);
+      }
+      console.log('   ✅ Default years seeded');
+    }
+
+    // Step 9: Seed default semesters if empty
+    const [semRows] = await rootConn.query('SELECT COUNT(*) AS c FROM semesters');
+    if (semRows[0].c === 0) {
+      for (const sem of DEFAULT_SEMESTERS) {
+        await rootConn.query('INSERT IGNORE INTO semesters (label, value) VALUES (?, ?)', [sem.label, sem.value]);
+      }
+      console.log('   ✅ Default semesters seeded');
+    }
+
+    // Step 10: Seed default coding practice questions if empty
+    const [cpqRows] = await rootConn.query('SELECT COUNT(*) AS c FROM coding_practice_questions');
+    if (cpqRows[0].c === 0) {
+      for (const q of DEFAULT_CODING_QUESTIONS) {
+        await rootConn.query(
+          `INSERT INTO coding_practice_questions
+            (title, description, difficulty, topic, input_format, output_format, visible_test_cases, hidden_test_cases)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+          [
+            q.title, q.description, q.difficulty, q.topic,
+            q.input_format, q.output_format,
+            JSON.stringify(q.visible_test_cases),
+            JSON.stringify(q.hidden_test_cases)
+          ]
+        );
+      }
+      console.log(`   ✅ ${DEFAULT_CODING_QUESTIONS.length} default coding practice questions seeded`);
     }
 
     console.log('🎉 [AutoSetup] Database fully ready!\n');
