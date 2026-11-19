@@ -52,9 +52,10 @@ function EventsMarqueeBar() {
 
 interface LoginLayoutProps {
   children: React.ReactNode;
+  maxWidth?: any;
 }
 
-const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
+const LoginLayout: React.FC<LoginLayoutProps> = ({ children, maxWidth }) => {
   const { mode } = useThemeContext();
   const isDark = mode === 'dark';
   const [contactOpen, setContactOpen] = useState(false);
@@ -261,7 +262,7 @@ const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
           className="no-scrollbar"
           sx={{
             width: '100%',
-            maxWidth: { xs: '100%', sm: 540 },
+            maxWidth: maxWidth || { xs: '100%', sm: 540 },
             maxHeight: 'calc(100vh - 110px)',
             overflowX: 'hidden',
             overflowY: 'auto',
