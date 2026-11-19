@@ -52,9 +52,23 @@ export default function ITAdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen gradient-hero flex items-center justify-center p-4">
-      <div className="w-full max-w-md animate-slide-up">
-        <div className="bg-card rounded-2xl shadow-xl p-8">
+    <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      {/* Background Video */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover"
+        >
+          <source src="/hari-video.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-[2px]" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-md animate-slide-up">
+        <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl p-8">
           <div className="text-center mb-8">
             <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-muted">
               <img src={hariLogo} alt="HARI Logo" className="h-16 w-16 rounded-full object-contain" />

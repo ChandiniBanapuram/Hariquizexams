@@ -85,18 +85,34 @@ const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
             position: 'absolute',
             inset: 0,
             background: isDark
-              ? 'linear-gradient(135deg, rgba(5,10,30,0.55) 0%, rgba(15,20,50,0.65) 100%)'
-              : 'linear-gradient(135deg, rgba(230,240,255,0.45) 0%, rgba(210,230,255,0.55) 100%)',
+              ? 'linear-gradient(135deg, rgba(5,10,30,0.65) 0%, rgba(15,20,50,0.78) 100%)'
+              : 'linear-gradient(135deg, rgba(230,240,255,0.60) 0%, rgba(210,230,255,0.70) 100%)',
+            backdropFilter: 'blur(2px)',
             zIndex: 1,
-          },
-          '@keyframes kenBurns': {
-            '0%':   { transform: 'scale(1.08) translate(0%, 0%)' },
-            '50%':  { transform: 'scale(1.18) translate(-2%, -1.5%)' },
-            '100%': { transform: 'scale(1.08) translate(0%, 0%)' },
           },
         }}
       >
-        {/* Ambient background is handled by the gradient orbs below */}
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            minWidth: '100%',
+            minHeight: '100%',
+            width: 'auto',
+            height: 'auto',
+            transform: 'translate(-50%, -50%)',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+        >
+          <source src="/hari-video.mp4" type="video/mp4" />
+        </video>
 
         {/* Animated gradient orbs */}
         <Box sx={{

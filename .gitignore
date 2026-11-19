@@ -42,3 +42,6 @@ backend/executions/
 archive_duplicate/
 
 .vercel
+
+# Raw video uploaded to root
+HARI VIDEO.mp4
