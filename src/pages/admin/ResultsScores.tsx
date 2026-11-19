@@ -63,20 +63,13 @@ export default function ResultsScores() {
     return localStorage.getItem('results_filterDate') || '';
   });
   const [filterDept, setFilterDept] = useState(() => {
-    return localStorage.getItem('results_filterDept') || department || '';
+    // Use admin's own department if dept-scoped, else empty (show all)
+    return department || '';
   });
-  const [filterSection, setFilterSection] = useState(() => {
-    return localStorage.getItem('results_filterSection') || '';
-  });
-  const [filterYear, setFilterYear] = useState(() => {
-    return localStorage.getItem('results_filterYear') || '';
-  });
-  const [filterSemester, setFilterSemester] = useState(() => {
-    return localStorage.getItem('results_filterSemester') || '';
-  });
-  const [filterSubject, setFilterSubject] = useState(() => {
-    return localStorage.getItem('results_filterSubject') || '';
-  });
+  const [filterSection, setFilterSection] = useState('');
+  const [filterYear, setFilterYear] = useState('');
+  const [filterSemester, setFilterSemester] = useState('');
+  const [filterSubject, setFilterSubject] = useState('');
   const [search, setSearch] = useState('');
 
   useEffect(() => {
@@ -157,6 +150,9 @@ export default function ResultsScores() {
       ]);
 
       const parsedQuiz = Array.isArray(quizResult) ? quizResult.map(r => ({ ...r, type: 'mcq' })) : [];
+      if (!Array.isArray(quizResult) && quizResult?.message) {
+        console.error('[ResultsScores] getResponses error:', quizResult.message);
+      }
       // Group and consolidate coding submissions by roll number + exam_id
       const groupedCodingMap = new Map();
       const examTotalQsMap = new Map();
@@ -249,12 +245,14 @@ export default function ResultsScores() {
     if (!isAuthenticated) {
       navigate('/admin');
     } else {
+      // Clear any stale cached data and filters from previous sessions
+      sessionStorage.removeItem('results_responses_cache');
       handleApply();
     }
   }, [isAuthenticated, navigate]);
 
   const handleResetFilters = () => {
-    setFilterDate(''); setFilterDept(''); setFilterSection(''); setFilterYear('');
+    setFilterDate(''); setFilterDept(department || ''); setFilterSection(''); setFilterYear('');
     setFilterSemester(''); setFilterSubject(''); setSearch('');
     localStorage.removeItem('results_filterDate');
     localStorage.removeItem('results_filterDept');
@@ -262,6 +260,7 @@ export default function ResultsScores() {
     localStorage.removeItem('results_filterYear');
     localStorage.removeItem('results_filterSemester');
     localStorage.removeItem('results_filterSubject');
+    sessionStorage.removeItem('results_responses_cache');
     // Automatically re-apply empty filters to show all
     setTimeout(handleApply, 0);
   };
