@@ -619,9 +619,15 @@ export default function ResultsScores() {
                           <td className="px-5 py-3.5 text-sm text-[var(--text-secondary)]">{r.section || '-'}</td>
                           <td className="px-5 py-3.5 text-sm text-[var(--text-secondary)]">{r.subject}</td>
                           <td className="px-5 py-3.5 whitespace-nowrap">
-                            <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold ${badgeClass(color)}`}>
-                              {Math.floor(r.score)} / {r.total_marks}
-                            </span>
+                            {r.total_marks > 0 ? (
+                              <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold ${badgeClass(color)}`}>
+                                {Math.floor(r.score ?? 0)} / {r.total_marks}
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400 border border-gray-200 dark:border-gray-700">
+                                {Math.floor(r.score ?? 0)} pts
+                              </span>
+                            )}
                           </td>
                           <td className="px-5 py-3.5 whitespace-nowrap">
                             {r.tab_switched ? (
