@@ -103,7 +103,7 @@ export default function StudentRegister() {
               Create Account
             </Typography>
             <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, display: 'block' }}>
-              Join the GNITS Online Examination Portal
+              Join the HARI Online Examination Portal
             </Typography>
           </Box>
 

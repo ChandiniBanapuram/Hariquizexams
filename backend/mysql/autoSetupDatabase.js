@@ -149,6 +149,7 @@ const TABLES = [
       accepted_answers     JSON         NULL,
       image_url            VARCHAR(500) NULL,
       exam_date            DATE         NULL,
+      time_limit           INT          NULL     DEFAULT 15,
       created_at           TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
       PRIMARY KEY (id),
       INDEX idx_q_dept    (department),
@@ -800,7 +801,18 @@ async function autoSetup() {
       }
     }
 
-    // Step 4b: Migrate departments.name -> departments.label if needed
+    // Step 4b: Add time_limit column to questions if missing
+    try {
+      const [tlCols] = await rootConn.query(`SHOW COLUMNS FROM questions LIKE 'time_limit'`);
+      if (tlCols.length === 0) {
+        await rootConn.query(`ALTER TABLE questions ADD COLUMN time_limit INT NULL DEFAULT 15`);
+        console.log('   ✅ questions.time_limit column added');
+      }
+    } catch (err) {
+      console.warn('   ⚠️  questions.time_limit migration skipped:', err.message);
+    }
+
+    // Step 4c: Migrate departments.name -> departments.label if needed
     try {
       const [cols] = await rootConn.query(`SHOW COLUMNS FROM departments LIKE 'name'`);
       if (cols.length > 0) {

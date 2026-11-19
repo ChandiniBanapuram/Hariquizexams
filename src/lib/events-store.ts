@@ -96,10 +96,10 @@ export interface FDPRegistration {
 
 // ─── Keys ────────────────────────────────────────────────────────────────────
 const KEYS = {
-  workshops: 'gnits_workshops',
-  workshopRegs: 'gnits_workshop_registrations',
-  fdps: 'gnits_fdps',
-  fdpRegs: 'gnits_fdp_registrations',
+  workshops: 'hari_workshops',
+  workshopRegs: 'hari_workshop_registrations',
+  fdps: 'hari_fdps',
+  fdpRegs: 'hari_fdp_registrations',
 };
 
 function read<T>(key: string): T[] {

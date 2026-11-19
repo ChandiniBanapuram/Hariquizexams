@@ -1082,7 +1082,7 @@ export default function ITAdminDashboard() {
                             fullWidth
                             value={brandingForm.login_header_title || ''}
                             onChange={(e) => setBrandingForm((prev: any) => ({ ...prev, login_header_title: e.target.value }))}
-                            placeholder="e.g. GNITS Portal"
+                            placeholder="e.g. HARI Portal"
                           />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -1149,7 +1149,7 @@ export default function ITAdminDashboard() {
                             fullWidth
                             value={brandingForm.admin_header_title || ''}
                             onChange={(e) => setBrandingForm((prev: any) => ({ ...prev, admin_header_title: e.target.value }))}
-                            placeholder="e.g. Welcome To GNITS Examination Admin Portal"
+                            placeholder="e.g. Welcome To HARI Examination Admin Portal"
                           />
                         </Grid>
                         <Grid item xs={12}>
@@ -1207,7 +1207,7 @@ export default function ITAdminDashboard() {
                             fullWidth
                             value={brandingForm.student_header_title || ''}
                             onChange={(e) => setBrandingForm((prev: any) => ({ ...prev, student_header_title: e.target.value }))}
-                            placeholder="e.g. Welcome To GNITS Examination Student Portal"
+                            placeholder="e.g. Welcome To HARI Examination Student Portal"
                           />
                         </Grid>
                         <Grid item xs={12}>

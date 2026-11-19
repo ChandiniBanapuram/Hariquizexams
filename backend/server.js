@@ -53,8 +53,8 @@ const mlExecLimiter = rateLimit({
 // Middleware
 const ALLOWED_ORIGINS = [
   'https://csmcsdexam.vercel.app',
-  'https://gnitsquizexams.vercel.app',
-  'https://gnitsexam-sai-rohiths-projects-8e0f4003.vercel.app',
+  'https://hariquizexams.vercel.app',
+  'https://hariquizexams.vercel.app',
   'https://online-examination.sairohit4531.workers.dev',
   process.env.FRONTEND_URL,
 ].filter(Boolean);
@@ -363,12 +363,12 @@ app.listen(PORT, async () => {
         // Seed default logins for existing departments if empty
         await db.query(`
           UPDATE departments 
-          SET admin_username = 'gnitscse', admin_password = 'gnitscse@1234' 
+          SET admin_username = 'haricse', admin_password = 'haricse@1234' 
           WHERE value = 'CSE(AI&ML)' AND (admin_username IS NULL OR admin_username = '')
         `);
         await db.query(`
           UPDATE departments 
-          SET admin_username = 'gnitsds', admin_password = 'gnitsds@1234' 
+          SET admin_username = 'haridsa', admin_password = 'haridsa@1234' 
           WHERE value = 'CSE(DataScience)' AND (admin_username IS NULL OR admin_username = '')
         `);
       }

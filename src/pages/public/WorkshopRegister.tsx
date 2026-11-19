@@ -77,10 +77,10 @@ const UPI_APPS = [
 /* ─── SMS / Email simulation ─────────────────────────────────────────────── */
 // TODO: Replace with real SMS API (e.g. MSG91, Twilio) and Email API (e.g. EmailJS)
 async function sendSMSConfirmation(mobile: string, name: string, eventName: string) {
-  console.log(`[SMS] To ${mobile}: Dear ${name}, your registration for ${eventName} is confirmed! - GNITS`);
+  console.log(`[SMS] To ${mobile}: Dear ${name}, your registration for ${eventName} is confirmed! - HARI`);
 }
 async function sendEmailConfirmation(email: string, name: string, eventName: string) {
-  console.log(`[EMAIL] To ${email}: Registration confirmed for ${eventName} - GNITS`);
+  console.log(`[EMAIL] To ${email}: Registration confirmed for ${eventName} - HARI`);
 }
 
 /* ─── Component ─────────────────────────────────────────────────────────── */
@@ -208,7 +208,7 @@ export default function WorkshopRegister() {
       key: 'rzp_test_yourkeyhere', // 🔑 Replace with your Razorpay Test Key
       amount: (workshop?.amount ?? 0) * 100, // paise
       currency: 'INR',
-      name: 'GNITS',
+      name: 'HARI',
       description: `Registration: ${workshop?.name}`,
       image: '/favicon.ico',
       handler: async (response: any) => {
@@ -231,8 +231,8 @@ export default function WorkshopRegister() {
   };
 
   const openUpiApp = (app: typeof UPI_APPS[0]) => {
-    const upiId = workshop?.upiId || 'gnits@upi';
-    const deepLink = app.scheme(upiId, workshop?.amount ?? 0, `GNITS ${workshop?.name}`);
+    const upiId = workshop?.upiId || 'hari@upi';
+    const deepLink = app.scheme(upiId, workshop?.amount ?? 0, `HARI ${workshop?.name}`);
     window.location.href = deepLink;
     // After redirect back, show confirm button
   };

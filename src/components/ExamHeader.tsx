@@ -1,6 +1,6 @@
 import { Box, AppBar, Toolbar, Typography, Chip, useTheme } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import gnitsLogo from '@/assets/gnits-logo.webp';
+import hariLogo from '@/assets/hari-logo.png';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useBranding } from '@/context/BrandingContext';
 
@@ -33,8 +33,8 @@ export function ExamHeader({ showTimer = false, timeLeft = 0 }: ExamHeaderProps)
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Box
             component="img"
-            src={settings.student_logo || gnitsLogo}
-            alt="GNITS Logo"
+            src={settings.student_logo || hariLogo}
+            alt="HARI Logo"
             sx={{
               width: 56,
               height: 56,

@@ -386,24 +386,81 @@ router.get('/available-coding-exams', studentAuth, async (req, res) => {
 // Get previous exam scores (only if show_previous_scores is enabled for that exam)
 router.get('/previous-scores', studentAuth, async (req, res) => {
   try {
-    const [rows] = await db.query(
-      `SELECT r.id, r.subject, r.score, r.total_marks, r.tab_switched, r.submitted_at, r.exam_date,
-              r.department, r.section, r.year, r.semester, 'mcq' as type, NULL as question_ids
-       FROM responses r
-       WHERE r.roll_number = ?
-       UNION ALL
-       SELECT MIN(cs.id) as id, COALESCE(MAX(q.subject), 'Coding Assessment') as subject, ROUND(AVG(cs.score)) as score, 
-              100 as total_marks, MAX(cs.tab_switched) as tab_switched, MAX(cs.created_at) as submitted_at, MAX(cs.created_at) as exam_date,
-              COALESCE(s.department, 'ALL') as department, COALESCE(s.section, 'ALL') as section, 
-              COALESCE(s.year, 'ALL') as year, COALESCE(s.semester, 'ALL') as semester, 'coding' as type,
-              GROUP_CONCAT(DISTINCT cs.question_id) as question_ids
-       FROM code_submissions cs
-       LEFT JOIN students s ON s.id = cs.student_id
-       LEFT JOIN questions q ON q.id = cs.question_id
-       WHERE (s.roll_number = ? OR (cs.student_id IN ('0', 0, '22251A6601') AND ? = '22251A6601')) AND cs.exam_id IS NOT NULL
-       GROUP BY cs.exam_id, cs.student_id, FLOOR(UNIX_TIMESTAMP(cs.created_at) / 1800)
+    const rollNumber = req.student.rollNumber;
+
+    // Quiz (MCQ) scores
+    const [quizRows] = await db.query(
+      `SELECT id, subject, score, total_marks, tab_switched, submitted_at, exam_date,
+              department, section, year, semester, 'mcq' as type, NULL as question_ids
+       FROM responses
+       WHERE roll_number = ?
        ORDER BY submitted_at DESC`,
-      [req.student.rollNumber, req.student.rollNumber, req.student.rollNumber]
+      [rollNumber]
+    );
+
+    // Coding scores — simplified GROUP BY for TiDB compatibility
+    let codingRows = [];
+    try {
+      const [csRows] = await db.query(
+        `SELECT cs.id, cs.exam_id, cs.question_id, cs.score, cs.tab_switched,
+                cs.created_at, cs.student_id,
+                s.department, s.section, s.year, s.semester, s.roll_number,
+                q.subject
+         FROM code_submissions cs
+         LEFT JOIN students s ON s.id = cs.student_id
+         LEFT JOIN questions q ON q.id = cs.question_id
+         WHERE s.roll_number = ? AND cs.exam_id IS NOT NULL AND cs.is_submit = 1
+         ORDER BY cs.created_at DESC`,
+        [rollNumber]
+      );
+
+      // Group in JS instead of complex SQL GROUP BY
+      const examGroups = new Map();
+      csRows.forEach(row => {
+        const key = `${row.exam_id}_${row.student_id}`;
+        if (!examGroups.has(key)) {
+          examGroups.set(key, {
+            id: row.id,
+            subject: row.subject || 'Coding Assessment',
+            scores: [],
+            tab_switched: 0,
+            submitted_at: row.created_at,
+            exam_date: row.created_at,
+            department: row.department || 'ALL',
+            section: row.section || 'ALL',
+            year: row.year || 'ALL',
+            semester: row.semester || 'ALL',
+            type: 'coding',
+            questionIds: new Set()
+          });
+        }
+        const group = examGroups.get(key);
+        group.scores.push(row.score);
+        if (row.tab_switched) group.tab_switched = 1;
+        group.questionIds.add(row.question_id);
+      });
+
+      codingRows = Array.from(examGroups.values()).map(g => ({
+        id: g.id,
+        subject: g.subject,
+        score: Math.round(g.scores.reduce((a, b) => a + b, 0) / g.scores.length),
+        total_marks: 100,
+        tab_switched: g.tab_switched,
+        submitted_at: g.submitted_at,
+        exam_date: g.exam_date,
+        department: g.department,
+        section: g.section,
+        year: g.year,
+        semester: g.semester,
+        type: g.type,
+        question_ids: Array.from(g.questionIds).join(',')
+      }));
+    } catch (codingErr) {
+      console.warn('[previous-scores] Coding scores skipped:', codingErr.message);
+    }
+
+    const rows = [...quizRows, ...codingRows].sort((a, b) =>
+      new Date(b.submitted_at) - new Date(a.submitted_at)
     );
 
     // ---- Respect the admin "Show Previous Score" toggle ----

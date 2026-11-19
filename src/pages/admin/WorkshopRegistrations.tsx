@@ -99,7 +99,7 @@ export default function WorkshopRegistrations() {
       r.department, r.mobile, r.email, r.workshopName,
       r.paymentStatus, new Date(r.registrationDate).toLocaleDateString()
     ]);
-    exportToPDF(`workshop_registrations_${Date.now()}.pdf`, 'Workshop Registrations — GNITS', headers, rows);
+    exportToPDF(`workshop_registrations_${Date.now()}.pdf`, 'Workshop Registrations — HARI', headers, rows);
     toast({ title: 'Exported to PDF' });
   };
 

@@ -86,7 +86,7 @@ export default function FDPRegistrations() {
   const handleExportPDF = () => {
     const headers = ['Name', 'Emp/Roll ID', 'Dept', 'Mobile', 'Email', 'FDP', 'Status', 'Date'];
     const rows = filtered.map(r => [r.name, r.employeeId ?? r.rollNumber ?? '', r.department, r.mobile, r.email, r.fdpName, r.paymentStatus, new Date(r.registrationDate).toLocaleDateString()]);
-    exportToPDF(`fdp_registrations_${Date.now()}.pdf`, 'FDP Registrations — GNITS', headers, rows);
+    exportToPDF(`fdp_registrations_${Date.now()}.pdf`, 'FDP Registrations — HARI', headers, rows);
     toast({ title: 'Exported to PDF' });
   };
 

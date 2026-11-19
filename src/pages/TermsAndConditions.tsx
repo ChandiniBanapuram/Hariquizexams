@@ -42,21 +42,21 @@ const TermsAndConditions: React.FC = () => {
               2. Use License
             </Typography>
             <Typography variant="body1" paragraph>
-              Permission is granted to temporarily use the materials (information or software) on the GNITS Examination System for personal, non-commercial transitory viewing only.
+              Permission is granted to temporarily use the materials (information or software) on the HARI Examination System for personal, non-commercial transitory viewing only.
             </Typography>
 
             <Typography variant="h6" sx={{ color: isDark ? '#3B82F6' : '#2563EB', mt: 4, mb: 2, fontWeight: 700 }}>
               3. Disclaimer
             </Typography>
             <Typography variant="body1" paragraph>
-              The materials on this website are provided on an 'as is' basis. GNITS makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability.
+              The materials on this website are provided on an 'as is' basis. HARI makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability.
             </Typography>
 
             <Typography variant="h6" sx={{ color: isDark ? '#3B82F6' : '#2563EB', mt: 4, mb: 2, fontWeight: 700 }}>
               4. Limitations
             </Typography>
             <Typography variant="body1" paragraph>
-              In no event shall GNITS or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on the portal.
+              In no event shall HARI or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on the portal.
             </Typography>
 
             <Typography variant="h6" sx={{ color: isDark ? '#3B82F6' : '#2563EB', mt: 4, mb: 2, fontWeight: 700 }}>

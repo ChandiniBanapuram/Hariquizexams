@@ -10,7 +10,7 @@ const MASTER_PROFILE = {
   id: 0,
   rollNumber: MASTER_ROLL_NUMBER,
   roll_number: MASTER_ROLL_NUMBER,
-  email: 'master@gnits.local',
+  email: 'master@hari.local',
   fullName: 'Master Student',
   full_name: 'Master Student',
   department: 'ALL',
