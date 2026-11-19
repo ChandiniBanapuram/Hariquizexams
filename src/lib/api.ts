@@ -99,6 +99,7 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   };
 
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    cache: 'no-store',
     ...options,
     headers,
   });
@@ -289,7 +290,7 @@ async function codingFetch(path: string, opts: RequestInit = {}) {
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...opts.headers,
   };
-  const r = await fetch(`${CODING_BASE}${path}`, { ...opts, headers });
+  const r = await fetch(`${CODING_BASE}${path}`, { cache: 'no-store', ...opts, headers });
 
   if (!r.ok) {
     const payload = await r.json().catch(() => ({ message: 'Request failed' }));

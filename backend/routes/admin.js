@@ -621,7 +621,7 @@ router.get('/responses', authMiddleware, async (req, res) => {
     let query = `
       SELECT r.id, r.roll_number, r.name, r.department, r.section,
              r.year, r.semester, r.subject,
-             r.score, r.total_marks, r.tab_switched, r.exam_date, r.submitted_at
+             r.score, r.total_marks, r.tab_switched, r.exam_date, r.submitted_at, r.answers
       FROM responses r 
       WHERE 1=1
     `;
@@ -678,6 +678,16 @@ router.get('/responses', authMiddleware, async (req, res) => {
     query += ' ORDER BY r.submitted_at DESC';
 
     const [responses] = await db.query(query, params);
+
+    // Auto-rescore any responses with missing, zero, or uncalculated scores if answers exist
+    try {
+      const needsRescore = responses.filter(r => (r.total_marks == null || r.total_marks <= 0 || r.score == null) && r.answers);
+      if (needsRescore.length > 0) {
+        await autoRescoreResponses(needsRescore);
+      }
+    } catch (rescoreErr) {
+      console.warn('[GET /responses] Auto-rescore warning:', rescoreErr.message);
+    }
 
     // Compute duplicates ultra-fast in linear O(N) memory
     const seenSet = new Set();

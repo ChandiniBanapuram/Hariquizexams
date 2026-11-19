@@ -1,0 +1,6582 @@
+[
+  {
+    "title": "Hello World",
+    "description": "Write a program that prints 'Hello, World!' to stdout.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "No input",
+    "output_format": "Print Hello, World!",
+    "visible_test_cases": [
+      {
+        "input": "",
+        "output": "Hello, World!"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "",
+        "output": "Hello, World!"
+      }
+    ]
+  },
+  {
+    "title": "Sum of Two Numbers",
+    "description": "Given two integers A and B, compute and print their sum.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers A and B.",
+    "output_format": "Print A + B.",
+    "visible_test_cases": [
+      {
+        "input": "3 5",
+        "output": "8"
+      },
+      {
+        "input": "10 20",
+        "output": "30"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0 0",
+        "output": "0"
+      },
+      {
+        "input": "-5 5",
+        "output": "0"
+      },
+      {
+        "input": "100 250",
+        "output": "350"
+      }
+    ]
+  },
+  {
+    "title": "Difference of Two Numbers",
+    "description": "Given two integers A and B, print A - B.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers A and B.",
+    "output_format": "Print A - B.",
+    "visible_test_cases": [
+      {
+        "input": "10 4",
+        "output": "6"
+      },
+      {
+        "input": "5 8",
+        "output": "-3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0 0",
+        "output": "0"
+      },
+      {
+        "input": "-10 -20",
+        "output": "10"
+      }
+    ]
+  },
+  {
+    "title": "Product of Two Numbers",
+    "description": "Given two integers A and B, print their product.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers A and B.",
+    "output_format": "Print A * B.",
+    "visible_test_cases": [
+      {
+        "input": "4 5",
+        "output": "20"
+      },
+      {
+        "input": "-3 7",
+        "output": "-21"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0 100",
+        "output": "0"
+      },
+      {
+        "input": "12 12",
+        "output": "144"
+      }
+    ]
+  },
+  {
+    "title": "Quotient and Remainder",
+    "description": "Given two integers A and B, print quotient and remainder separated by space.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers A and B.",
+    "output_format": "Quotient and remainder separated by a space.",
+    "visible_test_cases": [
+      {
+        "input": "17 5",
+        "output": "3 2"
+      },
+      {
+        "input": "20 4",
+        "output": "5 0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "100 7",
+        "output": "14 2"
+      },
+      {
+        "input": "7 10",
+        "output": "0 7"
+      }
+    ]
+  },
+  {
+    "title": "Even or Odd",
+    "description": "Given an integer N, print 'Even' if it is even, otherwise 'Odd'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print 'Even' or 'Odd'.",
+    "visible_test_cases": [
+      {
+        "input": "4",
+        "output": "Even"
+      },
+      {
+        "input": "7",
+        "output": "Odd"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0",
+        "output": "Even"
+      },
+      {
+        "input": "-6",
+        "output": "Even"
+      },
+      {
+        "input": "-9",
+        "output": "Odd"
+      }
+    ]
+  },
+  {
+    "title": "Positive, Negative or Zero",
+    "description": "Given an integer N, print 'Positive', 'Negative', or 'Zero'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print 'Positive', 'Negative', or 'Zero'.",
+    "visible_test_cases": [
+      {
+        "input": "5",
+        "output": "Positive"
+      },
+      {
+        "input": "-3",
+        "output": "Negative"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0",
+        "output": "Zero"
+      },
+      {
+        "input": "1000",
+        "output": "Positive"
+      }
+    ]
+  },
+  {
+    "title": "Maximum of Two Numbers",
+    "description": "Given two integers A and B, print the larger of the two.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers A and B.",
+    "output_format": "Print the maximum integer.",
+    "visible_test_cases": [
+      {
+        "input": "12 45",
+        "output": "45"
+      },
+      {
+        "input": "99 12",
+        "output": "99"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "-5 -1",
+        "output": "-1"
+      },
+      {
+        "input": "7 7",
+        "output": "7"
+      }
+    ]
+  },
+  {
+    "title": "Maximum of Three Numbers",
+    "description": "Given three integers A, B, and C, find and print the maximum.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Three space-separated integers A, B, and C.",
+    "output_format": "Print the largest number.",
+    "visible_test_cases": [
+      {
+        "input": "10 40 25",
+        "output": "40"
+      },
+      {
+        "input": "5 5 1",
+        "output": "5"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "-1 -5 -2",
+        "output": "-1"
+      },
+      {
+        "input": "100 200 150",
+        "output": "200"
+      }
+    ]
+  },
+  {
+    "title": "Leap Year Check",
+    "description": "Given a year Y, print 'Leap Year' if it is a leap year, otherwise 'Not Leap Year'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "An integer Y.",
+    "output_format": "Print 'Leap Year' or 'Not Leap Year'.",
+    "visible_test_cases": [
+      {
+        "input": "2024",
+        "output": "Leap Year"
+      },
+      {
+        "input": "1900",
+        "output": "Not Leap Year"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2000",
+        "output": "Leap Year"
+      },
+      {
+        "input": "2023",
+        "output": "Not Leap Year"
+      }
+    ]
+  },
+  {
+    "title": "Area of a Rectangle",
+    "description": "Given length L and breadth B, compute its area (L * B).",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers L and B.",
+    "output_format": "Print the area.",
+    "visible_test_cases": [
+      {
+        "input": "5 6",
+        "output": "30"
+      },
+      {
+        "input": "10 20",
+        "output": "200"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1",
+        "output": "1"
+      },
+      {
+        "input": "12 15",
+        "output": "180"
+      }
+    ]
+  },
+  {
+    "title": "Perimeter of a Rectangle",
+    "description": "Given length L and breadth B, print the perimeter 2 * (L + B).",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers L and B.",
+    "output_format": "Print the perimeter.",
+    "visible_test_cases": [
+      {
+        "input": "4 7",
+        "output": "22"
+      },
+      {
+        "input": "10 15",
+        "output": "50"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 3",
+        "output": "10"
+      },
+      {
+        "input": "25 25",
+        "output": "100"
+      }
+    ]
+  },
+  {
+    "title": "Simple Interest",
+    "description": "Given Principal P, Rate R, and Time T, print floor of (P * R * T) / 100.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Three space-separated integers P, R, and T.",
+    "output_format": "Print the simple interest as integer.",
+    "visible_test_cases": [
+      {
+        "input": "1000 5 2",
+        "output": "100"
+      },
+      {
+        "input": "5000 10 3",
+        "output": "1500"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2000 4 5",
+        "output": "400"
+      },
+      {
+        "input": "100 1 1",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Swap Two Numbers",
+    "description": "Given two integers A and B, print them swapped separated by space.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers A and B.",
+    "output_format": "Print B and A separated by space.",
+    "visible_test_cases": [
+      {
+        "input": "5 10",
+        "output": "10 5"
+      },
+      {
+        "input": "1 2",
+        "output": "2 1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "99 -3",
+        "output": "-3 99"
+      },
+      {
+        "input": "0 7",
+        "output": "7 0"
+      }
+    ]
+  },
+  {
+    "title": "Celsius to Fahrenheit",
+    "description": "Given Celsius C, compute Fahrenheit: (C * 9 / 5) + 32. Print integer result.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer C.",
+    "output_format": "Print integer Fahrenheit value.",
+    "visible_test_cases": [
+      {
+        "input": "0",
+        "output": "32"
+      },
+      {
+        "input": "100",
+        "output": "212"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "25",
+        "output": "77"
+      },
+      {
+        "input": "-40",
+        "output": "-40"
+      }
+    ]
+  },
+  {
+    "title": "Absolute Value",
+    "description": "Given an integer N, print its absolute value |N|.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print absolute value of N.",
+    "visible_test_cases": [
+      {
+        "input": "-15",
+        "output": "15"
+      },
+      {
+        "input": "20",
+        "output": "20"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0",
+        "output": "0"
+      },
+      {
+        "input": "-999",
+        "output": "999"
+      }
+    ]
+  },
+  {
+    "title": "Cube of a Number",
+    "description": "Given an integer N, compute and print N^3.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print the cube of N.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "27"
+      },
+      {
+        "input": "5",
+        "output": "125"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0",
+        "output": "0"
+      },
+      {
+        "input": "-2",
+        "output": "-8"
+      },
+      {
+        "input": "10",
+        "output": "1000"
+      }
+    ]
+  },
+  {
+    "title": "Last Digit of a Number",
+    "description": "Given an integer N, print its last digit.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print the last digit.",
+    "visible_test_cases": [
+      {
+        "input": "1234",
+        "output": "4"
+      },
+      {
+        "input": "9870",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "-567",
+        "output": "7"
+      },
+      {
+        "input": "8",
+        "output": "8"
+      }
+    ]
+  },
+  {
+    "title": "Divisibility Check",
+    "description": "Given integers N and D, print 'Yes' if N is divisible by D, else 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers N and D.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "20 5",
+        "output": "Yes"
+      },
+      {
+        "input": "14 3",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "100 10",
+        "output": "Yes"
+      },
+      {
+        "input": "7 2",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Sum of Digits of 3-Digit Number",
+    "description": "Given a 3-digit positive integer N, compute the sum of its digits.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A 3-digit integer N.",
+    "output_format": "Print sum of digits.",
+    "visible_test_cases": [
+      {
+        "input": "123",
+        "output": "6"
+      },
+      {
+        "input": "456",
+        "output": "15"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "999",
+        "output": "27"
+      },
+      {
+        "input": "100",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Reverse a 3-Digit Number",
+    "description": "Given a 3-digit integer N, print its reverse.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A 3-digit integer N.",
+    "output_format": "Print the reversed number.",
+    "visible_test_cases": [
+      {
+        "input": "123",
+        "output": "321"
+      },
+      {
+        "input": "560",
+        "output": "65"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "700",
+        "output": "7"
+      },
+      {
+        "input": "444",
+        "output": "444"
+      }
+    ]
+  },
+  {
+    "title": "Check Voting Eligibility",
+    "description": "Given age A, print 'Eligible' if A >= 18, else 'Not Eligible'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer A.",
+    "output_format": "Print 'Eligible' or 'Not Eligible'.",
+    "visible_test_cases": [
+      {
+        "input": "18",
+        "output": "Eligible"
+      },
+      {
+        "input": "15",
+        "output": "Not Eligible"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "65",
+        "output": "Eligible"
+      },
+      {
+        "input": "17",
+        "output": "Not Eligible"
+      }
+    ]
+  },
+  {
+    "title": "Triangle Validity by Angles",
+    "description": "Given 3 angles A, B, C, print 'Valid' if A+B+C=180 and all > 0, else 'Invalid'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Three space-separated integers.",
+    "output_format": "Print 'Valid' or 'Invalid'.",
+    "visible_test_cases": [
+      {
+        "input": "60 60 60",
+        "output": "Valid"
+      },
+      {
+        "input": "90 90 0",
+        "output": "Invalid"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "30 60 90",
+        "output": "Valid"
+      },
+      {
+        "input": "100 50 20",
+        "output": "Invalid"
+      }
+    ]
+  },
+  {
+    "title": "Type of Triangle",
+    "description": "Given sides A, B, C of a valid triangle, print 'Equilateral', 'Isosceles', or 'Scalene'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Three space-separated integers.",
+    "output_format": "Print 'Equilateral', 'Isosceles', or 'Scalene'.",
+    "visible_test_cases": [
+      {
+        "input": "5 5 5",
+        "output": "Equilateral"
+      },
+      {
+        "input": "5 5 8",
+        "output": "Isosceles"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3 4 5",
+        "output": "Scalene"
+      },
+      {
+        "input": "7 10 7",
+        "output": "Isosceles"
+      }
+    ]
+  },
+  {
+    "title": "Grade Calculator",
+    "description": "Given marks M (0-100), print 'A' for >=90, 'B' for >=80, 'C' for >=70, 'D' for >=60, otherwise 'F'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "An integer M.",
+    "output_format": "Print grade letter.",
+    "visible_test_cases": [
+      {
+        "input": "95",
+        "output": "A"
+      },
+      {
+        "input": "73",
+        "output": "C"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "82",
+        "output": "B"
+      },
+      {
+        "input": "65",
+        "output": "D"
+      },
+      {
+        "input": "40",
+        "output": "F"
+      }
+    ]
+  },
+  {
+    "title": "Print 1 to N",
+    "description": "Given an integer N, print numbers from 1 to N space-separated.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Numbers from 1 to N separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "5",
+        "output": "1 2 3 4 5"
+      },
+      {
+        "input": "3",
+        "output": "1 2 3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "8",
+        "output": "1 2 3 4 5 6 7 8"
+      }
+    ]
+  },
+  {
+    "title": "Print N to 1",
+    "description": "Given an integer N, print numbers from N down to 1 space-separated.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Numbers from N to 1 separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "5",
+        "output": "5 4 3 2 1"
+      },
+      {
+        "input": "3",
+        "output": "3 2 1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "7",
+        "output": "7 6 5 4 3 2 1"
+      }
+    ]
+  },
+  {
+    "title": "Sum of First N Natural Numbers",
+    "description": "Given an integer N, compute sum = 1 + 2 + ... + N.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print the sum.",
+    "visible_test_cases": [
+      {
+        "input": "5",
+        "output": "15"
+      },
+      {
+        "input": "10",
+        "output": "55"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "100",
+        "output": "5050"
+      }
+    ]
+  },
+  {
+    "title": "Factorial of a Number",
+    "description": "Given an integer N, compute its factorial N!.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print N!.",
+    "visible_test_cases": [
+      {
+        "input": "5",
+        "output": "120"
+      },
+      {
+        "input": "0",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "6",
+        "output": "720"
+      },
+      {
+        "input": "10",
+        "output": "3628800"
+      }
+    ]
+  },
+  {
+    "title": "Multiplication Table",
+    "description": "Given integer N, print table up to 10 in format: N x i = result.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "10 lines.",
+    "visible_test_cases": [
+      {
+        "input": "2",
+        "output": "2 x 1 = 2\n2 x 2 = 4\n2 x 3 = 6\n2 x 4 = 8\n2 x 5 = 10\n2 x 6 = 12\n2 x 7 = 14\n2 x 8 = 16\n2 x 9 = 18\n2 x 10 = 20"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "5",
+        "output": "5 x 1 = 5\n5 x 2 = 10\n5 x 3 = 15\n5 x 4 = 20\n5 x 5 = 25\n5 x 6 = 30\n5 x 7 = 35\n5 x 8 = 40\n5 x 9 = 45\n5 x 10 = 50"
+      }
+    ]
+  },
+  {
+    "title": "Count Digits in a Number",
+    "description": "Given an integer N, count the number of digits in N.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print count of digits.",
+    "visible_test_cases": [
+      {
+        "input": "12345",
+        "output": "5"
+      },
+      {
+        "input": "0",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "9",
+        "output": "1"
+      },
+      {
+        "input": "100000",
+        "output": "6"
+      }
+    ]
+  },
+  {
+    "title": "Sum of Digits",
+    "description": "Given an integer N, compute the sum of all its digits.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print sum of digits.",
+    "visible_test_cases": [
+      {
+        "input": "1234",
+        "output": "10"
+      },
+      {
+        "input": "99",
+        "output": "18"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "5",
+        "output": "5"
+      },
+      {
+        "input": "10203",
+        "output": "6"
+      }
+    ]
+  },
+  {
+    "title": "Reverse a Number",
+    "description": "Given an integer N, print its reversed value without leading zeros.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print the reversed integer.",
+    "visible_test_cases": [
+      {
+        "input": "1234",
+        "output": "4321"
+      },
+      {
+        "input": "1200",
+        "output": "21"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "7",
+        "output": "7"
+      },
+      {
+        "input": "100001",
+        "output": "100001"
+      }
+    ]
+  },
+  {
+    "title": "Palindrome Number",
+    "description": "Given an integer N, print 'Yes' if N is a palindrome, otherwise 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "121",
+        "output": "Yes"
+      },
+      {
+        "input": "123",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "7",
+        "output": "Yes"
+      },
+      {
+        "input": "1221",
+        "output": "Yes"
+      },
+      {
+        "input": "10",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Prime Number Check",
+    "description": "Given an integer N, print 'Prime' if N is prime, otherwise 'Not Prime'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print 'Prime' or 'Not Prime'.",
+    "visible_test_cases": [
+      {
+        "input": "7",
+        "output": "Prime"
+      },
+      {
+        "input": "4",
+        "output": "Not Prime"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "Not Prime"
+      },
+      {
+        "input": "2",
+        "output": "Prime"
+      },
+      {
+        "input": "97",
+        "output": "Prime"
+      }
+    ]
+  },
+  {
+    "title": "Print Primes up to N",
+    "description": "Given an integer N, print all prime numbers up to N separated by spaces.",
+    "difficulty": "Medium",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "All primes <= N separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "10",
+        "output": "2 3 5 7"
+      },
+      {
+        "input": "20",
+        "output": "2 3 5 7 11 13 17 19"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2",
+        "output": "2"
+      },
+      {
+        "input": "30",
+        "output": "2 3 5 7 11 13 17 19 23 29"
+      }
+    ]
+  },
+  {
+    "title": "Armstrong Number",
+    "description": "A 3-digit number is Armstrong if sum of cubes of its digits equals the number. Print 'Yes' or 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A 3-digit integer N.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "153",
+        "output": "Yes"
+      },
+      {
+        "input": "120",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "370",
+        "output": "Yes"
+      },
+      {
+        "input": "371",
+        "output": "Yes"
+      },
+      {
+        "input": "407",
+        "output": "Yes"
+      }
+    ]
+  },
+  {
+    "title": "Fibonacci Series up to N terms",
+    "description": "Given integer N, print the first N Fibonacci numbers starting from 0, 1...",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "First N Fibonacci numbers separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "5",
+        "output": "0 1 1 2 3"
+      },
+      {
+        "input": "1",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "7",
+        "output": "0 1 1 2 3 5 8"
+      },
+      {
+        "input": "2",
+        "output": "0 1"
+      }
+    ]
+  },
+  {
+    "title": "Nth Fibonacci Number",
+    "description": "Given integer N (0-indexed: F(0)=0, F(1)=1), compute the Nth Fibonacci number.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print the Nth Fibonacci number.",
+    "visible_test_cases": [
+      {
+        "input": "6",
+        "output": "8"
+      },
+      {
+        "input": "0",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "10",
+        "output": "55"
+      },
+      {
+        "input": "20",
+        "output": "6765"
+      }
+    ]
+  },
+  {
+    "title": "GCD of Two Numbers",
+    "description": "Given two integers A and B, compute their Greatest Common Divisor.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers A and B.",
+    "output_format": "Print the GCD.",
+    "visible_test_cases": [
+      {
+        "input": "12 18",
+        "output": "6"
+      },
+      {
+        "input": "7 13",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "100 25",
+        "output": "25"
+      },
+      {
+        "input": "48 64",
+        "output": "16"
+      }
+    ]
+  },
+  {
+    "title": "LCM of Two Numbers",
+    "description": "Given two integers A and B, compute their Least Common Multiple.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers A and B.",
+    "output_format": "Print the LCM.",
+    "visible_test_cases": [
+      {
+        "input": "4 6",
+        "output": "12"
+      },
+      {
+        "input": "5 7",
+        "output": "35"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "12 15",
+        "output": "60"
+      },
+      {
+        "input": "3 9",
+        "output": "9"
+      }
+    ]
+  },
+  {
+    "title": "Power of a Number",
+    "description": "Given base B and exponent E (E >= 0), compute B^E.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "Two space-separated integers B and E.",
+    "output_format": "Print B^E.",
+    "visible_test_cases": [
+      {
+        "input": "2 5",
+        "output": "32"
+      },
+      {
+        "input": "3 3",
+        "output": "27"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "5 0",
+        "output": "1"
+      },
+      {
+        "input": "10 4",
+        "output": "10000"
+      }
+    ]
+  },
+  {
+    "title": "Count Factors",
+    "description": "Given an integer N, count the number of positive divisors of N.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print the number of factors.",
+    "visible_test_cases": [
+      {
+        "input": "12",
+        "output": "6"
+      },
+      {
+        "input": "7",
+        "output": "2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "16",
+        "output": "5"
+      },
+      {
+        "input": "36",
+        "output": "9"
+      }
+    ]
+  },
+  {
+    "title": "Perfect Number Check",
+    "description": "A number is perfect if sum of its proper divisors equals the number. Print 'Yes' or 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "6",
+        "output": "Yes"
+      },
+      {
+        "input": "10",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "28",
+        "output": "Yes"
+      },
+      {
+        "input": "496",
+        "output": "Yes"
+      },
+      {
+        "input": "12",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Strong Number",
+    "description": "A number is Strong if sum of factorials of digits equals the number. Print 'Yes' or 'No'.",
+    "difficulty": "Medium",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "145",
+        "output": "Yes"
+      },
+      {
+        "input": "123",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "Yes"
+      },
+      {
+        "input": "2",
+        "output": "Yes"
+      },
+      {
+        "input": "40585",
+        "output": "Yes"
+      }
+    ]
+  },
+  {
+    "title": "Decimal to Binary",
+    "description": "Given integer N, print its binary representation.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print binary string.",
+    "visible_test_cases": [
+      {
+        "input": "10",
+        "output": "1010"
+      },
+      {
+        "input": "7",
+        "output": "111"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0",
+        "output": "0"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "16",
+        "output": "10000"
+      }
+    ]
+  },
+  {
+    "title": "Binary to Decimal",
+    "description": "Given a binary string B, convert it to its decimal integer value.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A binary string B.",
+    "output_format": "Print the decimal value.",
+    "visible_test_cases": [
+      {
+        "input": "1010",
+        "output": "10"
+      },
+      {
+        "input": "111",
+        "output": "7"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0",
+        "output": "0"
+      },
+      {
+        "input": "10000",
+        "output": "16"
+      },
+      {
+        "input": "11111",
+        "output": "31"
+      }
+    ]
+  },
+  {
+    "title": "Sum of Even Numbers up to N",
+    "description": "Given an integer N, compute the sum of all even numbers from 2 to N.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print the sum of even numbers.",
+    "visible_test_cases": [
+      {
+        "input": "6",
+        "output": "12"
+      },
+      {
+        "input": "10",
+        "output": "30"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "0"
+      },
+      {
+        "input": "2",
+        "output": "2"
+      },
+      {
+        "input": "7",
+        "output": "12"
+      }
+    ]
+  },
+  {
+    "title": "Sum of Odd Numbers up to N",
+    "description": "Given an integer N, compute the sum of all odd numbers from 1 to N.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print the sum of odd numbers.",
+    "visible_test_cases": [
+      {
+        "input": "5",
+        "output": "9"
+      },
+      {
+        "input": "10",
+        "output": "25"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "7",
+        "output": "16"
+      }
+    ]
+  },
+  {
+    "title": "Harshad Number",
+    "description": "A number is Harshad if it is divisible by the sum of its digits. Print 'Yes' or 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 1 \u2013 Basic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "18",
+        "output": "Yes"
+      },
+      {
+        "input": "19",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "21",
+        "output": "Yes"
+      },
+      {
+        "input": "24",
+        "output": "Yes"
+      },
+      {
+        "input": "25",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Right-Angled Triangle of Stars",
+    "description": "Given N, print a right-angled triangle of stars of height N.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines with stars.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "*\n**\n***"
+      },
+      {
+        "input": "4",
+        "output": "*\n**\n***\n****"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "*"
+      },
+      {
+        "input": "5",
+        "output": "*\n**\n***\n****\n*****"
+      }
+    ]
+  },
+  {
+    "title": "Inverted Right-Angled Triangle",
+    "description": "Given N, print an inverted right-angled triangle of stars of height N.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "***\n**\n*"
+      },
+      {
+        "input": "4",
+        "output": "****\n***\n**\n*"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "*"
+      },
+      {
+        "input": "5",
+        "output": "*****\n****\n***\n**\n*"
+      }
+    ]
+  },
+  {
+    "title": "Square of Stars",
+    "description": "Given N, print an N x N square of stars separated by space.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "* * *\n* * *\n* * *"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2",
+        "output": "* *\n* *"
+      },
+      {
+        "input": "4",
+        "output": "* * * *\n* * * *\n* * * *\n* * * *"
+      }
+    ]
+  },
+  {
+    "title": "Number Triangle",
+    "description": "Given N, print row i having numbers 1 to i separated by space.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "1\n1 2\n1 2 3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4",
+        "output": "1\n1 2\n1 2 3\n1 2 3 4"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Same Number Triangle",
+    "description": "Given N, print row i having number i repeated i times separated by space.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "1\n2 2\n3 3 3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4",
+        "output": "1\n2 2\n3 3 3\n4 4 4 4"
+      }
+    ]
+  },
+  {
+    "title": "Floyd's Triangle",
+    "description": "Given N, print Floyd's triangle with consecutive integers starting from 1.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "1\n2 3\n4 5 6"
+      },
+      {
+        "input": "4",
+        "output": "1\n2 3\n4 5 6\n7 8 9 10"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "2",
+        "output": "1\n2 3"
+      }
+    ]
+  },
+  {
+    "title": "0-1 Triangle",
+    "description": "Given N, print 0-1 triangle where element at row i, col j is 1 if (i+j) is even, else 0.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "1\n0 1\n1 0 1"
+      },
+      {
+        "input": "4",
+        "output": "1\n0 1\n1 0 1\n0 1 0 1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "2",
+        "output": "1\n0 1"
+      }
+    ]
+  },
+  {
+    "title": "Inverted Number Triangle",
+    "description": "Given N, print row i with numbers from 1 to N-i+1 separated by space.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "1 2 3\n1 2\n1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4",
+        "output": "1 2 3 4\n1 2 3\n1 2\n1"
+      }
+    ]
+  },
+  {
+    "title": "Pyramid of Stars",
+    "description": "Given N, print a centered pyramid of stars of height N (stars separated by spaces, padded with spaces).",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "  *\n * *\n* * *"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2",
+        "output": " *\n* *"
+      },
+      {
+        "input": "4",
+        "output": "   *\n  * *\n * * *\n* * * *"
+      }
+    ]
+  },
+  {
+    "title": "Inverted Pyramid of Stars",
+    "description": "Given N, print an inverted pyramid of stars of height N.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "* * *\n * *\n  *"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2",
+        "output": "* *\n *"
+      }
+    ]
+  },
+  {
+    "title": "Diamond of Stars",
+    "description": "Given N, print a full diamond of stars of 2*N-1 rows.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "2*N - 1 lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "  *\n * *\n* * *\n * *\n  *"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2",
+        "output": " *\n* *\n *"
+      }
+    ]
+  },
+  {
+    "title": "Hollow Square Pattern",
+    "description": "Given N, print an N x N hollow square of stars.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "4",
+        "output": "****\n*  *\n*  *\n****"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3",
+        "output": "***\n* *\n***"
+      },
+      {
+        "input": "2",
+        "output": "**\n**"
+      }
+    ]
+  },
+  {
+    "title": "Number Pyramid",
+    "description": "Given N, print row i with spaces followed by i repeated i times separated by space.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "  1\n 2 2\n3 3 3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4",
+        "output": "   1\n  2 2\n 3 3 3\n4 4 4 4"
+      }
+    ]
+  },
+  {
+    "title": "Character Triangle",
+    "description": "Given N, print row i containing letters A, B... up to ith letter.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "A\nA B\nA B C"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4",
+        "output": "A\nA B\nA B C\nA B C D"
+      }
+    ]
+  },
+  {
+    "title": "Pascal's Triangle Row N",
+    "description": "Given integer N (0-indexed), print the Nth row of Pascal's triangle.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "Print the row elements separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "1 3 3 1"
+      },
+      {
+        "input": "4",
+        "output": "1 4 6 4 1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0",
+        "output": "1"
+      },
+      {
+        "input": "1",
+        "output": "1 1"
+      },
+      {
+        "input": "2",
+        "output": "1 2 1"
+      }
+    ]
+  },
+  {
+    "title": "Array Sum",
+    "description": "Given an array of N integers, find their sum.",
+    "difficulty": "Easy",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N space-separated integers.",
+    "output_format": "Print the sum.",
+    "visible_test_cases": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "15"
+      },
+      {
+        "input": "3\n10 -5 20",
+        "output": "25"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n42",
+        "output": "42"
+      },
+      {
+        "input": "4\n0 0 0 0",
+        "output": "0"
+      }
+    ]
+  },
+  {
+    "title": "Find Maximum Element",
+    "description": "Given an array of N integers, find the maximum element.",
+    "difficulty": "Easy",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print the maximum value.",
+    "visible_test_cases": [
+      {
+        "input": "5\n2 9 4 7 1",
+        "output": "9"
+      },
+      {
+        "input": "3\n-5 -2 -8",
+        "output": "-2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n100",
+        "output": "100"
+      },
+      {
+        "input": "4\n5 5 5 5",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "title": "Find Minimum Element",
+    "description": "Given an array of N integers, find the minimum element.",
+    "difficulty": "Easy",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print the minimum value.",
+    "visible_test_cases": [
+      {
+        "input": "5\n2 9 4 7 1",
+        "output": "1"
+      },
+      {
+        "input": "3\n-5 -2 -8",
+        "output": "-8"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n55",
+        "output": "55"
+      },
+      {
+        "input": "4\n12 34 5 78",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "title": "Reverse an Array",
+    "description": "Given an array of N integers, print the elements in reverse order.",
+    "difficulty": "Easy",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "N integers separated by spaces in reverse order.",
+    "visible_test_cases": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "5 4 3 2 1"
+      },
+      {
+        "input": "3\n9 8 7",
+        "output": "7 8 9"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n99",
+        "output": "99"
+      },
+      {
+        "input": "2\n10 20",
+        "output": "20 10"
+      }
+    ]
+  },
+  {
+    "title": "Count Occurrences in Array",
+    "description": "Given an array of N integers and a key K, count occurrences of K.",
+    "difficulty": "Easy",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers. Third line: K.",
+    "output_format": "Print frequency of K.",
+    "visible_test_cases": [
+      {
+        "input": "6\n1 2 3 2 4 2\n2",
+        "output": "3"
+      },
+      {
+        "input": "4\n5 5 5 5\n3",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n7\n7",
+        "output": "1"
+      },
+      {
+        "input": "5\n1 2 3 4 5\n5",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Linear Search",
+    "description": "Given array of N integers and key K, print index (0-indexed) of first occurrence, or -1 if not found.",
+    "difficulty": "Easy",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers. Third line: K.",
+    "output_format": "Print 0-based index or -1.",
+    "visible_test_cases": [
+      {
+        "input": "5\n10 20 30 40 50\n30",
+        "output": "2"
+      },
+      {
+        "input": "4\n1 2 3 4\n99",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5\n5",
+        "output": "0"
+      },
+      {
+        "input": "5\n2 4 6 8 10\n10",
+        "output": "4"
+      }
+    ]
+  },
+  {
+    "title": "Binary Search",
+    "description": "Given sorted array of N integers and key K, print 0-based index of K, or -1 if not found.",
+    "difficulty": "Easy",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N sorted integers. Third line: K.",
+    "output_format": "Print index or -1.",
+    "visible_test_cases": [
+      {
+        "input": "5\n2 5 8 12 16\n8",
+        "output": "2"
+      },
+      {
+        "input": "6\n1 3 5 7 9 11\n4",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n10\n10",
+        "output": "0"
+      },
+      {
+        "input": "4\n2 4 6 8\n2",
+        "output": "0"
+      }
+    ]
+  },
+  {
+    "title": "Second Largest Element",
+    "description": "Given an array of N integers, find the second largest distinct element. If none, print -1.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print the second largest element or -1.",
+    "visible_test_cases": [
+      {
+        "input": "6\n12 35 1 10 34 1",
+        "output": "34"
+      },
+      {
+        "input": "3\n10 10 10",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\n5 2",
+        "output": "2"
+      },
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "4"
+      }
+    ]
+  },
+  {
+    "title": "Check if Array is Sorted",
+    "description": "Given an array of N integers, print 'Yes' if it is sorted in non-decreasing order, else 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "Yes"
+      },
+      {
+        "input": "5\n1 3 2 4 5",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n42",
+        "output": "Yes"
+      },
+      {
+        "input": "4\n5 5 5 5",
+        "output": "Yes"
+      }
+    ]
+  },
+  {
+    "title": "Remove Duplicates from Sorted Array",
+    "description": "Given a sorted array of N integers, print the unique elements separated by space.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N sorted integers.",
+    "output_format": "Unique elements separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "6\n1 1 2 2 3 4",
+        "output": "1 2 3 4"
+      },
+      {
+        "input": "3\n5 5 5",
+        "output": "5"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n9",
+        "output": "9"
+      },
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "1 2 3 4 5"
+      }
+    ]
+  },
+  {
+    "title": "Rotate Array by K Positions",
+    "description": "Given array of N integers and integer K, rotate array right by K positions.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N K. Second line: N integers.",
+    "output_format": "N integers separated by spaces after rotation.",
+    "visible_test_cases": [
+      {
+        "input": "5 2\n1 2 3 4 5",
+        "output": "4 5 1 2 3"
+      },
+      {
+        "input": "4 1\n10 20 30 40",
+        "output": "40 10 20 30"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3 0\n1 2 3",
+        "output": "1 2 3"
+      },
+      {
+        "input": "3 3\n1 2 3",
+        "output": "1 2 3"
+      }
+    ]
+  },
+  {
+    "title": "Move Zeros to End",
+    "description": "Given an array of N integers, move all 0s to the end while maintaining relative order of non-zero elements.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "N integers separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "6\n0 1 0 3 12 0",
+        "output": "1 3 12 0 0 0"
+      },
+      {
+        "input": "4\n1 2 3 4",
+        "output": "1 2 3 4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3\n0 0 0",
+        "output": "0 0 0"
+      },
+      {
+        "input": "2\n0 1",
+        "output": "1 0"
+      }
+    ]
+  },
+  {
+    "title": "Two Sum",
+    "description": "Given array of N integers and target T, print 0-based indices of the two numbers that add up to T separated by space.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N T. Second line: N integers.",
+    "output_format": "Two indices separated by space (i < j).",
+    "visible_test_cases": [
+      {
+        "input": "4 9\n2 7 11 15",
+        "output": "0 1"
+      },
+      {
+        "input": "3 6\n3 2 4",
+        "output": "1 2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 10\n5 5",
+        "output": "0 1"
+      },
+      {
+        "input": "5 13\n1 4 8 9 12",
+        "output": "1 3"
+      }
+    ]
+  },
+  {
+    "title": "Find Missing Number",
+    "description": "Given an array of N-1 distinct integers in range [1, N], find the missing number.",
+    "difficulty": "Easy",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N-1 space-separated integers.",
+    "output_format": "Print the missing number.",
+    "visible_test_cases": [
+      {
+        "input": "5\n1 2 4 5",
+        "output": "3"
+      },
+      {
+        "input": "3\n3 1",
+        "output": "2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\n1",
+        "output": "2"
+      },
+      {
+        "input": "6\n1 2 3 4 5",
+        "output": "6"
+      }
+    ]
+  },
+  {
+    "title": "Find Duplicate Number",
+    "description": "Given array of N+1 integers where each integer is in [1, N], find the repeated integer.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N+1 space-separated integers.",
+    "output_format": "Print duplicate number.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 3 4 2 2",
+        "output": "2"
+      },
+      {
+        "input": "4\n3 1 3 4 2",
+        "output": "3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\n1 1 2",
+        "output": "1"
+      },
+      {
+        "input": "5\n1 2 3 4 5 4",
+        "output": "4"
+      }
+    ]
+  },
+  {
+    "title": "Maximum Subarray Sum (Kadane's)",
+    "description": "Given array of N integers, find the contiguous subarray with largest sum and print the sum.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print maximum subarray sum.",
+    "visible_test_cases": [
+      {
+        "input": "8\n-2 1 -3 4 -1 2 1 -5",
+        "output": "6"
+      },
+      {
+        "input": "5\n1 2 3 -2 5",
+        "output": "9"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n-5",
+        "output": "-5"
+      },
+      {
+        "input": "4\n-1 -2 -3 -4",
+        "output": "-1"
+      }
+    ]
+  },
+  {
+    "title": "Majority Element",
+    "description": "Given array of N integers, find element that appears more than N/2 times. Print element or -1.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print majority element or -1.",
+    "visible_test_cases": [
+      {
+        "input": "7\n2 2 1 1 1 2 2",
+        "output": "2"
+      },
+      {
+        "input": "3\n3 2 3",
+        "output": "3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4\n1 2 3 4",
+        "output": "-1"
+      },
+      {
+        "input": "1\n99",
+        "output": "99"
+      }
+    ]
+  },
+  {
+    "title": "Intersection of Two Arrays",
+    "description": "Given two sorted arrays A (size N) and B (size M), print their common elements without duplicates.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N M. Second line: N integers. Third line: M integers.",
+    "output_format": "Common elements separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "4 4\n1 2 3 4\n2 4 6 8",
+        "output": "2 4"
+      },
+      {
+        "input": "3 3\n1 2 3\n4 5 6",
+        "output": ""
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 3\n1 2\n1 2 3",
+        "output": "1 2"
+      },
+      {
+        "input": "4 4\n2 2 3 3\n2 3 3 4",
+        "output": "2 3"
+      }
+    ]
+  },
+  {
+    "title": "Union of Two Sorted Arrays",
+    "description": "Given two sorted arrays A and B, print their union (distinct elements in sorted order).",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N M. Second line: N integers. Third line: M integers.",
+    "output_format": "Union elements separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "5 3\n1 2 3 4 5\n1 2 3",
+        "output": "1 2 3 4 5"
+      },
+      {
+        "input": "2 2\n1 3\n2 4",
+        "output": "1 2 3 4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n5\n5",
+        "output": "5"
+      },
+      {
+        "input": "3 3\n1 3 5\n2 4 6",
+        "output": "1 2 3 4 5 6"
+      }
+    ]
+  },
+  {
+    "title": "Subarray with Given Sum",
+    "description": "Given array of N positive integers and sum S, print 1-based start and end indices of first subarray with sum S, or -1.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N S. Second line: N integers.",
+    "output_format": "Two 1-based indices separated by space, or -1.",
+    "visible_test_cases": [
+      {
+        "input": "5 12\n1 2 3 7 5",
+        "output": "2 4"
+      },
+      {
+        "input": "4 100\n1 2 3 4",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 5\n5",
+        "output": "1 1"
+      },
+      {
+        "input": "6 15\n1 4 0 0 3 10",
+        "output": "2 6"
+      }
+    ]
+  },
+  {
+    "title": "Sort Array of 0s, 1s, and 2s",
+    "description": "Given array of N integers containing only 0, 1, and 2, sort it in ascending order (Dutch National Flag).",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "N sorted integers separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "6\n0 1 2 0 1 2",
+        "output": "0 0 1 1 2 2"
+      },
+      {
+        "input": "3\n2 0 1",
+        "output": "0 1 2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n0",
+        "output": "0"
+      },
+      {
+        "input": "4\n1 1 0 0",
+        "output": "0 0 1 1"
+      }
+    ]
+  },
+  {
+    "title": "Leader Elements in Array",
+    "description": "An element is a leader if it is greater than all elements to its right. Print all leaders from left to right.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Leaders separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "6\n16 17 4 3 5 2",
+        "output": "17 5 2"
+      },
+      {
+        "input": "3\n1 2 3",
+        "output": "3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "5"
+      },
+      {
+        "input": "4\n4 3 2 1",
+        "output": "4 3 2 1"
+      }
+    ]
+  },
+  {
+    "title": "Stock Buy and Sell",
+    "description": "Given prices array of size N, find max profit from 1 buy and 1 sell. If no profit, print 0.",
+    "difficulty": "Easy",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N prices.",
+    "output_format": "Print maximum profit.",
+    "visible_test_cases": [
+      {
+        "input": "6\n7 1 5 3 6 4",
+        "output": "5"
+      },
+      {
+        "input": "5\n7 6 4 3 1",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\n1 5",
+        "output": "4"
+      },
+      {
+        "input": "4\n3 3 3 3",
+        "output": "0"
+      }
+    ]
+  },
+  {
+    "title": "Trapping Rain Water",
+    "description": "Given N non-negative integers representing elevation map of width 1, compute total trapped rain water.",
+    "difficulty": "Hard",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print units of trapped water.",
+    "visible_test_cases": [
+      {
+        "input": "6\n0 1 0 2 1 3",
+        "output": "2"
+      },
+      {
+        "input": "12\n0 1 0 2 1 0 1 3 2 1 2 1",
+        "output": "6"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3\n2 0 2",
+        "output": "2"
+      },
+      {
+        "input": "3\n3 2 1",
+        "output": "0"
+      }
+    ]
+  },
+  {
+    "title": "Container With Most Water",
+    "description": "Given N heights, find two lines that together with x-axis forms a container with max water.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N heights.",
+    "output_format": "Print max area.",
+    "visible_test_cases": [
+      {
+        "input": "9\n1 8 6 2 5 4 8 3 7",
+        "output": "49"
+      },
+      {
+        "input": "2\n1 1",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4\n4 3 2 14",
+        "output": "12"
+      },
+      {
+        "input": "3\n1 2 1",
+        "output": "2"
+      }
+    ]
+  },
+  {
+    "title": "Product of Array Except Self",
+    "description": "Given array of N integers, return array where output[i] is product of all elements except arr[i].",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "N integers separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 2 3 4",
+        "output": "24 12 8 6"
+      },
+      {
+        "input": "3\n2 3 4",
+        "output": "12 8 6"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\n5 10",
+        "output": "10 5"
+      },
+      {
+        "input": "4\n-1 1 0 -3",
+        "output": "0 0 3 0"
+      }
+    ]
+  },
+  {
+    "title": "Find Peak Element",
+    "description": "A peak element is strictly greater than its neighbors. Print 0-based index of any peak.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print index of peak.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 2 3 1",
+        "output": "2"
+      },
+      {
+        "input": "7\n1 2 1 3 5 6 4",
+        "output": "5"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "0"
+      },
+      {
+        "input": "3\n1 5 2",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Maximum Product Subarray",
+    "description": "Given array of N integers, find contiguous subarray with largest product and print product.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print maximum product.",
+    "visible_test_cases": [
+      {
+        "input": "4\n2 3 -2 4",
+        "output": "6"
+      },
+      {
+        "input": "3\n-2 0 -1",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n-2",
+        "output": "-2"
+      },
+      {
+        "input": "4\n-2 3 -4 -1",
+        "output": "24"
+      }
+    ]
+  },
+  {
+    "title": "Next Permutation",
+    "description": "Given an array of N integers, rearrange into lexicographically next greater permutation.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "N integers separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "3\n1 2 3",
+        "output": "1 3 2"
+      },
+      {
+        "input": "3\n3 2 1",
+        "output": "1 2 3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3\n1 1 5",
+        "output": "1 5 1"
+      },
+      {
+        "input": "1\n1",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Merge Intervals",
+    "description": "Given N intervals [start, end], merge all overlapping intervals and print sorted by start.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Next N lines: start end.",
+    "output_format": "Merged intervals, one per line: start end.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 3\n2 6\n8 10\n15 18",
+        "output": "1 6\n8 10\n15 18"
+      },
+      {
+        "input": "2\n1 4\n4 5",
+        "output": "1 5"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n1 4",
+        "output": "1 4"
+      },
+      {
+        "input": "3\n1 4\n0 4\n2 3",
+        "output": "0 4"
+      }
+    ]
+  },
+  {
+    "title": "Kth Largest Element",
+    "description": "Given array of N integers and integer K, find the Kth largest element.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N K. Second line: N integers.",
+    "output_format": "Print Kth largest element.",
+    "visible_test_cases": [
+      {
+        "input": "6 2\n3 2 1 5 6 4",
+        "output": "5"
+      },
+      {
+        "input": "9 4\n3 2 3 1 2 4 5 5 6",
+        "output": "4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n10",
+        "output": "10"
+      },
+      {
+        "input": "5 1\n1 2 3 4 5",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "title": "Kth Smallest Element",
+    "description": "Given array of N integers and integer K, find the Kth smallest element.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N K. Second line: N integers.",
+    "output_format": "Print Kth smallest element.",
+    "visible_test_cases": [
+      {
+        "input": "6 2\n7 10 4 3 20 15",
+        "output": "4"
+      },
+      {
+        "input": "5 3\n7 10 4 20 15",
+        "output": "10"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n42",
+        "output": "42"
+      },
+      {
+        "input": "4 1\n4 3 2 1",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Find Equilibrium Index",
+    "description": "An index i is equilibrium if sum of lower elements equals sum of higher elements. Print first 0-based index or -1.",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print index or -1.",
+    "visible_test_cases": [
+      {
+        "input": "7\n-7 1 5 2 -4 3 0",
+        "output": "3"
+      },
+      {
+        "input": "3\n1 2 3",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "0"
+      },
+      {
+        "input": "5\n1 3 5 2 2",
+        "output": "2"
+      }
+    ]
+  },
+  {
+    "title": "Rearrange Array Alternately",
+    "description": "Given sorted array of N positive integers, rearrange alternately: max, min, 2nd max, 2nd min...",
+    "difficulty": "Medium",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N sorted integers.",
+    "output_format": "N integers separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "6\n1 2 3 4 5 6",
+        "output": "6 1 5 2 4 3"
+      },
+      {
+        "input": "5\n10 20 30 40 50",
+        "output": "50 10 40 20 30"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "5"
+      },
+      {
+        "input": "2\n1 2",
+        "output": "2 1"
+      }
+    ]
+  },
+  {
+    "title": "Largest Number from Array",
+    "description": "Given array of N non-negative integers, arrange them such that they form the largest number.",
+    "difficulty": "Hard",
+    "topic": "Module 3 \u2013 Arrays",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print the largest number string.",
+    "visible_test_cases": [
+      {
+        "input": "5\n3 30 34 5 9",
+        "output": "9534330"
+      },
+      {
+        "input": "2\n10 2",
+        "output": "210"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3\n0 0 0",
+        "output": "0"
+      },
+      {
+        "input": "2\n1 2",
+        "output": "21"
+      }
+    ]
+  },
+  {
+    "title": "String Length",
+    "description": "Given a string S, print its length without using built-in length if possible.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Print length of S.",
+    "visible_test_cases": [
+      {
+        "input": "hello",
+        "output": "5"
+      },
+      {
+        "input": "coding",
+        "output": "6"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "",
+        "output": "0"
+      },
+      {
+        "input": "a",
+        "output": "1"
+      },
+      {
+        "input": "hello world",
+        "output": "11"
+      }
+    ]
+  },
+  {
+    "title": "Reverse a String",
+    "description": "Given a string S, print its reverse.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Print reversed string.",
+    "visible_test_cases": [
+      {
+        "input": "hello",
+        "output": "olleh"
+      },
+      {
+        "input": "racecar",
+        "output": "racecar"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "a",
+        "output": "a"
+      },
+      {
+        "input": "12345",
+        "output": "54321"
+      }
+    ]
+  },
+  {
+    "title": "Check Palindrome String",
+    "description": "Given a string S, print 'Yes' if it is a palindrome, else 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "radar",
+        "output": "Yes"
+      },
+      {
+        "input": "hello",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "a",
+        "output": "Yes"
+      },
+      {
+        "input": "madam",
+        "output": "Yes"
+      }
+    ]
+  },
+  {
+    "title": "Count Vowels and Consonants",
+    "description": "Given lowercase string S, print count of vowels and consonants separated by space.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Two space-separated integers: vowels consonants.",
+    "visible_test_cases": [
+      {
+        "input": "hello",
+        "output": "2 3"
+      },
+      {
+        "input": "aeiou",
+        "output": "5 0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "xyz",
+        "output": "0 3"
+      },
+      {
+        "input": "programming",
+        "output": "3 8"
+      }
+    ]
+  },
+  {
+    "title": "To Upper Case",
+    "description": "Given string S, convert all lowercase letters to uppercase.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Print uppercase string.",
+    "visible_test_cases": [
+      {
+        "input": "hello",
+        "output": "HELLO"
+      },
+      {
+        "input": "Code123",
+        "output": "CODE123"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "ABC",
+        "output": "ABC"
+      },
+      {
+        "input": "test",
+        "output": "TEST"
+      }
+    ]
+  },
+  {
+    "title": "To Lower Case",
+    "description": "Given string S, convert all uppercase letters to lowercase.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Print lowercase string.",
+    "visible_test_cases": [
+      {
+        "input": "HELLO",
+        "output": "hello"
+      },
+      {
+        "input": "PyThOn",
+        "output": "python"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "abc",
+        "output": "abc"
+      },
+      {
+        "input": "123",
+        "output": "123"
+      }
+    ]
+  },
+  {
+    "title": "Count Words in a Sentence",
+    "description": "Given a sentence S (words separated by single space), count the number of words.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A single line string S.",
+    "output_format": "Print word count.",
+    "visible_test_cases": [
+      {
+        "input": "Hello world welcome to coding",
+        "output": "5"
+      },
+      {
+        "input": "OneWord",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "A B C D E",
+        "output": "5"
+      },
+      {
+        "input": "Testing one two",
+        "output": "3"
+      }
+    ]
+  },
+  {
+    "title": "Check Anagram",
+    "description": "Given two lowercase strings S1 and S2, print 'Yes' if they are anagrams, else 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "Two strings S1 and S2 on separate lines.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "listen\nsilent",
+        "output": "Yes"
+      },
+      {
+        "input": "hello\nworld",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "anagram\nnagaram",
+        "output": "Yes"
+      },
+      {
+        "input": "rat\ncar",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Remove All Whitespace",
+    "description": "Given a string S, remove all whitespace characters and print result.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S with spaces.",
+    "output_format": "String without spaces.",
+    "visible_test_cases": [
+      {
+        "input": "h e l l o",
+        "output": "hello"
+      },
+      {
+        "input": "  code   test",
+        "output": "codetest"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "nospace",
+        "output": "nospace"
+      },
+      {
+        "input": "a b c",
+        "output": "abc"
+      }
+    ]
+  },
+  {
+    "title": "First Non-Repeating Character",
+    "description": "Given a string S, print the first non-repeating character. If none, print -1.",
+    "difficulty": "Medium",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Print the character or -1.",
+    "visible_test_cases": [
+      {
+        "input": "swiss",
+        "output": "w"
+      },
+      {
+        "input": "aabbcc",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "leetcode",
+        "output": "l"
+      },
+      {
+        "input": "loveleetcode",
+        "output": "v"
+      }
+    ]
+  },
+  {
+    "title": "Longest Common Prefix",
+    "description": "Given N strings, find the longest common prefix. Print empty string if none.",
+    "difficulty": "Medium",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "First line: N. Next N lines: strings.",
+    "output_format": "Print longest common prefix.",
+    "visible_test_cases": [
+      {
+        "input": "3\nflower\nflow\nflight",
+        "output": "fl"
+      },
+      {
+        "input": "3\ndog\nracecar\ncar",
+        "output": ""
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\napple\napp",
+        "output": "app"
+      },
+      {
+        "input": "1\nsolo",
+        "output": "solo"
+      }
+    ]
+  },
+  {
+    "title": "String Compression (Run-Length)",
+    "description": "Given string S, compress it using counts of repeated characters (e.g. aabccc -> a2b1c3).",
+    "difficulty": "Medium",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Compressed string.",
+    "visible_test_cases": [
+      {
+        "input": "aabcccccaaa",
+        "output": "a2b1c5a3"
+      },
+      {
+        "input": "abc",
+        "output": "a1b1c1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "a",
+        "output": "a1"
+      },
+      {
+        "input": "aabb",
+        "output": "a2b2"
+      }
+    ]
+  },
+  {
+    "title": "Valid Parentheses",
+    "description": "Given string containing '()', '[]', '{}', determine if it is valid. Print 'Valid' or 'Invalid'.",
+    "difficulty": "Medium",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A bracket string S.",
+    "output_format": "Print 'Valid' or 'Invalid'.",
+    "visible_test_cases": [
+      {
+        "input": "()[]{}",
+        "output": "Valid"
+      },
+      {
+        "input": "(]",
+        "output": "Invalid"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "([{}])",
+        "output": "Valid"
+      },
+      {
+        "input": "([)]",
+        "output": "Invalid"
+      }
+    ]
+  },
+  {
+    "title": "Roman to Integer",
+    "description": "Given a Roman numeral string S, convert it to an integer.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A Roman numeral string S.",
+    "output_format": "Print the integer value.",
+    "visible_test_cases": [
+      {
+        "input": "III",
+        "output": "3"
+      },
+      {
+        "input": "LVIII",
+        "output": "58"
+      },
+      {
+        "input": "MCMXCIV",
+        "output": "1994"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "IV",
+        "output": "4"
+      },
+      {
+        "input": "IX",
+        "output": "9"
+      }
+    ]
+  },
+  {
+    "title": "Integer to Roman",
+    "description": "Given an integer N (1 <= N <= 3999), convert it to a Roman numeral.",
+    "difficulty": "Medium",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "An integer N.",
+    "output_format": "Print Roman numeral string.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "III"
+      },
+      {
+        "input": "58",
+        "output": "LVIII"
+      },
+      {
+        "input": "1994",
+        "output": "MCMXCIV"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "9",
+        "output": "IX"
+      },
+      {
+        "input": "40",
+        "output": "XL"
+      }
+    ]
+  },
+  {
+    "title": "Longest Substring Without Repeating Characters",
+    "description": "Given string S, find length of longest substring without repeating characters.",
+    "difficulty": "Medium",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Print length.",
+    "visible_test_cases": [
+      {
+        "input": "abcabcbb",
+        "output": "3"
+      },
+      {
+        "input": "bbbbb",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "pwwkew",
+        "output": "3"
+      },
+      {
+        "input": "abcdef",
+        "output": "6"
+      }
+    ]
+  },
+  {
+    "title": "Group Anagrams",
+    "description": "Given N strings, group anagrams together and print the count of anagram groups.",
+    "difficulty": "Medium",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "First line: N. Second line: N strings.",
+    "output_format": "Print number of anagram groups.",
+    "visible_test_cases": [
+      {
+        "input": "6\neat tea tan ate nat bat",
+        "output": "3"
+      },
+      {
+        "input": "1\na",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\nab ba",
+        "output": "1"
+      },
+      {
+        "input": "3\na b c",
+        "output": "3"
+      }
+    ]
+  },
+  {
+    "title": "Count and Say",
+    "description": "Generate the Nth term of the count-and-say sequence (1-indexed: 1->'1', 2->'11', 3->'21'...).",
+    "difficulty": "Medium",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "An integer N.",
+    "output_format": "Print the Nth count-and-say string.",
+    "visible_test_cases": [
+      {
+        "input": "4",
+        "output": "1211"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2",
+        "output": "11"
+      },
+      {
+        "input": "5",
+        "output": "111221"
+      }
+    ]
+  },
+  {
+    "title": "Longest Palindromic Substring Length",
+    "description": "Given string S, find the length of the longest palindromic substring.",
+    "difficulty": "Medium",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Print length.",
+    "visible_test_cases": [
+      {
+        "input": "babad",
+        "output": "3"
+      },
+      {
+        "input": "cbbd",
+        "output": "2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "a",
+        "output": "1"
+      },
+      {
+        "input": "racecar",
+        "output": "7"
+      }
+    ]
+  },
+  {
+    "title": "String to Integer (atoi)",
+    "description": "Convert a string to 32-bit signed integer following atoi rules (clamp overflow).",
+    "difficulty": "Medium",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A string S.",
+    "output_format": "Print parsed integer.",
+    "visible_test_cases": [
+      {
+        "input": "42",
+        "output": "42"
+      },
+      {
+        "input": "   -42",
+        "output": "-42"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4193 with words",
+        "output": "4193"
+      },
+      {
+        "input": "words and 987",
+        "output": "0"
+      }
+    ]
+  },
+  {
+    "title": "Check Subsequence",
+    "description": "Given two strings S and T, print 'Yes' if S is a subsequence of T, else 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "Two lines: S then T.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "ace\nabcde",
+        "output": "Yes"
+      },
+      {
+        "input": "aec\nabcde",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "abc\nahbgdc",
+        "output": "Yes"
+      },
+      {
+        "input": "axc\nahbgdc",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Capitalize First Letter of Each Word",
+    "description": "Given a sentence S, capitalize the first letter of each word.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "A sentence string S.",
+    "output_format": "Sentence with capitalized words.",
+    "visible_test_cases": [
+      {
+        "input": "hello world from hari",
+        "output": "Hello World From Hari"
+      },
+      {
+        "input": "java programming",
+        "output": "Java Programming"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "a",
+        "output": "A"
+      },
+      {
+        "input": "already Capitalized",
+        "output": "Already Capitalized"
+      }
+    ]
+  },
+  {
+    "title": "Rotate String",
+    "description": "Given two strings S and Goal, print 'Yes' if S can become Goal after some shifts, else 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "Two lines: S then Goal.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "abcde\ncdeab",
+        "output": "Yes"
+      },
+      {
+        "input": "abcde\nabced",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "a\na",
+        "output": "Yes"
+      },
+      {
+        "input": "aa\na",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Isomorphic Strings",
+    "description": "Two strings S and T are isomorphic if characters in S can be replaced to get T.",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "Two lines: S then T.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "egg\nadd",
+        "output": "Yes"
+      },
+      {
+        "input": "foo\nbar",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "paper\ntitle",
+        "output": "Yes"
+      },
+      {
+        "input": "ab\naa",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Zigzag Conversion Length",
+    "description": "Given string S and integer numRows, print length of string after Zigzag conversion (same as input length).",
+    "difficulty": "Easy",
+    "topic": "Module 4 \u2013 Strings",
+    "input_format": "First line: S. Second line: numRows.",
+    "output_format": "Print length of converted string.",
+    "visible_test_cases": [
+      {
+        "input": "PAYPALISHIRING\n3",
+        "output": "14"
+      },
+      {
+        "input": "A\n1",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "HELLOWORLD\n4",
+        "output": "10"
+      },
+      {
+        "input": "TEST\n2",
+        "output": "4"
+      }
+    ]
+  },
+  {
+    "title": "Matrix Sum",
+    "description": "Given an R x C matrix, compute the sum of all its elements.",
+    "difficulty": "Easy",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: R C. Next R lines: C integers each.",
+    "output_format": "Print the sum.",
+    "visible_test_cases": [
+      {
+        "input": "2 3\n1 2 3\n4 5 6",
+        "output": "21"
+      },
+      {
+        "input": "2 2\n-1 1\n2 -2",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n10",
+        "output": "10"
+      },
+      {
+        "input": "3 3\n1 1 1\n1 1 1\n1 1 1",
+        "output": "9"
+      }
+    ]
+  },
+  {
+    "title": "Matrix Transpose",
+    "description": "Given an R x C matrix, print its transpose (C x R).",
+    "difficulty": "Easy",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: R C. Next R lines: C integers.",
+    "output_format": "C lines: R integers each.",
+    "visible_test_cases": [
+      {
+        "input": "2 3\n1 2 3\n4 5 6",
+        "output": "1 4\n2 5\n3 6"
+      },
+      {
+        "input": "2 2\n1 2\n3 4",
+        "output": "1 3\n2 4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 3\n1 2 3",
+        "output": "1\n2\n3"
+      },
+      {
+        "input": "3 1\n1\n2\n3",
+        "output": "1 2 3"
+      }
+    ]
+  },
+  {
+    "title": "Diagonal Sum of Square Matrix",
+    "description": "Given N x N matrix, compute the sum of main diagonal and secondary diagonal elements (count center once if N odd).",
+    "difficulty": "Easy",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: N. Next N lines: N integers.",
+    "output_format": "Print total diagonal sum.",
+    "visible_test_cases": [
+      {
+        "input": "3\n1 2 3\n4 5 6\n7 8 9",
+        "output": "25"
+      },
+      {
+        "input": "2\n1 2\n3 4",
+        "output": "10"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "5"
+      },
+      {
+        "input": "4\n1 1 1 1\n1 1 1 1\n1 1 1 1\n1 1 1 1",
+        "output": "8"
+      }
+    ]
+  },
+  {
+    "title": "Matrix Addition",
+    "description": "Given two R x C matrices A and B, print their sum A + B.",
+    "difficulty": "Easy",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: R C. Next R lines: A. Next R lines: B.",
+    "output_format": "R lines: C integers each.",
+    "visible_test_cases": [
+      {
+        "input": "2 2\n1 2\n3 4\n5 6\n7 8",
+        "output": "6 8\n10 12"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 2\n1 2\n3 4",
+        "output": "4 6"
+      },
+      {
+        "input": "2 1\n1\n2\n3\n4",
+        "output": "4\n6"
+      }
+    ]
+  },
+  {
+    "title": "Row with Maximum Sum",
+    "description": "Given R x C matrix, print 0-based index of row with largest sum.",
+    "difficulty": "Easy",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: R C. Next R lines: C integers.",
+    "output_format": "Print row index.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n1 2 3\n4 5 6\n1 0 1",
+        "output": "1"
+      },
+      {
+        "input": "2 2\n10 20\n5 5",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 3\n1 2 3",
+        "output": "0"
+      },
+      {
+        "input": "3 2\n1 1\n2 2\n3 3",
+        "output": "2"
+      }
+    ]
+  },
+  {
+    "title": "Column with Maximum Sum",
+    "description": "Given R x C matrix, print 0-based index of column with largest sum.",
+    "difficulty": "Easy",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: R C. Next R lines: C integers.",
+    "output_format": "Print column index.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n1 2 3\n4 5 6\n1 0 1",
+        "output": "1"
+      },
+      {
+        "input": "2 2\n10 5\n20 5",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 3\n1 10 2",
+        "output": "1"
+      },
+      {
+        "input": "2 3\n1 2 3\n4 5 6",
+        "output": "2"
+      }
+    ]
+  },
+  {
+    "title": "Search in Row-Wise Sorted Matrix",
+    "description": "Given R x C matrix where each row is sorted, search for target X. Print 'Found' or 'Not Found'.",
+    "difficulty": "Medium",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: R C X. Next R lines: C integers.",
+    "output_format": "Print 'Found' or 'Not Found'.",
+    "visible_test_cases": [
+      {
+        "input": "3 3 5\n1 3 5\n7 9 11\n13 15 17",
+        "output": "Found"
+      },
+      {
+        "input": "3 3 6\n1 3 5\n7 9 11\n13 15 17",
+        "output": "Not Found"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1 5\n5",
+        "output": "Found"
+      },
+      {
+        "input": "2 2 10\n1 2\n3 4",
+        "output": "Not Found"
+      }
+    ]
+  },
+  {
+    "title": "Rotate Matrix by 90 Degrees Clockwise",
+    "description": "Given N x N matrix, rotate it 90 degrees clockwise in-place and print result.",
+    "difficulty": "Medium",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: N. Next N lines: N integers.",
+    "output_format": "N lines: N integers.",
+    "visible_test_cases": [
+      {
+        "input": "3\n1 2 3\n4 5 6\n7 8 9",
+        "output": "7 4 1\n8 5 2\n9 6 3"
+      },
+      {
+        "input": "2\n1 2\n3 4",
+        "output": "3 1\n4 2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "5"
+      },
+      {
+        "input": "4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16",
+        "output": "13 9 5 1\n14 10 6 2\n15 11 7 3\n16 12 8 4"
+      }
+    ]
+  },
+  {
+    "title": "Spiral Matrix Traversal",
+    "description": "Given R x C matrix, print all elements in spiral order separated by space.",
+    "difficulty": "Medium",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: R C. Next R lines: C integers.",
+    "output_format": "Elements separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n1 2 3\n4 5 6\n7 8 9",
+        "output": "1 2 3 6 9 8 7 4 5"
+      },
+      {
+        "input": "2 3\n1 2 3\n4 5 6",
+        "output": "1 2 3 6 5 4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 3\n1 2 3",
+        "output": "1 2 3"
+      },
+      {
+        "input": "3 1\n1\n2\n3",
+        "output": "1 2 3"
+      }
+    ]
+  },
+  {
+    "title": "Set Matrix Zeroes",
+    "description": "Given R x C matrix, if element is 0, set its entire row and column to 0.",
+    "difficulty": "Medium",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: R C. Next R lines: C integers.",
+    "output_format": "R lines: C integers.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n1 1 1\n1 0 1\n1 1 1",
+        "output": "1 0 1\n0 0 0\n1 0 1"
+      },
+      {
+        "input": "2 3\n0 1 2\n3 4 5",
+        "output": "0 0 0\n0 4 5"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n0",
+        "output": "0"
+      },
+      {
+        "input": "2 2\n1 2\n3 4",
+        "output": "1 2\n3 4"
+      }
+    ]
+  },
+  {
+    "title": "Check Identity Matrix",
+    "description": "Given N x N matrix, print 'Yes' if it is an identity matrix (1 on main diagonal, 0 elsewhere), else 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: N. Next N lines: N integers.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "3\n1 0 0\n0 1 0\n0 0 1",
+        "output": "Yes"
+      },
+      {
+        "input": "3\n1 0 0\n0 2 0\n0 0 1",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n1",
+        "output": "Yes"
+      },
+      {
+        "input": "2\n1 1\n0 1",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Matrix Multiplication",
+    "description": "Given matrix A (N x M) and B (M x P), compute and print A * B.",
+    "difficulty": "Medium",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: N M P. Next N lines: A. Next M lines: B.",
+    "output_format": "N lines: P integers each.",
+    "visible_test_cases": [
+      {
+        "input": "2 2 2\n1 2\n3 4\n5 6\n7 8",
+        "output": "19 22\n43 50"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 2 1\n2 3\n4\n5",
+        "output": "23"
+      },
+      {
+        "input": "2 2 1\n1 0\n0 1\n5\n6",
+        "output": "5\n6"
+      }
+    ]
+  },
+  {
+    "title": "Check Symmetric Matrix",
+    "description": "A square matrix is symmetric if A[i][j] = A[j][i]. Print 'Yes' or 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: N. Next N lines: N integers.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "3\n1 2 3\n2 4 5\n3 5 6",
+        "output": "Yes"
+      },
+      {
+        "input": "2\n1 2\n3 4",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n7",
+        "output": "Yes"
+      },
+      {
+        "input": "2\n5 0\n0 5",
+        "output": "Yes"
+      }
+    ]
+  },
+  {
+    "title": "Count Negative Numbers in Sorted Matrix",
+    "description": "Given R x C matrix sorted in non-increasing order row-wise and col-wise, count negative numbers.",
+    "difficulty": "Easy",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: R C. Next R lines: C integers.",
+    "output_format": "Print count of negatives.",
+    "visible_test_cases": [
+      {
+        "input": "4 4\n4 3 2 -1\n3 2 1 -1\n1 1 -1 -2\n-1 -1 -2 -3",
+        "output": "8"
+      },
+      {
+        "input": "2 2\n3 2\n1 0",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n-1",
+        "output": "1"
+      },
+      {
+        "input": "1 2\n0 -1",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Reshape the Matrix",
+    "description": "Given R x C matrix, reshape it to new dimensions r x c if possible (R*C = r*c), else print original.",
+    "difficulty": "Medium",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: R C r c. Next R lines: C integers.",
+    "output_format": "Reshaped matrix.",
+    "visible_test_cases": [
+      {
+        "input": "2 2 1 4\n1 2\n3 4",
+        "output": "1 2 3 4"
+      },
+      {
+        "input": "2 2 2 4\n1 2\n3 4",
+        "output": "1 2\n3 4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 4 2 2\n1 2 3 4",
+        "output": "1 2\n3 4"
+      },
+      {
+        "input": "2 3 3 2\n1 2 3\n4 5 6",
+        "output": "1 2\n3 4\n5 6"
+      }
+    ]
+  },
+  {
+    "title": "Recursive Factorial",
+    "description": "Given an integer N (0 <= N <= 12), compute N! recursively.",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A single integer N.",
+    "output_format": "Print N!.",
+    "visible_test_cases": [
+      {
+        "input": "5",
+        "output": "120"
+      },
+      {
+        "input": "0",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "7",
+        "output": "5040"
+      }
+    ]
+  },
+  {
+    "title": "Recursive Fibonacci",
+    "description": "Compute Nth Fibonacci number using recursion.",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A single integer N (0 <= N <= 25).",
+    "output_format": "Print Fibonacci number.",
+    "visible_test_cases": [
+      {
+        "input": "6",
+        "output": "8"
+      },
+      {
+        "input": "10",
+        "output": "55"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0",
+        "output": "0"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Recursive Sum of Array",
+    "description": "Given array of N integers, compute its sum recursively.",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print sum.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 2 3 4",
+        "output": "10"
+      },
+      {
+        "input": "3\n5 10 15",
+        "output": "30"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n100",
+        "output": "100"
+      },
+      {
+        "input": "2\n-5 5",
+        "output": "0"
+      }
+    ]
+  },
+  {
+    "title": "Tower of Hanoi",
+    "description": "Given N disks on peg A, compute the total number of moves to transfer all disks to peg C (2^N - 1).",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A single integer N.",
+    "output_format": "Print number of moves.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "7"
+      },
+      {
+        "input": "4",
+        "output": "15"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "5",
+        "output": "31"
+      }
+    ]
+  },
+  {
+    "title": "Recursive Power (x^n)",
+    "description": "Given base X and integer N >= 0, compute X^N recursively.",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "Two space-separated integers X and N.",
+    "output_format": "Print X^N.",
+    "visible_test_cases": [
+      {
+        "input": "2 10",
+        "output": "1024"
+      },
+      {
+        "input": "3 4",
+        "output": "81"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "5 0",
+        "output": "1"
+      },
+      {
+        "input": "2 0",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Recursive GCD",
+    "description": "Compute GCD of A and B using Euclid's recursive algorithm.",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "Two space-separated integers A and B.",
+    "output_format": "Print GCD.",
+    "visible_test_cases": [
+      {
+        "input": "48 18",
+        "output": "6"
+      },
+      {
+        "input": "101 10",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "54 24",
+        "output": "6"
+      },
+      {
+        "input": "100 100",
+        "output": "100"
+      }
+    ]
+  },
+  {
+    "title": "Print 1 to N Using Recursion",
+    "description": "Given integer N, print numbers from 1 to N space-separated without any loops.",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A single integer N.",
+    "output_format": "Print 1 to N.",
+    "visible_test_cases": [
+      {
+        "input": "5",
+        "output": "1 2 3 4 5"
+      },
+      {
+        "input": "3",
+        "output": "1 2 3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "6",
+        "output": "1 2 3 4 5 6"
+      }
+    ]
+  },
+  {
+    "title": "Recursive String Reverse",
+    "description": "Given string S, print it reversed using recursion.",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A string S.",
+    "output_format": "Reversed string.",
+    "visible_test_cases": [
+      {
+        "input": "hello",
+        "output": "olleh"
+      },
+      {
+        "input": "recursion",
+        "output": "noisrucer"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "a",
+        "output": "a"
+      },
+      {
+        "input": "abc",
+        "output": "cba"
+      }
+    ]
+  },
+  {
+    "title": "Check Palindrome String Recursively",
+    "description": "Given string S, print 'Yes' if palindrome, else 'No' using recursion.",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A string S.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "racecar",
+        "output": "Yes"
+      },
+      {
+        "input": "apple",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "noon",
+        "output": "Yes"
+      },
+      {
+        "input": "ab",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Count Subsets with Given Sum",
+    "description": "Given array of N integers and target sum S, count the number of subsets that sum to S.",
+    "difficulty": "Medium",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "First line: N S. Second line: N integers.",
+    "output_format": "Print count of subsets.",
+    "visible_test_cases": [
+      {
+        "input": "4 5\n1 2 3 4",
+        "output": "2"
+      },
+      {
+        "input": "3 6\n1 2 3",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3 10\n1 2 3",
+        "output": "0"
+      },
+      {
+        "input": "4 0\n0 0 0 0",
+        "output": "16"
+      }
+    ]
+  },
+  {
+    "title": "Subset Generation Count",
+    "description": "Given integer N representing set {1, 2, ..., N}, print the total number of subsets (2^N).",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A single integer N.",
+    "output_format": "Print 2^N.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "8"
+      },
+      {
+        "input": "4",
+        "output": "16"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0",
+        "output": "1"
+      },
+      {
+        "input": "10",
+        "output": "1024"
+      }
+    ]
+  },
+  {
+    "title": "Generate All Permutations Count",
+    "description": "Given integer N, print the number of distinct permutations of N unique elements (N!).",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A single integer N.",
+    "output_format": "Print N!.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "6"
+      },
+      {
+        "input": "4",
+        "output": "24"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "5",
+        "output": "120"
+      }
+    ]
+  },
+  {
+    "title": "N-Queens Solution Count",
+    "description": "Given integer N, find the total number of distinct solutions to place N non-attacking queens on N x N board.",
+    "difficulty": "Hard",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A single integer N (1 <= N <= 10).",
+    "output_format": "Print count of valid configurations.",
+    "visible_test_cases": [
+      {
+        "input": "4",
+        "output": "2"
+      },
+      {
+        "input": "8",
+        "output": "92"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "2",
+        "output": "0"
+      },
+      {
+        "input": "5",
+        "output": "10"
+      }
+    ]
+  },
+  {
+    "title": "Combination Sum Count",
+    "description": "Given distinct positive integers array and target T, count combinations that sum to T (elements can be reused).",
+    "difficulty": "Medium",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "First line: N T. Second line: N integers.",
+    "output_format": "Print count of combinations.",
+    "visible_test_cases": [
+      {
+        "input": "3 7\n2 3 6",
+        "output": "2"
+      },
+      {
+        "input": "3 8\n2 3 5",
+        "output": "3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 3\n2",
+        "output": "0"
+      },
+      {
+        "input": "2 4\n1 2",
+        "output": "3"
+      }
+    ]
+  },
+  {
+    "title": "Rat in a Maze Paths Count",
+    "description": "Given N x N grid of 1s (open) and 0s (blocked), count valid paths from (0,0) to (N-1,N-1) moving Down and Right.",
+    "difficulty": "Hard",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "First line: N. Next N lines: N space-separated integers.",
+    "output_format": "Print number of valid paths.",
+    "visible_test_cases": [
+      {
+        "input": "3\n1 1 1\n1 1 1\n1 1 1",
+        "output": "6"
+      },
+      {
+        "input": "3\n1 0 0\n1 1 0\n0 1 1",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\n1 1\n1 1",
+        "output": "2"
+      },
+      {
+        "input": "2\n1 0\n0 1",
+        "output": "0"
+      }
+    ]
+  },
+  {
+    "title": "Stack Implementation (Push and Pop)",
+    "description": "Simulate a stack: perform N operations ('push X' or 'pop'). Print popped elements separated by space.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Next N lines: operations.",
+    "output_format": "Popped elements space-separated.",
+    "visible_test_cases": [
+      {
+        "input": "5\npush 10\npush 20\npop\npush 30\npop",
+        "output": "20 30"
+      },
+      {
+        "input": "3\npush 5\npop\npop",
+        "output": "5 -1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\npush 1\npop",
+        "output": "1"
+      },
+      {
+        "input": "1\npop",
+        "output": "-1"
+      }
+    ]
+  },
+  {
+    "title": "Queue Implementation",
+    "description": "Simulate a queue: perform N operations ('enqueue X' or 'dequeue'). Print dequeued elements separated by space.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Next N lines: operations.",
+    "output_format": "Dequeued elements space-separated.",
+    "visible_test_cases": [
+      {
+        "input": "5\nenqueue 10\nenqueue 20\ndequeue\nenqueue 30\ndequeue",
+        "output": "10 20"
+      },
+      {
+        "input": "2\ndequeue\nenqueue 5",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3\nenqueue 1\ndequeue\ndequeue",
+        "output": "1 -1"
+      }
+    ]
+  },
+  {
+    "title": "Evaluate Postfix Expression",
+    "description": "Given a postfix expression of single-digit operands and operators (+, -, *, /), evaluate it.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "A string of postfix expression tokens separated by space.",
+    "output_format": "Print evaluation result.",
+    "visible_test_cases": [
+      {
+        "input": "2 3 + 4 *",
+        "output": "20"
+      },
+      {
+        "input": "5 1 2 + 4 * + 3 -",
+        "output": "14"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4 2 /",
+        "output": "2"
+      },
+      {
+        "input": "7 8 + 3 2 + /",
+        "output": "3"
+      }
+    ]
+  },
+  {
+    "title": "Next Greater Element",
+    "description": "Given array of N integers, find the next greater element for each element. If none, -1.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "N integers separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 3 2 4",
+        "output": "3 4 4 -1"
+      },
+      {
+        "input": "4\n4 3 2 1",
+        "output": "-1 -1 -1 -1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "-1"
+      },
+      {
+        "input": "5\n6 8 0 1 3",
+        "output": "8 -1 1 3 -1"
+      }
+    ]
+  },
+  {
+    "title": "Stock Span Problem",
+    "description": "Given daily stock prices for N days, calculate span of each day (consecutive days with price <= today).",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N prices.",
+    "output_format": "N spans separated by space.",
+    "visible_test_cases": [
+      {
+        "input": "7\n100 80 60 70 60 75 85",
+        "output": "1 1 1 2 1 4 6"
+      },
+      {
+        "input": "4\n10 20 30 40",
+        "output": "1 2 3 4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n10",
+        "output": "1"
+      },
+      {
+        "input": "4\n40 30 20 10",
+        "output": "1 1 1 1"
+      }
+    ]
+  },
+  {
+    "title": "Min Stack Value",
+    "description": "Perform operations on a stack: 'push X', 'pop', 'getMin'. Print results of 'getMin' separated by space.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Next N lines: operations.",
+    "output_format": "getMin results separated by space.",
+    "visible_test_cases": [
+      {
+        "input": "6\npush -2\npush 0\npush -3\ngetMin\npop\ngetMin",
+        "output": "-3 -2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3\npush 5\npush 10\ngetMin",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "title": "Reverse a Queue",
+    "description": "Given a queue of N integers, reverse the queue elements and print them.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "N integers in reversed order.",
+    "visible_test_cases": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "5 4 3 2 1"
+      },
+      {
+        "input": "3\n10 20 30",
+        "output": "30 20 10"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n42",
+        "output": "42"
+      },
+      {
+        "input": "2\n1 2",
+        "output": "2 1"
+      }
+    ]
+  },
+  {
+    "title": "Implement Queue using Stacks",
+    "description": "Simulate queue operations ('push X' and 'pop') using stacks. Print popped elements.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Next N lines: operations.",
+    "output_format": "Popped elements space-separated.",
+    "visible_test_cases": [
+      {
+        "input": "4\npush 1\npush 2\npop\npop",
+        "output": "1 2"
+      },
+      {
+        "input": "3\npush 10\npop\npop",
+        "output": "10 -1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\npop",
+        "output": "-1"
+      }
+    ]
+  },
+  {
+    "title": "Create Linked List and Print",
+    "description": "Given N integers, create a singly linked list and print its elements from head to tail separated by '->'.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Elements formatted as '1->2->3'.",
+    "visible_test_cases": [
+      {
+        "input": "3\n1 2 3",
+        "output": "1->2->3"
+      },
+      {
+        "input": "1\n5",
+        "output": "5"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4\n10 20 30 40",
+        "output": "10->20->30->40"
+      }
+    ]
+  },
+  {
+    "title": "Reverse a Linked List",
+    "description": "Given a singly linked list of N integers, reverse it and print elements separated by '->'.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Reversed elements as '3->2->1'.",
+    "visible_test_cases": [
+      {
+        "input": "3\n1 2 3",
+        "output": "3->2->1"
+      },
+      {
+        "input": "4\n10 20 30 40",
+        "output": "40->30->20->10"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n99",
+        "output": "99"
+      },
+      {
+        "input": "2\n1 2",
+        "output": "2->1"
+      }
+    ]
+  },
+  {
+    "title": "Find Middle of Linked List",
+    "description": "Given a linked list of N integers, find and print the middle element (if two middles, print second).",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print middle element.",
+    "visible_test_cases": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "3"
+      },
+      {
+        "input": "6\n1 2 3 4 5 6",
+        "output": "4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n10",
+        "output": "10"
+      },
+      {
+        "input": "2\n1 2",
+        "output": "2"
+      }
+    ]
+  },
+  {
+    "title": "Detect Loop in Linked List",
+    "description": "Given N nodes and position POS (1-based index) where tail connects (-1 if no loop), print 'Loop' or 'No Loop'.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N POS. Second line: N integers.",
+    "output_format": "Print 'Loop' or 'No Loop'.",
+    "visible_test_cases": [
+      {
+        "input": "4 2\n1 2 3 4",
+        "output": "Loop"
+      },
+      {
+        "input": "4 -1\n1 2 3 4",
+        "output": "No Loop"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n5",
+        "output": "Loop"
+      },
+      {
+        "input": "1 -1\n5",
+        "output": "No Loop"
+      }
+    ]
+  },
+  {
+    "title": "Merge Two Sorted Linked Lists",
+    "description": "Given two sorted linked lists of sizes N and M, merge them into one sorted list and print separated by '->'.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N M. Second line: N integers. Third line: M integers.",
+    "output_format": "Merged list as '1->2->3'.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n1 2 4\n1 3 4",
+        "output": "1->1->2->3->4->4"
+      },
+      {
+        "input": "2 1\n1 3\n2",
+        "output": "1->2->3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n5\n10",
+        "output": "5->10"
+      }
+    ]
+  },
+  {
+    "title": "Remove Nth Node From End of List",
+    "description": "Given linked list of size L and integer N, remove Nth node from end and print remaining list.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: L N. Second line: L integers.",
+    "output_format": "Remaining list separated by '->'.",
+    "visible_test_cases": [
+      {
+        "input": "5 2\n1 2 3 4 5",
+        "output": "1->2->3->5"
+      },
+      {
+        "input": "2 1\n1 2",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n1",
+        "output": "empty"
+      }
+    ]
+  },
+  {
+    "title": "Delete Node in Linked List Without Head",
+    "description": "Given linked list elements and a value to delete (guaranteed not tail), print remaining list.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N VAL. Second line: N integers.",
+    "output_format": "Remaining list separated by '->'.",
+    "visible_test_cases": [
+      {
+        "input": "4 3\n1 2 3 4",
+        "output": "1->2->4"
+      },
+      {
+        "input": "3 2\n1 2 3",
+        "output": "1->3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4 1\n1 2 3 4",
+        "output": "2->3->4"
+      }
+    ]
+  },
+  {
+    "title": "Check Palindrome Linked List",
+    "description": "Given a singly linked list of N integers, print 'Yes' if it is a palindrome, else 'No'.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 2 2 1",
+        "output": "Yes"
+      },
+      {
+        "input": "3\n1 2 3",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "Yes"
+      },
+      {
+        "input": "5\n1 2 3 2 1",
+        "output": "Yes"
+      }
+    ]
+  },
+  {
+    "title": "Intersection Point of Two Linked Lists",
+    "description": "Given two lists meeting at a common node, find the data value of the intersection node, or -1.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N M. Next lines: list 1, list 2, common elements.",
+    "output_format": "Print intersection value.",
+    "visible_test_cases": [
+      {
+        "input": "3 2 2\n10 20\n30 40\n50 60",
+        "output": "50"
+      },
+      {
+        "input": "2 2 0\n1 2\n3 4",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1 1\n1\n2\n3",
+        "output": "3"
+      }
+    ]
+  },
+  {
+    "title": "Add Two Numbers Represented by Linked Lists",
+    "description": "Given two linked lists representing numbers in reverse order, compute their sum as a linked list.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N M. Second line: N digits. Third line: M digits.",
+    "output_format": "Sum list digits separated by '->'.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n2 4 3\n5 6 4",
+        "output": "7->0->8"
+      },
+      {
+        "input": "1 1\n0\n0",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 2\n9 9\n1 0",
+        "output": "0->0->1"
+      }
+    ]
+  },
+  {
+    "title": "Flatten a Multilevel Linked List Nodes Count",
+    "description": "Given total N top nodes and C child nodes, print the total number of flattened nodes (N + C).",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "Two space-separated integers N and C.",
+    "output_format": "Print N + C.",
+    "visible_test_cases": [
+      {
+        "input": "3 4",
+        "output": "7"
+      },
+      {
+        "input": "10 5",
+        "output": "15"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "0 0",
+        "output": "0"
+      },
+      {
+        "input": "1 0",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "LRU Cache Capacity Check",
+    "description": "Given capacity C and number of puts P, print 'Valid' if C >= 1 and P >= 0, else 'Invalid'.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "Two space-separated integers C and P.",
+    "output_format": "Print 'Valid' or 'Invalid'.",
+    "visible_test_cases": [
+      {
+        "input": "2 5",
+        "output": "Valid"
+      },
+      {
+        "input": "0 2",
+        "output": "Invalid"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "-1 0",
+        "output": "Invalid"
+      },
+      {
+        "input": "10 100",
+        "output": "Valid"
+      }
+    ]
+  },
+  {
+    "title": "Count Nodes in Binary Tree",
+    "description": "Given number of nodes N in a tree, print N.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N space-separated node values.",
+    "output_format": "Print count of nodes.",
+    "visible_test_cases": [
+      {
+        "input": "5\n1 2 3 4 5",
+        "output": "5"
+      },
+      {
+        "input": "1\n10",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3\n9 8 7",
+        "output": "3"
+      }
+    ]
+  },
+  {
+    "title": "Height of a Binary Tree",
+    "description": "Given N levels of a complete binary tree with 2^N - 1 nodes, print the height N.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "A single integer N representing levels.",
+    "output_format": "Print height N.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "3"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4",
+        "output": "4"
+      },
+      {
+        "input": "5",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "title": "Inorder Traversal of BST",
+    "description": "Given N sorted elements, print their inorder traversal (which is the sorted list).",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N sorted integers.",
+    "output_format": "N integers separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 2 3 4",
+        "output": "1 2 3 4"
+      },
+      {
+        "input": "3\n5 10 15",
+        "output": "5 10 15"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n42",
+        "output": "42"
+      }
+    ]
+  },
+  {
+    "title": "Search in BST",
+    "description": "Given a BST of N elements and a value K, print 'Found' if K exists, else 'Not Found'.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N K. Second line: N BST elements.",
+    "output_format": "Print 'Found' or 'Not Found'.",
+    "visible_test_cases": [
+      {
+        "input": "5 4\n4 2 7 1 3",
+        "output": "Found"
+      },
+      {
+        "input": "5 5\n4 2 7 1 3",
+        "output": "Not Found"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 10\n10",
+        "output": "Found"
+      },
+      {
+        "input": "3 1\n5 2 8",
+        "output": "Not Found"
+      }
+    ]
+  },
+  {
+    "title": "Maximum Element in BST",
+    "description": "Given N elements of a BST, find the maximum element.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print maximum element.",
+    "visible_test_cases": [
+      {
+        "input": "5\n4 2 7 1 3",
+        "output": "7"
+      },
+      {
+        "input": "3\n10 5 15",
+        "output": "15"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n99",
+        "output": "99"
+      },
+      {
+        "input": "4\n1 2 3 4",
+        "output": "4"
+      }
+    ]
+  },
+  {
+    "title": "Minimum Element in BST",
+    "description": "Given N elements of a BST, find the minimum element.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print minimum element.",
+    "visible_test_cases": [
+      {
+        "input": "5\n4 2 7 1 3",
+        "output": "1"
+      },
+      {
+        "input": "3\n10 5 15",
+        "output": "5"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n99",
+        "output": "99"
+      },
+      {
+        "input": "4\n4 3 2 1",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Check if Two Trees are Identical",
+    "description": "Given sizes N1 and N2 and their values, print 'Yes' if both arrays are identical, else 'No'.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N1. Second line: values. Third line: N2. Fourth line: values.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "3\n1 2 3\n3\n1 2 3",
+        "output": "Yes"
+      },
+      {
+        "input": "2\n1 2\n2\n1 3",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5\n1\n5",
+        "output": "Yes"
+      }
+    ]
+  },
+  {
+    "title": "Diameter of Tree Concept",
+    "description": "Given tree height H, print the theoretical maximum diameter in a balanced binary tree (2*H - 1).",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "An integer H.",
+    "output_format": "Print 2*H - 1.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "5"
+      },
+      {
+        "input": "4",
+        "output": "7"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "2",
+        "output": "3"
+      }
+    ]
+  },
+  {
+    "title": "Lowest Common Ancestor in BST",
+    "description": "Given BST root and two values N1 < N2, find LCA.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N N1 N2. Second line: N BST elements.",
+    "output_format": "Print LCA value.",
+    "visible_test_cases": [
+      {
+        "input": "7 2 8\n6 2 8 0 4 7 9",
+        "output": "6"
+      },
+      {
+        "input": "7 2 4\n6 2 8 0 4 7 9",
+        "output": "2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3 1 3\n2 1 3",
+        "output": "2"
+      }
+    ]
+  },
+  {
+    "title": "Kth Smallest Element in BST",
+    "description": "Given N elements of a BST and integer K, find Kth smallest element.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N K. Second line: N elements.",
+    "output_format": "Print Kth smallest element.",
+    "visible_test_cases": [
+      {
+        "input": "5 3\n3 1 4 0 2",
+        "output": "2"
+      },
+      {
+        "input": "4 1\n5 3 6 2",
+        "output": "2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n5",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "title": "Level Order Traversal Representation",
+    "description": "Given N node values in level order, print each level on a new line (complete tree).",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Level order printed.",
+    "visible_test_cases": [
+      {
+        "input": "3\n1 2 3",
+        "output": "1\n2 3"
+      },
+      {
+        "input": "7\n1 2 3 4 5 6 7",
+        "output": "1\n2 3\n4 5 6 7"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n99",
+        "output": "99"
+      }
+    ]
+  },
+  {
+    "title": "Symmetric Tree Check",
+    "description": "Given tree array representation, print 'Symmetric' if left subtree is mirror of right, else 'Not Symmetric'.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N. Second line: N integers in level order.",
+    "output_format": "Print 'Symmetric' or 'Not Symmetric'.",
+    "visible_test_cases": [
+      {
+        "input": "7\n1 2 2 3 4 4 3",
+        "output": "Symmetric"
+      },
+      {
+        "input": "5\n1 2 2 0 3",
+        "output": "Not Symmetric"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n1",
+        "output": "Symmetric"
+      }
+    ]
+  },
+  {
+    "title": "Graph Edge Count",
+    "description": "Given number of vertices V in a complete graph, print total number of edges V*(V-1)/2.",
+    "difficulty": "Easy",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "An integer V.",
+    "output_format": "Print number of edges.",
+    "visible_test_cases": [
+      {
+        "input": "4",
+        "output": "6"
+      },
+      {
+        "input": "5",
+        "output": "10"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "0"
+      },
+      {
+        "input": "3",
+        "output": "3"
+      }
+    ]
+  },
+  {
+    "title": "Graph Adjacency Matrix Print",
+    "description": "Given V vertices and E undirected edges, construct and print V x V adjacency matrix.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E. Next E lines: u v.",
+    "output_format": "V lines: V space-separated 0s and 1s.",
+    "visible_test_cases": [
+      {
+        "input": "3 2\n0 1\n1 2",
+        "output": "0 1 0\n1 0 1\n0 1 0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 1\n0 1",
+        "output": "0 1\n1 0"
+      }
+    ]
+  },
+  {
+    "title": "Breadth First Search (BFS)",
+    "description": "Given V vertices, E edges and starting vertex S, print BFS traversal from S.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E S. Next E lines: u v.",
+    "output_format": "BFS order separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "4 4 0\n0 1\n0 2\n1 2\n2 3",
+        "output": "0 1 2 3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3 2 0\n0 1\n1 2",
+        "output": "0 1 2"
+      }
+    ]
+  },
+  {
+    "title": "Depth First Search (DFS)",
+    "description": "Given V vertices, E edges and starting vertex S, print DFS traversal from S.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E S. Next E lines: u v.",
+    "output_format": "DFS order separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "4 4 0\n0 1\n0 2\n1 2\n2 3",
+        "output": "0 1 2 3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3 2 0\n0 1\n0 2",
+        "output": "0 1 2"
+      }
+    ]
+  },
+  {
+    "title": "Detect Cycle in Undirected Graph",
+    "description": "Given V vertices and E edges, print 'Cycle' if graph contains a cycle, else 'No Cycle'.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E. Next E lines: u v.",
+    "output_format": "Print 'Cycle' or 'No Cycle'.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n0 1\n1 2\n2 0",
+        "output": "Cycle"
+      },
+      {
+        "input": "3 2\n0 1\n1 2",
+        "output": "No Cycle"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4 3\n0 1\n1 2\n2 3",
+        "output": "No Cycle"
+      }
+    ]
+  },
+  {
+    "title": "Detect Cycle in Directed Graph",
+    "description": "Given V vertices and E directed edges, print 'Cycle' if cycle exists, else 'No Cycle'.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E. Next E lines: u v.",
+    "output_format": "Print 'Cycle' or 'No Cycle'.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n0 1\n1 2\n2 0",
+        "output": "Cycle"
+      },
+      {
+        "input": "3 2\n0 1\n2 1",
+        "output": "No Cycle"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 1\n0 1",
+        "output": "No Cycle"
+      }
+    ]
+  },
+  {
+    "title": "Topological Sort Length",
+    "description": "Given a DAG with V vertices and E edges, print the number of vertices in topological sort (V).",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E. Next E lines: u v.",
+    "output_format": "Print V.",
+    "visible_test_cases": [
+      {
+        "input": "4 3\n0 1\n1 2\n2 3",
+        "output": "4"
+      },
+      {
+        "input": "3 2\n0 1\n0 2",
+        "output": "3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 0",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Number of Connected Components",
+    "description": "Given V vertices and E edges in undirected graph, count number of connected components.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E. Next E lines: u v.",
+    "output_format": "Print number of components.",
+    "visible_test_cases": [
+      {
+        "input": "5 2\n0 1\n2 3",
+        "output": "3"
+      },
+      {
+        "input": "3 2\n0 1\n1 2",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "4 0",
+        "output": "4"
+      }
+    ]
+  },
+  {
+    "title": "Shortest Path in Unweighted Graph",
+    "description": "Given V vertices, E edges, and source S to destination D, print shortest path distance, or -1.",
+    "difficulty": "Medium",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E S D. Next E lines: u v.",
+    "output_format": "Print shortest distance.",
+    "visible_test_cases": [
+      {
+        "input": "4 4 0 3\n0 1\n0 2\n1 3\n2 3",
+        "output": "2"
+      },
+      {
+        "input": "3 1 0 2\n0 1",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 1 0 1\n0 1",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Dijkstra's Shortest Path",
+    "description": "Given weighted graph with N nodes, E edges and source S, find shortest path to destination D.",
+    "difficulty": "Hard",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: N E S D. Next E lines: u v w.",
+    "output_format": "Print shortest distance.",
+    "visible_test_cases": [
+      {
+        "input": "4 4 0 3\n0 1 1\n0 2 4\n1 3 2\n2 3 1",
+        "output": "3"
+      },
+      {
+        "input": "3 2 0 2\n0 1 5\n1 2 3",
+        "output": "8"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 1 0 1\n0 1 10",
+        "output": "10"
+      }
+    ]
+  },
+  {
+    "title": "Bipartite Graph Check",
+    "description": "Given V vertices and E edges, print 'Bipartite' if graph can be colored with 2 colors, else 'Not Bipartite'.",
+    "difficulty": "Hard",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E. Next E lines: u v.",
+    "output_format": "Print 'Bipartite' or 'Not Bipartite'.",
+    "visible_test_cases": [
+      {
+        "input": "4 4\n0 1\n1 2\n2 3\n3 0",
+        "output": "Bipartite"
+      },
+      {
+        "input": "3 3\n0 1\n1 2\n2 0",
+        "output": "Not Bipartite"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 1\n0 1",
+        "output": "Bipartite"
+      }
+    ]
+  },
+  {
+    "title": "Prim's Minimum Spanning Tree Weight",
+    "description": "Given connected weighted graph with V vertices and E edges, compute total weight of MST.",
+    "difficulty": "Hard",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E. Next E lines: u v w.",
+    "output_format": "Print total weight of MST.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n0 1 1\n1 2 2\n0 2 3",
+        "output": "3"
+      },
+      {
+        "input": "4 5\n0 1 10\n0 2 6\n0 3 5\n1 3 15\n2 3 4",
+        "output": "19"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 1\n0 1 7",
+        "output": "7"
+      }
+    ]
+  },
+  {
+    "title": "Kruskal's Algorithm MST Weight",
+    "description": "Compute total weight of MST using Kruskal's algorithm.",
+    "difficulty": "Hard",
+    "topic": "Module 7 \u2013 Data Structures",
+    "input_format": "First line: V E. Next E lines: u v w.",
+    "output_format": "Print total weight.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n0 1 2\n1 2 3\n0 2 4",
+        "output": "5"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 1\n0 1 9",
+        "output": "9"
+      }
+    ]
+  },
+  {
+    "title": "Climbing Stairs",
+    "description": "There are N stairs. You can climb 1 or 2 steps at a time. Count distinct ways to reach top.",
+    "difficulty": "Easy",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "A single integer N.",
+    "output_format": "Print number of ways.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "3"
+      },
+      {
+        "input": "4",
+        "output": "5"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "2",
+        "output": "2"
+      },
+      {
+        "input": "5",
+        "output": "8"
+      }
+    ]
+  },
+  {
+    "title": "Coin Change Problem (Min Coins)",
+    "description": "Given coins array and amount A, find minimum coins needed to make amount A, or -1.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N A. Second line: N coin values.",
+    "output_format": "Print min coins or -1.",
+    "visible_test_cases": [
+      {
+        "input": "3 11\n1 2 5",
+        "output": "3"
+      },
+      {
+        "input": "1 3\n2",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 0\n1",
+        "output": "0"
+      },
+      {
+        "input": "3 7\n1 3 4",
+        "output": "2"
+      }
+    ]
+  },
+  {
+    "title": "Coin Change (Ways Count)",
+    "description": "Given coins array and amount A, find number of distinct ways to make amount A.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N A. Second line: N coins.",
+    "output_format": "Print number of ways.",
+    "visible_test_cases": [
+      {
+        "input": "3 4\n1 2 3",
+        "output": "4"
+      },
+      {
+        "input": "3 10\n2 5 3",
+        "output": "2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 5\n2",
+        "output": "0"
+      },
+      {
+        "input": "2 3\n1 2",
+        "output": "2"
+      }
+    ]
+  },
+  {
+    "title": "Longest Increasing Subsequence (LIS)",
+    "description": "Given array of N integers, find length of longest strictly increasing subsequence.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print length of LIS.",
+    "visible_test_cases": [
+      {
+        "input": "6\n10 9 2 5 3 7",
+        "output": "3"
+      },
+      {
+        "input": "8\n10 9 2 5 3 7 101 18",
+        "output": "4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "1"
+      },
+      {
+        "input": "5\n5 4 3 2 1",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "0/1 Knapsack Problem",
+    "description": "Given N items with weights and values, find maximum value that fits in capacity W.",
+    "difficulty": "Hard",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N W. Second line: N weights. Third line: N values.",
+    "output_format": "Print maximum value.",
+    "visible_test_cases": [
+      {
+        "input": "3 4\n1 2 3\n10 15 40",
+        "output": "55"
+      },
+      {
+        "input": "3 50\n10 20 30\n60 100 120",
+        "output": "220"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n2\n10",
+        "output": "0"
+      },
+      {
+        "input": "2 10\n5 5\n6 6",
+        "output": "12"
+      }
+    ]
+  },
+  {
+    "title": "Longest Common Subsequence (LCS)",
+    "description": "Given two strings S1 and S2, find length of their longest common subsequence.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "Two strings S1 and S2 on separate lines.",
+    "output_format": "Print length of LCS.",
+    "visible_test_cases": [
+      {
+        "input": "abcde\nace",
+        "output": "3"
+      },
+      {
+        "input": "abc\ndef",
+        "output": "0"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "abc\nabc",
+        "output": "3"
+      },
+      {
+        "input": "AGGTAB\nGXTXAYB",
+        "output": "4"
+      }
+    ]
+  },
+  {
+    "title": "Edit Distance (Levenshtein)",
+    "description": "Given two strings S1 and S2, find minimum operations (insert, delete, replace) to convert S1 to S2.",
+    "difficulty": "Hard",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "Two strings S1 and S2 on separate lines.",
+    "output_format": "Print minimum operations.",
+    "visible_test_cases": [
+      {
+        "input": "horse\nros",
+        "output": "3"
+      },
+      {
+        "input": "intention\nexecution",
+        "output": "5"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "a\na",
+        "output": "0"
+      },
+      {
+        "input": "cat\ncut",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "House Robber",
+    "description": "Given array of non-negative integers representing house money, find max money you can rob without robbing adjacent houses.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print max money.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 2 3 1",
+        "output": "4"
+      },
+      {
+        "input": "5\n2 7 9 3 1",
+        "output": "12"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n50",
+        "output": "50"
+      },
+      {
+        "input": "2\n10 20",
+        "output": "20"
+      }
+    ]
+  },
+  {
+    "title": "Maximum Subarray Sum DP",
+    "description": "Compute max subarray sum using dynamic programming.",
+    "difficulty": "Easy",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print max sum.",
+    "visible_test_cases": [
+      {
+        "input": "5\n-1 2 3 -4 5",
+        "output": "6"
+      },
+      {
+        "input": "3\n-2 -3 -1",
+        "output": "-1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n10",
+        "output": "10"
+      }
+    ]
+  },
+  {
+    "title": "Unique Paths in Grid",
+    "description": "Given m x n grid, find number of unique paths from top-left (0,0) to bottom-right (m-1, n-1) moving only down and right.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "Two space-separated integers m and n.",
+    "output_format": "Print number of paths.",
+    "visible_test_cases": [
+      {
+        "input": "3 7",
+        "output": "28"
+      },
+      {
+        "input": "3 2",
+        "output": "3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1",
+        "output": "1"
+      },
+      {
+        "input": "3 3",
+        "output": "6"
+      }
+    ]
+  },
+  {
+    "title": "Min Cost Climbing Stairs",
+    "description": "Given cost array of size N, find minimum cost to reach top of floor (start at index 0 or 1).",
+    "difficulty": "Easy",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print minimum cost.",
+    "visible_test_cases": [
+      {
+        "input": "3\n10 15 20",
+        "output": "15"
+      },
+      {
+        "input": "10\n1 100 1 1 1 100 1 1 100 1",
+        "output": "6"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\n1 2",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Target Sum Subsets Check",
+    "description": "Given array of N integers and target sum S, print 'Yes' if subset with sum S exists, else 'No'.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N S. Second line: N integers.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "5 10\n1 2 7 1 5",
+        "output": "Yes"
+      },
+      {
+        "input": "3 6\n1 2 8",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 0\n1 2",
+        "output": "Yes"
+      }
+    ]
+  },
+  {
+    "title": "Rod Cutting Problem",
+    "description": "Given rod of length N and prices for lengths 1 to N, find maximum revenue from cutting rod.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N. Second line: N prices.",
+    "output_format": "Print maximum revenue.",
+    "visible_test_cases": [
+      {
+        "input": "8\n1 5 8 9 10 17 17 20",
+        "output": "22"
+      },
+      {
+        "input": "4\n1 5 8 9",
+        "output": "10"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "5"
+      },
+      {
+        "input": "2\n2 5",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "title": "Partition Equal Subset Sum",
+    "description": "Given array of N positive integers, determine if it can be partitioned into two subsets with equal sum.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 5 11 5",
+        "output": "Yes"
+      },
+      {
+        "input": "3\n1 2 5",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2\n2 2",
+        "output": "Yes"
+      },
+      {
+        "input": "1\n2",
+        "output": "No"
+      }
+    ]
+  },
+  {
+    "title": "Matrix Chain Multiplication Cost",
+    "description": "Given dimensions of N-1 matrices, find minimum scalar multiplications needed to multiply them.",
+    "difficulty": "Hard",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N. Second line: N dimension values.",
+    "output_format": "Print minimum operations.",
+    "visible_test_cases": [
+      {
+        "input": "4\n1 2 3 4",
+        "output": "18"
+      },
+      {
+        "input": "5\n40 20 30 10 30",
+        "output": "26000"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3\n10 20 30",
+        "output": "6000"
+      }
+    ]
+  },
+  {
+    "title": "Activity Selection (Max Activities)",
+    "description": "Given N activities with start and end times, find maximum activities one person can perform.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N. Next N lines: start end.",
+    "output_format": "Print max activities.",
+    "visible_test_cases": [
+      {
+        "input": "3\n10 20\n12 25\n20 30",
+        "output": "2"
+      },
+      {
+        "input": "4\n1 2\n3 4\n0 6\n5 7",
+        "output": "3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n1 5",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Fractional Knapsack Max Value",
+    "description": "Given N items with value and weight, and knapsack capacity W, compute max value as integer (rounded down).",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N W. Next N lines: value weight.",
+    "output_format": "Print max value.",
+    "visible_test_cases": [
+      {
+        "input": "3 50\n60 10\n100 20\n120 30",
+        "output": "240"
+      },
+      {
+        "input": "2 50\n60 10\n100 20",
+        "output": "160"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 10\n100 20",
+        "output": "50"
+      }
+    ]
+  },
+  {
+    "title": "Assign Cookies to Children",
+    "description": "Given N children's greed factors and M cookie sizes, maximize content children count.",
+    "difficulty": "Easy",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N M. Second line: N greed factors. Third line: M cookie sizes.",
+    "output_format": "Print max content children.",
+    "visible_test_cases": [
+      {
+        "input": "3 2\n1 2 3\n1 1",
+        "output": "1"
+      },
+      {
+        "input": "2 3\n1 2\n1 2 3",
+        "output": "2"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1\n5\n3",
+        "output": "0"
+      }
+    ]
+  },
+  {
+    "title": "Jump Game (Can Reach End)",
+    "description": "Given array of N non-negative integers where each element is max jump length, print 'Yes' if you can reach last index, else 'No'.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N. Second line: N integers.",
+    "output_format": "Print 'Yes' or 'No'.",
+    "visible_test_cases": [
+      {
+        "input": "5\n2 3 1 1 4",
+        "output": "Yes"
+      },
+      {
+        "input": "5\n3 2 1 0 4",
+        "output": "No"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n0",
+        "output": "Yes"
+      },
+      {
+        "input": "2\n1 0",
+        "output": "Yes"
+      }
+    ]
+  },
+  {
+    "title": "Minimum Platforms for Trains",
+    "description": "Given arrival and departure times of N trains, find minimum platforms needed so no train waits.",
+    "difficulty": "Medium",
+    "topic": "Module 8 \u2013 Dynamic Programming",
+    "input_format": "First line: N. Second line: N arrivals. Third line: N departures.",
+    "output_format": "Print min platforms.",
+    "visible_test_cases": [
+      {
+        "input": "6\n900 940 950 1100 1500 1800\n910 1200 1120 1130 1900 2000",
+        "output": "3"
+      },
+      {
+        "input": "3\n900 1100 1235\n1000 1200 1240",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n900\n1000",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "title": "Inverted Half Pyramid",
+    "description": "Given an integer N, print an inverted right-angled triangle of stars of size N.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "N lines containing stars in decreasing order.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "***\n**\n*"
+      },
+      {
+        "input": "4",
+        "output": "****\n***\n**\n*"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "*"
+      },
+      {
+        "input": "5",
+        "output": "*****\n****\n***\n**\n*"
+      }
+    ]
+  },
+  {
+    "title": "Full Pyramid Pattern",
+    "description": "Given an integer N, print a centered full pyramid of stars with N rows (each star separated by a space, with leading spaces).",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "A single integer N.",
+    "output_format": "Pyramid of stars.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "  *\n * *\n* * *"
+      },
+      {
+        "input": "2",
+        "output": " *\n* *"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "*"
+      },
+      {
+        "input": "4",
+        "output": "   *\n  * *\n * * *\n* * * *"
+      }
+    ]
+  },
+  {
+    "title": "Floyd's Triangle",
+    "description": "Given N rows, print Floyd's Triangle where numbers increment continuously starting from 1.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "An integer N.",
+    "output_format": "Floyd's triangle with numbers separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "1\n2 3\n4 5 6"
+      },
+      {
+        "input": "2",
+        "output": "1\n2 3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "4",
+        "output": "1\n2 3\n4 5 6\n7 8 9 10"
+      }
+    ]
+  },
+  {
+    "title": "Hollow Square Pattern",
+    "description": "Given an integer N, print a hollow square of stars of side N.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "An integer N (N >= 2).",
+    "output_format": "Hollow square of stars.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "***\n* *\n***"
+      },
+      {
+        "input": "4",
+        "output": "****\n*  *\n*  *\n****"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2",
+        "output": "**\n**"
+      },
+      {
+        "input": "5",
+        "output": "*****\n*   *\n*   *\n*   *\n*****"
+      }
+    ]
+  },
+  {
+    "title": "0-1 Triangle Pattern",
+    "description": "Given an integer N, print a triangle where each row alternates between 1 and 0, with row 1 starting at 1, row 2 starting at 0, etc.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "An integer N.",
+    "output_format": "Triangle of 1s and 0s separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "1\n0 1\n1 0 1"
+      },
+      {
+        "input": "4",
+        "output": "1\n0 1\n1 0 1\n0 1 0 1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "2",
+        "output": "1\n0 1"
+      }
+    ]
+  },
+  {
+    "title": "Number Pyramid Pattern",
+    "description": "Given an integer N, print a pyramid where row i contains the number i printed i times separated by spaces.",
+    "difficulty": "Easy",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "An integer N.",
+    "output_format": "N lines.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "1\n2 2\n3 3 3"
+      },
+      {
+        "input": "4",
+        "output": "1\n2 2\n3 3 3\n4 4 4 4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "5",
+        "output": "1\n2 2\n3 3 3\n4 4 4 4\n5 5 5 5 5"
+      }
+    ]
+  },
+  {
+    "title": "Diamond Pattern of Stars",
+    "description": "Given an integer N, print a diamond pattern of stars where upper half has N rows and lower half has N-1 rows.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "An integer N.",
+    "output_format": "Diamond pattern.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "  *\n ***\n*****\n ***\n  *"
+      },
+      {
+        "input": "2",
+        "output": " *\n***\n *"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "*"
+      },
+      {
+        "input": "4",
+        "output": "   *\n  ***\n *****\n*******\n *****\n  ***\n   *"
+      }
+    ]
+  },
+  {
+    "title": "Butterfly Pattern",
+    "description": "Given an integer N, print a butterfly star pattern of 2*N rows.",
+    "difficulty": "Hard",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "An integer N.",
+    "output_format": "Butterfly pattern with 2*N lines.",
+    "visible_test_cases": [
+      {
+        "input": "2",
+        "output": "*  *\n****\n****\n*  *"
+      },
+      {
+        "input": "3",
+        "output": "*    *\n**  **\n******\n******\n**  **\n*    *"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "**\n**"
+      },
+      {
+        "input": "4",
+        "output": "*      *\n**    **\n***  ***\n********\n********\n***  ***\n**    **\n*      *"
+      }
+    ]
+  },
+  {
+    "title": "Pascal's Triangle Pattern",
+    "description": "Given N rows, print Pascal's Triangle with numbers separated by spaces.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "An integer N.",
+    "output_format": "Pascal's triangle rows.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "1\n1 1\n1 2 1"
+      },
+      {
+        "input": "4",
+        "output": "1\n1 1\n1 2 1\n1 3 3 1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "5",
+        "output": "1\n1 1\n1 2 1\n1 3 3 1\n1 4 6 4 1"
+      }
+    ]
+  },
+  {
+    "title": "X Star Pattern",
+    "description": "Given an odd integer N, print an 'X' pattern made of asterisks.",
+    "difficulty": "Medium",
+    "topic": "Module 2 \u2013 Pattern Programs",
+    "input_format": "An odd integer N.",
+    "output_format": "X pattern of size N x N.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "* *\n * \n* *"
+      },
+      {
+        "input": "5",
+        "output": "*   *\n * * \n  *  \n * * \n*   *"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "*"
+      },
+      {
+        "input": "7",
+        "output": "*     *\n *   * \n  * *  \n   *   \n  * *  \n *   * \n*     *"
+      }
+    ]
+  },
+  {
+    "title": "Matrix Addition",
+    "description": "Given two R x C matrices, print their sum matrix.",
+    "difficulty": "Easy",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "Line 1: R C. Next R lines: Matrix A. Next R lines: Matrix B.",
+    "output_format": "R lines with C space-separated integers.",
+    "visible_test_cases": [
+      {
+        "input": "2 2\n1 2\n3 4\n5 6\n7 8",
+        "output": "6 8\n10 12"
+      },
+      {
+        "input": "1 3\n1 2 3\n4 5 6",
+        "output": "5 7 9"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2 1\n10\n20\n30\n40",
+        "output": "40\n60"
+      },
+      {
+        "input": "3 2\n1 1\n2 2\n3 3\n1 0\n0 1\n1 1",
+        "output": "2 1\n2 3\n4 4"
+      }
+    ]
+  },
+  {
+    "title": "Matrix Multiplication",
+    "description": "Given dimensions and elements of matrix A (R1 x C1) and matrix B (R2 x C2 where C1 = R2), compute their product A * B.",
+    "difficulty": "Medium",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "Line 1: R1 C1. Next R1 lines: Matrix A. Next line: R2 C2. Next R2 lines: Matrix B.",
+    "output_format": "R1 lines of C2 integers separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "2 2\n1 2\n3 4\n2 2\n1 0\n0 1",
+        "output": "1 2\n3 4"
+      },
+      {
+        "input": "2 3\n1 2 3\n4 5 6\n3 2\n1 0\n0 1\n1 1",
+        "output": "4 5\n10 11"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 2\n2 3\n2 1\n4\n5",
+        "output": "23"
+      },
+      {
+        "input": "2 2\n2 0\n0 2\n2 2\n3 4\n5 6",
+        "output": "6 8\n10 12"
+      }
+    ]
+  },
+  {
+    "title": "Rotate Matrix 90 Degrees Clockwise",
+    "description": "Given an N x N matrix, rotate it 90 degrees in the clockwise direction.",
+    "difficulty": "Medium",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "First line: N. Next N lines: N integers each.",
+    "output_format": "N lines of N integers.",
+    "visible_test_cases": [
+      {
+        "input": "2\n1 2\n3 4",
+        "output": "3 1\n4 2"
+      },
+      {
+        "input": "3\n1 2 3\n4 5 6\n7 8 9",
+        "output": "7 4 1\n8 5 2\n9 6 3"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1\n5",
+        "output": "5"
+      },
+      {
+        "input": "4\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16",
+        "output": "13 9 5 1\n14 10 6 2\n15 11 7 3\n16 12 8 4"
+      }
+    ]
+  },
+  {
+    "title": "Search in 2D Sorted Matrix",
+    "description": "Given an R x C matrix where each row is sorted and each column is sorted, and a target X, determine if X exists in the matrix (print YES or NO).",
+    "difficulty": "Medium",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "Line 1: R C X. Next R lines: Matrix elements.",
+    "output_format": "YES or NO",
+    "visible_test_cases": [
+      {
+        "input": "3 3 6\n1 4 7\n2 5 8\n3 6 9",
+        "output": "YES"
+      },
+      {
+        "input": "2 2 10\n1 3\n5 7",
+        "output": "NO"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 1 5\n5",
+        "output": "YES"
+      },
+      {
+        "input": "3 4 14\n1 4 7 11\n2 5 8 12\n3 6 9 16",
+        "output": "NO"
+      }
+    ]
+  },
+  {
+    "title": "Spiral Matrix Traversal",
+    "description": "Given an R x C matrix, print all elements in spiral order starting from top-left.",
+    "difficulty": "Hard",
+    "topic": "Module 5 \u2013 Matrix",
+    "input_format": "Line 1: R C. Next R lines: Matrix elements.",
+    "output_format": "All elements in spiral order separated by spaces.",
+    "visible_test_cases": [
+      {
+        "input": "3 3\n1 2 3\n4 5 6\n7 8 9",
+        "output": "1 2 3 6 9 8 7 4 5"
+      },
+      {
+        "input": "2 3\n1 2 3\n4 5 6",
+        "output": "1 2 3 6 5 4"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1 4\n10 20 30 40",
+        "output": "10 20 30 40"
+      },
+      {
+        "input": "3 1\n1\n2\n3",
+        "output": "1 2 3"
+      }
+    ]
+  },
+  {
+    "title": "Tower of Hanoi Move Count",
+    "description": "Given N disks on peg A, compute the minimum number of moves (2^N - 1) required to move all disks from peg A to peg C using peg B.",
+    "difficulty": "Easy",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "An integer N.",
+    "output_format": "Minimum moves count.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "7"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2",
+        "output": "3"
+      },
+      {
+        "input": "5",
+        "output": "31"
+      },
+      {
+        "input": "10",
+        "output": "1023"
+      }
+    ]
+  },
+  {
+    "title": "Count Valid Parentheses Combinations",
+    "description": "Given N pairs of parentheses, find the number of valid well-formed parentheses combinations (Catalan number C_N).",
+    "difficulty": "Medium",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A single integer N.",
+    "output_format": "Count of valid parentheses combinations.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "5"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2",
+        "output": "2"
+      },
+      {
+        "input": "4",
+        "output": "14"
+      },
+      {
+        "input": "5",
+        "output": "42"
+      }
+    ]
+  },
+  {
+    "title": "Subset Sum Exists",
+    "description": "Given N integers and a target sum S, determine recursively if there exists a subset whose sum equals S. Print YES or NO.",
+    "difficulty": "Medium",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "First line: N S. Second line: N integers.",
+    "output_format": "YES or NO",
+    "visible_test_cases": [
+      {
+        "input": "4 9\n3 34 4 12",
+        "output": "NO"
+      },
+      {
+        "input": "5 10\n1 2 7 1 5",
+        "output": "YES"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "3 0\n1 2 3",
+        "output": "YES"
+      },
+      {
+        "input": "4 15\n1 3 5 7",
+        "output": "NO"
+      },
+      {
+        "input": "4 16\n1 3 5 7",
+        "output": "YES"
+      }
+    ]
+  },
+  {
+    "title": "N-Queens Valid Placements Count",
+    "description": "Given an integer N, count the number of distinct solutions to the N-Queens puzzle on an N x N chessboard.",
+    "difficulty": "Hard",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "A single integer N.",
+    "output_format": "Number of valid placements.",
+    "visible_test_cases": [
+      {
+        "input": "4",
+        "output": "2"
+      },
+      {
+        "input": "1",
+        "output": "1"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "2",
+        "output": "0"
+      },
+      {
+        "input": "3",
+        "output": "0"
+      },
+      {
+        "input": "5",
+        "output": "10"
+      },
+      {
+        "input": "6",
+        "output": "4"
+      }
+    ]
+  },
+  {
+    "title": "Staircase Climb Ways (1, 2, or 3 Steps)",
+    "description": "A child is running up a staircase with N steps and can hop either 1, 2, or 3 steps at a time. Count the number of possible ways to run up the stairs.",
+    "difficulty": "Medium",
+    "topic": "Module 6 \u2013 Recursion",
+    "input_format": "An integer N.",
+    "output_format": "Number of ways.",
+    "visible_test_cases": [
+      {
+        "input": "3",
+        "output": "4"
+      },
+      {
+        "input": "4",
+        "output": "7"
+      }
+    ],
+    "hidden_test_cases": [
+      {
+        "input": "1",
+        "output": "1"
+      },
+      {
+        "input": "2",
+        "output": "2"
+      },
+      {
+        "input": "5",
+        "output": "13"
+      }
+    ]
+  }
+]

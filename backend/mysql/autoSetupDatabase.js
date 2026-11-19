@@ -887,23 +887,45 @@ async function autoSetup() {
       console.log('   ✅ Default semesters seeded');
     }
 
-    // Step 10: Seed default coding practice questions if empty
-    const [cpqRows] = await rootConn.query('SELECT COUNT(*) AS c FROM coding_practice_questions');
-    if (cpqRows[0].c === 0) {
-      for (const q of DEFAULT_CODING_QUESTIONS) {
+    // Step 10: Seed default coding practice questions if empty or incomplete (< 200)
+    const [cpqRows] = await rootConn.query('SELECT COUNT(*) AS c FROM coding_practice_questions WHERE is_deleted = 0');
+    if (cpqRows[0].c < 200) {
+      const fs = require('fs');
+      const path = require('path');
+      const seedFile = path.join(__dirname, '../seeded_practice_questions.json');
+      let questionsToSeed = [];
+      if (fs.existsSync(seedFile)) {
+        try {
+          questionsToSeed = JSON.parse(fs.readFileSync(seedFile, 'utf8'));
+        } catch (_) {}
+      }
+      if (questionsToSeed.length === 0) {
+        questionsToSeed = DEFAULT_CODING_QUESTIONS;
+      }
+
+      await rootConn.query('TRUNCATE TABLE coding_practice_questions');
+      const batchSize = 50;
+      for (let i = 0; i < questionsToSeed.length; i += batchSize) {
+        const chunk = questionsToSeed.slice(i, i + batchSize);
+        const values = chunk.map(q => [
+          q.title,
+          q.description,
+          q.difficulty || 'Easy',
+          q.topic,
+          q.input_format || 'Standard Input',
+          q.output_format || 'Standard Output',
+          JSON.stringify(q.visible_test_cases || []),
+          JSON.stringify(q.hidden_test_cases || []),
+          0
+        ]);
         await rootConn.query(
           `INSERT INTO coding_practice_questions
-            (title, description, difficulty, topic, input_format, output_format, visible_test_cases, hidden_test_cases)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-          [
-            q.title, q.description, q.difficulty, q.topic,
-            q.input_format, q.output_format,
-            JSON.stringify(q.visible_test_cases),
-            JSON.stringify(q.hidden_test_cases)
-          ]
+            (title, description, difficulty, topic, input_format, output_format, visible_test_cases, hidden_test_cases, is_deleted)
+           VALUES ?`,
+          [values]
         );
       }
-      console.log(`   ✅ ${DEFAULT_CODING_QUESTIONS.length} default coding practice questions seeded`);
+      console.log(`   ✅ ${questionsToSeed.length} coding practice questions seeded successfully`);
     }
 
     console.log('🎉 [AutoSetup] Database fully ready!\n');

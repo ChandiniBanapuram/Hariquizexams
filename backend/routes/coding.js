@@ -940,20 +940,42 @@ router.get('/practice/questions', async (req, res) => {
     let sql = 'SELECT * FROM coding_practice_questions WHERE is_deleted = FALSE';
     const params = [];
 
-    if (difficulty) {
+    if (difficulty && difficulty !== 'All') {
       sql += ' AND difficulty = ?';
       params.push(difficulty);
     }
-    if (topic) {
-      sql += ' AND topic = ?';
-      params.push(topic);
+    if (topic && topic !== 'All') {
+      const topicKeywords = {
+        'basics': 'Module 1',
+        'loops': 'Module 1',
+        'patterns': 'Module 2',
+        'arrays': 'Module 3',
+        'strings': 'Module 4',
+        'matrix': 'Module 5',
+        'recursion': 'Module 6',
+        'data structures': 'Module 7',
+        'trees': 'Module 7',
+        'graphs': 'Module 7',
+        'dynamic programming': 'Module 8',
+        'dp': 'Module 8',
+        'greedy': 'Module 8',
+      };
+      const lower = String(topic).toLowerCase().trim();
+      const mapped = topicKeywords[lower];
+      if (mapped) {
+        sql += ' AND (topic = ? OR topic LIKE ?)';
+        params.push(topic, `%${mapped}%`);
+      } else {
+        sql += ' AND (topic = ? OR topic LIKE ? OR ? LIKE CONCAT("%", topic, "%"))';
+        params.push(topic, `%${topic}%`, topic);
+      }
     }
 
-    // If both specified, return ONLY the first one (no randomization)
-    if (difficulty && topic) {
-      sql += ' ORDER BY id ASC LIMIT 1';
+    if (req.query.limit) {
+      sql += ' ORDER BY id ASC LIMIT ?';
+      params.push(parseInt(req.query.limit, 10));
     } else {
-      sql += ' ORDER BY created_at DESC';
+      sql += ' ORDER BY id ASC';
     }
 
     const [rows] = await db.query(sql, params);
