@@ -160,7 +160,11 @@ function QuestionFormFields({
         <InputLabel id={`${prefix}subject-label`}>Subject</InputLabel>
         <Select labelId={`${prefix}subject-label`} label="Subject" value={subjectValue}
           {...registerFn('subject')} onChange={(e) => setValueFn('subject', e.target.value)}>
-          {subjectOpts.map((s) => <MenuItem key={s.value} value={s.value}>{s.label}</MenuItem>)}
+          {subjectOpts.length > 0 ? (
+            subjectOpts.map((s) => <MenuItem key={s.value} value={s.value}>{s.label}</MenuItem>)
+          ) : (
+            <MenuItem value="" disabled>No subjects</MenuItem>
+          )}
         </Select>
         {errors.subject && <FormHelperText error>{errors.subject.message}</FormHelperText>}
       </FormControl>
@@ -799,7 +803,11 @@ export default function QuestionPortal() {
               <InputLabel>Subject</InputLabel>
               <Select value={filterSubject} label="Subject" onChange={(e) => setFilterSubject(e.target.value)}>
                 <MenuItem value="ALL">All Subjects</MenuItem>
-                {filterSubjectOptions.map((s) => <MenuItem key={s.value} value={s.value}>{s.label}</MenuItem>)}
+                {filterSubjectOptions.length > 0 ? (
+                  filterSubjectOptions.map((s) => <MenuItem key={s.value} value={s.value}>{s.label}</MenuItem>)
+                ) : (
+                  <MenuItem value="" disabled>No subjects</MenuItem>
+                )}
               </Select>
             </FormControl>
           </Grid>

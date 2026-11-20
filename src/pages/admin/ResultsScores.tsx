@@ -491,7 +491,11 @@ export default function ResultsScores() {
               <select value={filterSubject} onChange={e => setFilterSubject(e.target.value)}
                 className="w-full px-3 py-2 bg-[var(--background)] border border-[var(--border)] rounded-lg text-sm text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]">
                 <option value="">All</option>
-                {subjects.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+                {subjects.length > 0 ? (
+                  subjects.map(s => <option key={s.value} value={s.value}>{s.label}</option>)
+                ) : (
+                  <option value="" disabled>No subjects</option>
+                )}
               </select>
             </div>
             <div>

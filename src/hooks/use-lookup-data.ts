@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { lookupAPI } from '@/lib/itadmin-api';
-import { getSubjectOptions, getSubjectOptionsForFilter } from '@/lib/subjects';
 
 export interface LookupOption {
   label: string;
@@ -98,25 +97,27 @@ export function useLookupSubjects(department?: string, year?: string, semester?:
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!department || !year || !semester) {
+    if (!department || department === 'ALL') {
       setSubjects([]);
       return;
     }
     const fetchSubjects = async () => {
       setLoading(true);
       try {
-        const result = await lookupAPI.getSubjects(department, year, semester);
+        const result = await lookupAPI.getSubjects(
+          department,
+          year && year !== 'ALL' ? year : undefined,
+          semester && semester !== 'ALL' ? semester : undefined
+        );
         if (Array.isArray(result) && result.length > 0) {
           setSubjects(result);
         } else {
-          // Fallback to local subjects.ts data
-          const local = getSubjectOptions(department, year, semester);
-          setSubjects(local);
+          // STRICT: Only show subjects configured in IT-Admin.
+          // If no subjects exist for this department in IT-Admin, display empty (No subjects).
+          setSubjects([]);
         }
       } catch {
-        // Fallback to local subjects.ts data
-        const local = getSubjectOptions(department, year, semester);
-        setSubjects(local);
+        setSubjects([]);
       }
       setLoading(false);
     };
@@ -130,19 +131,24 @@ export function useLookupSubjectsForFilter(department?: string, year?: string, s
   const [subjects, setSubjects] = useState<LookupOption[]>([]);
 
   useEffect(() => {
+    if (!department || department === 'ALL') {
+      setSubjects([]);
+      return;
+    }
     const fetchSubjects = async () => {
       try {
-        const result = await lookupAPI.getSubjects(department, year, semester);
+        const result = await lookupAPI.getSubjects(
+          department,
+          year && year !== 'ALL' ? year : undefined,
+          semester && semester !== 'ALL' ? semester : undefined
+        );
         if (Array.isArray(result) && result.length > 0) {
           setSubjects(result);
         } else {
-          // Fallback to local subjects.ts
-          const local = getSubjectOptionsForFilter(department, year, semester);
-          setSubjects(local);
+          setSubjects([]);
         }
       } catch {
-        const local = getSubjectOptionsForFilter(department, year, semester);
-        setSubjects(local);
+        setSubjects([]);
       }
     };
     fetchSubjects();

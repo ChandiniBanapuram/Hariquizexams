@@ -281,7 +281,7 @@ export default function QuestionBanks() {
                     <option value="">Mapping Subject</option>
                     {uploadSubjectsList.length > 0
                       ? uploadSubjectsList.map(s => <option key={s.value} value={s.value}>{s.label}</option>)
-                      : <option value="" disabled>No mapped subjects</option>
+                      : <option value="" disabled>No subjects</option>
                     }
                   </select>
                 </div>

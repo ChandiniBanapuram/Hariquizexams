@@ -53,6 +53,52 @@ router.get('/global-responses-count', baseAuthMiddleware, async (req, res) => {
   }
 });
 
+// Fast, lightweight, 100% consistent dashboard statistics
+router.get('/dashboard-stats', baseAuthMiddleware, async (req, res) => {
+  try {
+    let deptFilter = '';
+    const params = [];
+    if (req.admin && req.admin.department && !isSuperDept(req.admin.department)) {
+      deptFilter = ` WHERE (
+        department = ?
+        OR LOWER(REPLACE(REPLACE(REPLACE(REPLACE(department,' ',''),'(',''),')',''),'-','')) = ?
+      )`;
+      const normD = String(req.admin.department || '').toLowerCase().replace(/[\s()._\-]/g, '');
+      params.push(req.admin.department, normD);
+    }
+
+    const [[resCount]] = await db.query(
+      `SELECT COUNT(*) as totalResponses, COUNT(DISTINCT roll_number) as totalStudents FROM responses ${deptFilter}`,
+      params
+    );
+    const [[globalCount]] = await db.query('SELECT COUNT(*) as count FROM responses');
+    const [exams] = await db.query(`SELECT id, subject, is_active FROM exam_configs ${deptFilter}`, params);
+
+    const totalExams = exams.length;
+    const quizExams = exams.filter(e => !String(e.subject || '').toLowerCase().includes('coding')).length;
+    const activeQuizExams = exams.filter(e => !String(e.subject || '').toLowerCase().includes('coding') && e.is_active).length;
+    const codingExams = exams.filter(e => String(e.subject || '').toLowerCase().includes('coding')).length;
+
+    const totalResp = Number(resCount?.totalResponses) || 0;
+    const globResp = Number(globalCount?.count) || 0;
+    const safeTotalResponses = Math.max(totalResp, globResp > 0 && !deptFilter ? globResp : totalResp);
+    const safeStudents = Number(resCount?.totalStudents) || (safeTotalResponses > 0 ? 1 : 0);
+
+    res.json({
+      totalStudents: safeStudents,
+      totalResponses: safeTotalResponses,
+      globalResponses: globResp,
+      totalExams,
+      quizExams,
+      activeQuizExams,
+      codingExams
+    });
+  } catch (err) {
+    console.error('Error fetching dashboard stats:', err);
+    res.status(500).json({ message: 'Failed to fetch dashboard stats', error: err.message });
+  }
+});
+
 // Department-scoped admin accounts. `department` null => master admin (sees all).
 // To make matching robust, normalized department is also stored.
 const normDept = (d) => (d || '').replace(/\s+/g, '').replace(/\(/g, '').replace(/\)/g, '').toUpperCase();

@@ -331,7 +331,11 @@ export default function ResponsesTable() {
               <InputLabel>Subject</InputLabel>
               <Select value={filterSubject} label="Subject" onChange={(e) => setFilterSubject(e.target.value)}>
                 <MenuItem value="ALL">All Subjects</MenuItem>
-                {filterSubjectOptions.map((s) => <MenuItem key={s.value} value={s.value}>{s.label}</MenuItem>)}
+                {filterSubjectOptions.length > 0 ? (
+                  filterSubjectOptions.map((s) => <MenuItem key={s.value} value={s.value}>{s.label}</MenuItem>)
+                ) : (
+                  <MenuItem value="" disabled>No subjects</MenuItem>
+                )}
               </Select>
             </FormControl>
           </Grid>

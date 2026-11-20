@@ -78,25 +78,49 @@ export default function AdminDashboard() {
     setMounted(true);
     const loadStats = async () => {
       try {
-        const [examConfigsRes, responsesRes, globalResponsesRes] = await Promise.allSettled([
-          adminAPI.getExamConfigs(),
-          adminAPI.getResponses(),
-          adminAPI.getGlobalResponsesCount(),
-        ]);
-        const examConfigs = examConfigsRes.status === 'fulfilled' ? examConfigsRes.value : [];
-        const responses = responsesRes.status === 'fulfilled' ? responsesRes.value : [];
-        const globalRes = globalResponsesRes.status === 'fulfilled' ? globalResponsesRes.value : { count: 0 };
+        const statsRes = await adminAPI.getDashboardStats();
+        if (statsRes && !statsRes.message && typeof statsRes.totalExams === 'number') {
+          setStats({
+            totalStudents: statsRes.totalStudents || 0,
+            totalExams: statsRes.totalExams || 0,
+            quizExams: statsRes.quizExams || 0,
+            activeQuizExams: statsRes.activeQuizExams || 0,
+            codingExams: statsRes.codingExams || 0,
+            totalResponses: statsRes.totalResponses || 0,
+          });
+          setGlobalResponses(statsRes.globalResponses || statsRes.totalResponses || 0);
+        } else {
+          const [examConfigsRes, responsesRes, globalResponsesRes] = await Promise.allSettled([
+            adminAPI.getExamConfigs(),
+            adminAPI.getResponses(),
+            adminAPI.getGlobalResponsesCount(),
+          ]);
+          const examConfigs = examConfigsRes.status === 'fulfilled' && Array.isArray(examConfigsRes.value) ? examConfigsRes.value : [];
+          const responses = responsesRes.status === 'fulfilled' && Array.isArray(responsesRes.value) ? responsesRes.value : [];
+          const globalRes = globalResponsesRes.status === 'fulfilled' ? globalResponsesRes.value : { count: 0 };
 
-        const uniqueStudents = Array.isArray(responses)
-          ? new Set(responses.map((r: any) => r.roll_number)).size : 0;
-        const totalResponsesCount = Array.isArray(responses) ? responses.length : 0;
-        const examList = Array.isArray(examConfigs) ? examConfigs : [];
-        const theoryCount = examList.filter(e => !e.subject.toLowerCase().includes('coding')).length;
-        const activeTheoryCount = examList.filter(e => !e.subject.toLowerCase().includes('coding') && e.is_active).length;
-        const codingCount = examList.filter(e => e.subject.toLowerCase().includes('coding')).length;
-        
-        setStats({ totalStudents: uniqueStudents, totalExams: examList.length, quizExams: theoryCount, activeQuizExams: activeTheoryCount, codingExams: codingCount, totalResponses: totalResponsesCount });
-        setGlobalResponses(globalRes?.count || 0);
+          const globCount = globalRes?.count || 0;
+          const totalResp = Math.max(responses.length, globCount);
+          const uniqueStudents = responses.length > 0
+            ? new Set(responses.map((r: any) => r.roll_number)).size
+            : (totalResp > 0 ? 1 : 0);
+          const examList = Array.isArray(examConfigs) ? examConfigs : [];
+          const theoryCount = examList.filter(e => !e.subject.toLowerCase().includes('coding')).length;
+          const activeTheoryCount = examList.filter(e => !e.subject.toLowerCase().includes('coding') && e.is_active).length;
+          const codingCount = examList.filter(e => e.subject.toLowerCase().includes('coding')).length;
+
+          setStats({
+            totalStudents: uniqueStudents,
+            totalExams: examList.length,
+            quizExams: theoryCount,
+            activeQuizExams: activeTheoryCount,
+            codingExams: codingCount,
+            totalResponses: totalResp,
+          });
+          setGlobalResponses(globCount || totalResp);
+        }
+      } catch (err) {
+        console.error('Failed to load dashboard stats:', err);
       } finally {
         setLoading(false);
       }
@@ -106,19 +130,18 @@ export default function AdminDashboard() {
     // Live polling every 5 seconds for real-time live count updates
     const interval = setInterval(async () => {
       try {
-        const [responses, globalRes] = await Promise.all([
-          adminAPI.getResponses(),
-          adminAPI.getGlobalResponsesCount()
-        ]);
-        if (Array.isArray(responses)) {
-          const uniqueStudents = new Set(responses.map((r: any) => r.roll_number)).size;
-          const totalResponsesCount = responses.length;
+        const statsRes = await adminAPI.getDashboardStats();
+        if (statsRes && !statsRes.message && typeof statsRes.totalResponses === 'number') {
           setStats(prev => ({
             ...prev,
-            totalStudents: uniqueStudents,
-            totalResponses: totalResponsesCount
+            totalStudents: statsRes.totalStudents || 0,
+            totalResponses: statsRes.totalResponses || 0,
+            totalExams: statsRes.totalExams || prev.totalExams,
+            quizExams: statsRes.quizExams || prev.quizExams,
+            activeQuizExams: statsRes.activeQuizExams || prev.activeQuizExams,
+            codingExams: statsRes.codingExams || prev.codingExams,
           }));
-          setGlobalResponses(globalRes?.count || 0);
+          setGlobalResponses(statsRes.globalResponses || statsRes.totalResponses || 0);
         }
       } catch (err) {
         console.error('Live polling failed:', err);

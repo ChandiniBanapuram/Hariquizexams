@@ -178,16 +178,57 @@ router.delete('/semesters/:id', itAdminAuth, async (req, res) => {
   }
 });
 
+// Helper to append robust filters for department, year, semester matching
+function buildSubjectFilters(queryBase, department, year, semester) {
+  let query = queryBase;
+  const params = [];
+
+  if (department && department !== 'ALL' && String(department).trim()) {
+    const rawDept = String(department).trim();
+    const strippedDept = rawDept.toLowerCase().replace(/[\s()._\-]/g, '');
+    query += ` AND (
+      department_value = ? 
+      OR LOWER(REPLACE(REPLACE(REPLACE(REPLACE(department_value, ' ', ''), '(', ''), ')', ''), '-', '')) = ?
+      OR LOWER(REPLACE(department_value, ' ', '')) = ?
+    )`;
+    params.push(rawDept, strippedDept, strippedDept);
+  }
+
+  if (year && year !== 'ALL' && String(year).trim()) {
+    const rawYear = String(year).trim();
+    query += ` AND (
+      year_value = ?
+      OR (
+        (? IN ('1', '1st', '1st Year', 'Year 1') AND year_value IN ('1', '1st', '1st Year', 'Year 1')) OR
+        (? IN ('2', '2nd', '2nd Year', 'Year 2') AND year_value IN ('2', '2nd', '2nd Year', 'Year 2')) OR
+        (? IN ('3', '3rd', '3rd Year', 'Year 3') AND year_value IN ('3', '3rd', '3rd Year', 'Year 3')) OR
+        (? IN ('4', '4th', '4th Year', 'Year 4') AND year_value IN ('4', '4th', '4th Year', 'Year 4'))
+      )
+    )`;
+    params.push(rawYear, rawYear, rawYear, rawYear, rawYear);
+  }
+
+  if (semester && semester !== 'ALL' && String(semester).trim()) {
+    const rawSem = String(semester).trim();
+    query += ` AND (
+      semester_value = ?
+      OR (
+        (? IN ('1', 'I', 'I Sem', '1st Sem', 'Semester 1', 'Semester I') AND semester_value IN ('1', 'I', 'I Sem', '1st Sem', 'Semester 1', 'Semester I')) OR
+        (? IN ('2', 'II', 'II Sem', '2nd Sem', 'Semester 2', 'Semester II') AND semester_value IN ('2', 'II', 'II Sem', '2nd Sem', 'Semester 2', 'Semester II'))
+      )
+    )`;
+    params.push(rawSem, rawSem, rawSem);
+  }
+
+  query += ' ORDER BY label';
+  return { query, params };
+}
+
 // ==================== SUBJECTS ====================
 router.get('/subjects', itAdminAuth, async (req, res) => {
   try {
     const { department, year, semester } = req.query;
-    let query = 'SELECT * FROM subjects WHERE 1=1';
-    const params = [];
-    if (department) { query += ' AND department_value = ?'; params.push(department); }
-    if (year) { query += ' AND year_value = ?'; params.push(year); }
-    if (semester) { query += ' AND semester_value = ?'; params.push(semester); }
-    query += ' ORDER BY label';
+    const { query, params } = buildSubjectFilters('SELECT * FROM subjects WHERE 1=1', department, year, semester);
     const [rows] = await db.query(query, params);
     res.json(rows);
   } catch (e) {
@@ -261,12 +302,7 @@ router.get('/public/semesters', async (req, res) => {
 router.get('/public/subjects', async (req, res) => {
   try {
     const { department, year, semester } = req.query;
-    let query = 'SELECT label, value FROM subjects WHERE 1=1';
-    const params = [];
-    if (department) { query += ' AND department_value = ?'; params.push(department); }
-    if (year) { query += ' AND year_value = ?'; params.push(year); }
-    if (semester) { query += ' AND semester_value = ?'; params.push(semester); }
-    query += ' ORDER BY label';
+    const { query, params } = buildSubjectFilters('SELECT label, value FROM subjects WHERE 1=1', department, year, semester);
     const [rows] = await db.query(query, params);
     res.json(rows);
   } catch (e) {

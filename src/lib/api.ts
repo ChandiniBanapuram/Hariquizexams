@@ -717,6 +717,9 @@ export const adminAPI = {
   getGlobalResponsesCount: () =>
     fetchAPI('/admin/global-responses-count'),
 
+  getDashboardStats: () =>
+    fetchAPI('/admin/dashboard-stats'),
+
   deleteResponsesByDate: (date: string) =>
     fetchAPI(`/admin/responses/by-date/${date}`, { method: 'DELETE' }),
 
