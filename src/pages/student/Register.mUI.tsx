@@ -140,14 +140,14 @@ export default function StudentRegister() {
         onSubmit={handleSubmit(onSubmit)}
         sx={{
           background: isDark
-            ? 'rgba(12, 18, 40, 0.82)'
-            : 'rgba(255, 255, 255, 0.88)',
-          backdropFilter: 'blur(28px)',
-          WebkitBackdropFilter: 'blur(28px)',
-          borderRadius: '28px',
-          border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)'}`,
+            ? 'rgba(15, 23, 42, 0.65)'
+            : 'rgba(255, 255, 255, 0.75)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          borderRadius: '24px',
+          border: `1px solid ${isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.5)'}`,
           boxShadow: isDark
-            ? '0 32px 64px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)'
+            ? '0 32px 64px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.1)'
             : '0 32px 64px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8)',
           overflow: 'hidden',
           p: { xs: 3, sm: 4 },

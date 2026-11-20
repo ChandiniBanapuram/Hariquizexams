@@ -1,353 +1,40 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, TextField, Button, Typography, Stack, Link as MuiLink, Checkbox, FormControlLabel, Dialog, DialogTitle, DialogContent } from '@mui/material';
-import DialogActions from '@mui/material/DialogActions';
-import { Loader2, GraduationCap, Shield, Eye, EyeOff } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useStudentAuth } from '@/context/StudentAuthContext';
 import { studentAuthAPI } from '@/lib/student-auth-api';
-import LoginLayout from '@/components/LoginLayout';
 import { z } from 'zod';
-import { useThemeContext } from '@/context/ThemeContext';
-import { useAdmin } from '@/context/AdminContext';
-import { adminLoginSchema, AdminLogin } from '@/lib/validation';
-import { adminAPI, BASE_SERVER_URL } from '@/lib/api';
-import { workshopStore, fdpStore } from '@/lib/events-store';
-
+import { Loader2, GraduationCap, Shield, User, Lock, Eye, EyeOff } from 'lucide-react';
+import hariLogo from '@/assets/hari-logo.png';
+import { useBranding } from '@/context/BrandingContext';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 const loginSchema = z.object({
   rollNumber: z.string().min(1, 'Username is required'),
   password: z.string().min(1, 'Password is required'),
 });
+
 type LoginForm = z.infer<typeof loginSchema>;
-
-// ── Student Form ──────────────────────────────────────────────────────────────
-function StudentForm({ isDark, onForgotPasswordClick }: { isDark: boolean; onForgotPasswordClick: () => void }) {
-  const navigate = useNavigate();
-  const { toast } = useToast();
-  const { login } = useStudentAuth();
-  const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [slowRequest, setSlowRequest] = useState(false);
-
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
-    resolver: zodResolver(loginSchema),
-  });
-
-  const onSubmit = async (data: LoginForm) => {
-    setIsLoading(true);
-    setSlowRequest(false);
-    // Show "server waking up" message after 4 seconds
-    const slowTimer = setTimeout(() => setSlowRequest(true), 4000);
-    try {
-      const result = await studentAuthAPI.login(data.rollNumber, data.password);
-      clearTimeout(slowTimer);
-      setSlowRequest(false);
-      if (result.error) {
-        toast({ title: 'Login Failed', description: result.message, variant: 'destructive' });
-        return;
-      }
-      login(result.token, result.student);
-      toast({ title: '✅ Welcome!', description: `Logged in as ${result.student.fullName}` });
-      if (result.student.isMaster) {
-        navigate('/student/master-dashboard');
-      } else {
-        navigate('/student/dashboard');
-      }
-    } catch {
-      clearTimeout(slowTimer);
-      setSlowRequest(false);
-      toast({ title: 'Error', description: 'Login failed. Try again.', variant: 'destructive' });
-    } finally {
-      setIsLoading(false);
-      setSlowRequest(false);
-    }
-  };
-
-  return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
-      <Stack spacing={2.5}>
-        {/* Username */}
-        <Box>
-          <Typography variant="caption" sx={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)', fontWeight: 700, letterSpacing: 0.5, mb: 0.8, display: 'block' }}>
-            USERNAME (ROLL NUMBER)
-          </Typography>
-          <TextField
-            fullWidth
-            placeholder="e.g. 26ET103061"
-            error={Boolean(errors.rollNumber)}
-            helperText={errors.rollNumber?.message}
-            {...register('rollNumber', { onChange: (e) => { e.target.value = e.target.value.toUpperCase(); } })}
-            InputProps={{
-              sx: {
-                borderRadius: '14px',
-                bgcolor: isDark ? 'rgba(15, 23, 42, 0.6)' : 'rgba(0,0,0,0.04)',
-                border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.12)'}`,
-                color: isDark ? '#FFFFFF' : '#0f172a',
-                '& fieldset': { border: 'none' },
-                '&:hover': { border: `1.5px solid ${isDark ? 'rgba(42,255,255,0.3)' : 'rgba(42,150,255,0.3)'}` },
-                '&.Mui-focused': { border: `1.5px solid ${isDark ? '#2affff' : '#3b82f6'}`, boxShadow: isDark ? '0 0 0 3px rgba(42,255,255,0.12)' : '0 0 0 3px rgba(59,130,246,0.15)' },
-                transition: 'all 0.2s',
-              }
-            }}
-            inputProps={{ sx: { color: isDark ? '#FFFFFF' : '#0f172a', '&::placeholder': { color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)' } } }}
-          />
-        </Box>
-
-        {/* Password */}
-        <Box>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 0.8 }}>
-            <Typography variant="caption" sx={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)', fontWeight: 700, letterSpacing: 0.5 }}>
-              PASSWORD
-            </Typography>
-            <Typography variant="caption" sx={{ color: isDark ? '#2affff' : '#3b82f6', fontWeight: 700, cursor: 'pointer', '&:hover': { opacity: 0.7 } }} onClick={onForgotPasswordClick}>
-              Forgot password?
-            </Typography>
-          </Box>
-          <TextField
-            fullWidth
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Enter your password"
-            error={Boolean(errors.password)}
-            helperText={errors.password?.message}
-            {...register('password')}
-            InputProps={{
-              endAdornment: (
-                <Box onClick={() => setShowPassword(!showPassword)} sx={{ cursor: 'pointer', color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)', '&:hover': { color: isDark ? '#2affff' : '#3b82f6' } }}>
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </Box>
-              ),
-              sx: {
-                borderRadius: '14px',
-                bgcolor: isDark ? 'rgba(15, 23, 42, 0.6)' : 'rgba(0,0,0,0.04)',
-                border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.12)'}`,
-                color: isDark ? '#FFFFFF' : '#0f172a',
-                '& fieldset': { border: 'none' },
-                '&:hover': { border: `1.5px solid ${isDark ? 'rgba(42,255,255,0.3)' : 'rgba(42,150,255,0.3)'}` },
-                '&.Mui-focused': { border: `1.5px solid ${isDark ? '#2affff' : '#3b82f6'}`, boxShadow: isDark ? '0 0 0 3px rgba(42,255,255,0.12)' : '0 0 0 3px rgba(59,130,246,0.15)' },
-                transition: 'all 0.2s',
-              }
-            }}
-            inputProps={{ sx: { color: isDark ? '#FFFFFF' : '#0f172a', '&::placeholder': { color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)' } } }}
-          />
-        </Box>
-
-        {/* Remember me */}
-        <FormControlLabel
-          control={<Checkbox size="small" sx={{ color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.3)', '&.Mui-checked': { color: isDark ? '#2affff' : '#3b82f6' } }} />}
-          label={<Typography variant="caption" sx={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)', fontWeight: 600 }}>Remember me</Typography>}
-          sx={{ mt: -0.5 }}
-        />
-
-        {/* Buttons */}
-        <Stack direction="row" spacing={1.5}>
-          <Button
-            component={Link}
-            to="/student/register"
-            variant="outlined"
-            fullWidth
-            sx={{
-              borderRadius: '14px',
-              py: 1.4,
-              fontWeight: 800,
-              fontSize: '0.85rem',
-              textTransform: 'none',
-              border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'}`,
-              color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.6)',
-              '&:hover': {
-                border: `1.5px solid ${isDark ? 'rgba(42,255,255,0.4)' : 'rgba(42,150,255,0.4)'}`,
-                bgcolor: isDark ? 'rgba(42,255,255,0.05)' : 'rgba(42,150,255,0.05)',
-                color: isDark ? '#2affff' : '#3b82f6',
-                transform: 'translateY(-1px)',
-              },
-              transition: 'all 0.2s',
-            }}
-          >
-            Register
-          </Button>
-          <Button
-            type="submit"
-            disabled={isLoading}
-            fullWidth
-            sx={{
-              borderRadius: '14px',
-              py: 1.4,
-              fontWeight: 800,
-              fontSize: '0.85rem',
-              textTransform: 'none',
-              background: isDark
-                ? 'linear-gradient(135deg, #2affff 0%, #00c8c8 100%)'
-                : 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-              color: isDark ? '#0f172a' : '#fff',
-              boxShadow: isDark ? '0 8px 20px rgba(42,255,255,0.25)' : '0 8px 20px rgba(59,130,246,0.3)',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: isDark ? '0 12px 28px rgba(42,255,255,0.35)' : '0 12px 28px rgba(59,130,246,0.4)',
-              },
-              '&:disabled': { opacity: 0.6 },
-              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          >
-            {isLoading ? <Loader2 className="animate-spin" size={20} /> : 'Login'}
-          </Button>
-        </Stack>
-        {/* Server wake-up notice */}
-        {slowRequest && (() => {
-          const isCloud = BASE_SERVER_URL.includes('onrender.com') || BASE_SERVER_URL.includes('render.com') || BASE_SERVER_URL.includes('hf.space');
-          return (
-            <Box sx={{ mt: 1, p: 1.5, borderRadius: '10px', bgcolor: isDark ? 'rgba(255,200,0,0.08)' : 'rgba(255,160,0,0.08)', border: `1px solid ${isDark ? 'rgba(255,200,0,0.2)' : 'rgba(255,160,0,0.3)'}` }}>
-              <Typography variant="caption" sx={{ color: isDark ? '#ffd54f' : '#b45309', fontWeight: 600, display: 'block', textAlign: 'center' }}>
-                {isCloud ? '⏳ Server is waking up... Please wait a moment.' : '⏳ Connecting to local server... Please wait.'}
-              </Typography>
-              <Typography variant="caption" sx={{ color: isDark ? 'rgba(255,213,79,0.7)' : 'rgba(180,83,9,0.7)', display: 'block', textAlign: 'center', fontSize: '0.7rem', mt: 0.3 }}>
-                {isCloud
-                  ? 'Free servers sleep when inactive. This may take 20–30 seconds.'
-                  : 'Connecting to the college intranet server. If this takes too long, please contact your administrator.'}
-              </Typography>
-            </Box>
-          );
-        })()}
-      </Stack>
-    </Box>
-  );
-}
-
-// ── Admin Form ──────────────────────────────────────────────────────────────
-function AdminForm({ isDark }: { isDark: boolean }) {
-  const navigate = useNavigate();
-  const { toast } = useToast();
-  const { login } = useAdmin();
-  const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
-  const { register, handleSubmit, formState: { errors } } = useForm<AdminLogin>({
-    resolver: zodResolver(adminLoginSchema),
-  });
-
-  const onSubmit = async (data: AdminLogin) => {
-    setIsLoading(true);
-    try {
-      const result = await adminAPI.login(data.username, data.password);
-      login(result.token);
-      toast({ title: '✅ Welcome Admin!', description: 'Redirecting to dashboard...' });
-      navigate('/admin/dashboard');
-    } catch (error) {
-      toast({ title: 'Login Failed', description: error instanceof Error ? error.message : 'Invalid credentials', variant: 'destructive' });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
-      <Stack spacing={2.5}>
-        {/* Username */}
-        <Box>
-          <Typography variant="caption" sx={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)', fontWeight: 700, letterSpacing: 0.5, mb: 0.8, display: 'block' }}>
-            ADMIN USERNAME
-          </Typography>
-          <TextField
-            fullWidth
-            placeholder="Enter staff ID / username"
-            error={Boolean(errors.username)}
-            helperText={errors.username?.message}
-            {...register('username')}
-            InputProps={{
-              sx: {
-                borderRadius: '14px',
-                bgcolor: isDark ? 'rgba(15, 23, 42, 0.6)' : 'rgba(0,0,0,0.04)',
-                border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.12)'}`,
-                color: isDark ? '#FFFFFF' : '#0f172a',
-                '& fieldset': { border: 'none' },
-                '&:hover': { border: `1.5px solid rgba(99,102,241,0.4)` },
-                '&.Mui-focused': { border: '1.5px solid #6366f1', boxShadow: '0 0 0 3px rgba(99,102,241,0.15)' },
-                transition: 'all 0.2s',
-              }
-            }}
-            inputProps={{ sx: { color: isDark ? '#FFFFFF' : '#0f172a', '&::placeholder': { color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)' } } }}
-          />
-        </Box>
-
-        {/* Password */}
-        <Box>
-          <Typography variant="caption" sx={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)', fontWeight: 700, letterSpacing: 0.5, mb: 0.8, display: 'block' }}>
-            PASSWORD
-          </Typography>
-          <TextField
-            fullWidth
-            type={showPassword ? 'text' : 'password'}
-            placeholder="Enter admin password"
-            error={Boolean(errors.password)}
-            helperText={errors.password?.message}
-            {...register('password')}
-            InputProps={{
-              endAdornment: (
-                <Box onClick={() => setShowPassword(!showPassword)} sx={{ cursor: 'pointer', color: 'rgba(99,102,241,0.5)', '&:hover': { color: '#6366f1' } }}>
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </Box>
-              ),
-              sx: {
-                borderRadius: '14px',
-                bgcolor: isDark ? 'rgba(15, 23, 42, 0.6)' : 'rgba(0,0,0,0.04)',
-                border: `1.5px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.12)'}`,
-                color: isDark ? '#FFFFFF' : '#0f172a',
-                '& fieldset': { border: 'none' },
-                '&:hover': { border: '1.5px solid rgba(99,102,241,0.4)' },
-                '&.Mui-focused': { border: '1.5px solid #6366f1', boxShadow: '0 0 0 3px rgba(99,102,241,0.15)' },
-                transition: 'all 0.2s',
-              }
-            }}
-            inputProps={{ sx: { color: isDark ? '#FFFFFF' : '#0f172a', '&::placeholder': { color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)' } } }}
-          />
-        </Box>
-
-        {/* Buttons */}
-        <Stack direction="row" spacing={1.5} sx={{ mt: 1 }}>
-          <Button
-            component={Link}
-            to="/admin/register"
-            variant="outlined"
-            fullWidth
-            sx={{
-              borderRadius: '14px', py: 1.4, fontWeight: 800, fontSize: '0.85rem', textTransform: 'none',
-              border: '1.5px solid rgba(99,102,241,0.2)',
-              color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)',
-              '&:hover': { border: '1.5px solid rgba(99,102,241,0.5)', bgcolor: 'rgba(99,102,241,0.05)', color: '#6366f1', transform: 'translateY(-1px)' },
-              transition: 'all 0.2s',
-            }}
-          >
-            Register
-          </Button>
-          <Button
-            type="submit"
-            disabled={isLoading}
-            fullWidth
-            sx={{
-              borderRadius: '14px', py: 1.4, fontWeight: 800, fontSize: '0.85rem', textTransform: 'none',
-              background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
-              color: '#fff',
-              boxShadow: '0 8px 20px rgba(99,102,241,0.3)',
-              '&:hover': { transform: 'translateY(-2px)', boxShadow: '0 12px 28px rgba(99,102,241,0.4)' },
-              '&:disabled': { opacity: 0.6 },
-              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          >
-            {isLoading ? <Loader2 className="animate-spin" size={20} /> : 'Login'}
-          </Button>
-        </Stack>
-      </Stack>
-    </Box>
-  );
-}
 
 export default function StudentLogin() {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { mode } = useThemeContext();
-  const isDark = mode === 'dark';
-  const [activeTab, setActiveTab] = useState<'student' | 'admin'>('student');
+  const { login } = useStudentAuth();
+  const { settings } = useBranding();
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Forgot Password States
   const [fpOpen, setFpOpen] = useState(false);
@@ -357,16 +44,59 @@ export default function StudentLogin() {
   const [fpNewPassword, setFpNewPassword] = useState('');
   const [fpLoading, setFpLoading] = useState(false);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginForm) => {
+    setIsLoading(true);
+    try {
+      const result = await studentAuthAPI.login(data.rollNumber, data.password);
+      if (result.error) {
+        toast({
+          title: 'Login Failed',
+          description: result.message,
+          variant: 'destructive',
+        });
+        return;
+      }
+      login(result.token, result.student);
+      toast({
+        title: '✅ Welcome!',
+        description: `Logged in as ${result.student.fullName}`,
+      });
+      if (result.student.isMaster) {
+        navigate('/student/master-dashboard');
+      } else {
+        navigate('/student/dashboard');
+      }
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Login failed. Try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSendOtp = async () => {
-    if (!fpEmail) return toast({ title: 'Error', description: 'Enter your email', variant: 'destructive' });
+    if (!fpEmail.trim()) {
+      return toast({ title: 'Error', description: 'Enter your registered email', variant: 'destructive' });
+    }
     setFpLoading(true);
     try {
-      const res = await studentAuthAPI.forgotPassword(fpEmail);
+      const res = await studentAuthAPI.forgotPassword(fpEmail.trim());
       if (res.error) {
-        toast({ 
-          title: 'Email Failed', 
-          description: res.details || res.message || 'Check your SMTP settings', 
-          variant: 'destructive' 
+        toast({
+          title: 'Email Failed',
+          description: res.details || res.message || 'Check your SMTP settings',
+          variant: 'destructive',
         });
       } else {
         toast({ title: 'OTP Sent', description: res.message || 'Check your email for the OTP.' });
@@ -380,16 +110,25 @@ export default function StudentLogin() {
   };
 
   const handleResetPassword = async () => {
-    if (!fpOtp || !fpNewPassword) return toast({ title: 'Error', description: 'Fill all fields', variant: 'destructive' });
+    if (!fpOtp.trim() || !fpNewPassword.trim()) {
+      return toast({ title: 'Error', description: 'Please fill in both OTP and new password', variant: 'destructive' });
+    }
     setFpLoading(true);
     try {
-      const res = await studentAuthAPI.resetPassword({ email: fpEmail, otp: fpOtp, newPassword: fpNewPassword });
-      if (res.error) toast({ title: 'Failed', description: res.message, variant: 'destructive' });
-      else {
+      const res = await studentAuthAPI.resetPassword({
+        email: fpEmail.trim(),
+        otp: fpOtp.trim(),
+        newPassword: fpNewPassword.trim(),
+      });
+      if (res.error) {
+        toast({ title: 'Failed', description: res.message, variant: 'destructive' });
+      } else {
         toast({ title: 'Success', description: 'Password reset successfully. You can now login.' });
         setFpOpen(false);
         setFpStep(1);
-        setFpEmail(''); setFpOtp(''); setFpNewPassword('');
+        setFpEmail('');
+        setFpOtp('');
+        setFpNewPassword('');
       }
     } catch {
       toast({ title: 'Error', description: 'Something went wrong', variant: 'destructive' });
@@ -399,192 +138,240 @@ export default function StudentLogin() {
   };
 
   return (
-    <LoginLayout>
-      {/* Glass Card */}
-      <Box
-        sx={{
-          background: isDark
-            ? 'rgba(12, 18, 40, 0.75)'
-            : 'rgba(255, 255, 255, 0.82)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          borderRadius: '28px',
-          border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
-          boxShadow: isDark
-            ? '0 32px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)'
-            : '0 32px 64px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8)',
-          overflow: 'hidden',
-        }}
-      >
-        {/* Top accent line */}
-        <Box sx={{
-          height: '3px',
-          background: activeTab === 'student'
-            ? 'linear-gradient(90deg, #2affff, #00c8c8)'
-            : 'linear-gradient(90deg, #6366f1, #4f46e5)',
-          transition: 'background 0.4s ease',
-        }} />
+    <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      {/* Background Video */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto -translate-x-1/2 -translate-y-1/2 object-cover"
+        >
+          <source src="/hari-video.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-[2px]" />
+      </div>
 
-        <Box sx={{ p: { xs: 3, sm: 4 } }}>
-          {/* Tab Switcher */}
-          <Box
-            sx={{
-              display: 'flex',
-              bgcolor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-              borderRadius: '14px',
-              p: 0.5,
-              mb: 3.5,
-            }}
-          >
-            {(['student', 'admin'] as const).map((tab) => {
-              const isActive = activeTab === tab;
-              const Icon = tab === 'student' ? GraduationCap : Shield;
-              return (
-                <Box
-                  key={tab}
-                  onClick={() => {
-                    setActiveTab(tab);
-                    if (tab === 'admin') navigate('/admin');
-                  }}
-                  sx={{
-                    flex: 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 1,
-                    py: 1.1,
-                    px: 1,
-                    borderRadius: '10px',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    background: isActive
-                      ? (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)')
-                      : 'transparent',
-                    boxShadow: isActive
-                      ? (isDark ? '0 2px 8px rgba(0,0,0,0.3)' : '0 1px 4px rgba(0,0,0,0.05)')
-                      : 'none',
-                  }}
-                >
-                  <Icon size={15} color={
-                    isActive
-                      ? (tab === 'student' ? (isDark ? '#2affff' : '#3b82f6') : '#6366f1')
-                      : (isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.35)')
-                  } />
-                  <Typography
-                    sx={{
-                      fontSize: '0.825rem',
-                      fontWeight: isActive ? 800 : 600,
-                      color: isActive
-                        ? (tab === 'student' ? (isDark ? '#2affff' : '#3b82f6') : '#6366f1')
-                        : (isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)'),
-                      transition: 'all 0.2s',
-                      letterSpacing: 0.2,
-                    }}
-                  >
-                    {tab === 'student' ? 'Student Login' : 'Admin Login'}
-                  </Typography>
-                </Box>
-              );
-            })}
-          </Box>
+      <div className="relative z-10 w-full max-w-md animate-slide-up">
+        <div className="bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl p-8">
+          {/* Logo Badge */}
+          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-muted border border-border/60 p-2 shadow-inner">
+            <img src={settings.student_logo || hariLogo} alt="HARI Logo" className="h-16 w-16 rounded-full object-contain" />
+          </div>
 
-          {/* Title */}
-          <Box sx={{ mb: 3 }}>
-            <Typography
-              variant="h5"
-              sx={{
-                fontWeight: 900,
-                letterSpacing: '-0.03em',
-                color: 'text.primary',
-                mb: 0.5,
-                fontFamily: "'Poppins', sans-serif",
-              }}
+          {/* Quick Portal Switcher */}
+          <div className="flex bg-slate-800/40 border border-slate-700/50 p-1 rounded-xl mb-6">
+            <div
+              className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all bg-primary/25 text-primary border border-primary/40 shadow-sm"
             >
-              {activeTab === 'student' ? 'Student Portal' : 'Admin Portal'}
-            </Typography>
-            <Typography variant="caption" sx={{ color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.45)', fontWeight: 500 }}>
-              {activeTab === 'student'
-                ? 'Sign in to access your exams and coding challenges'
-                : 'Administrator access to the exam management system'}
-            </Typography>
-          </Box>
+              <GraduationCap className="h-4 w-4" />
+              Student
+            </div>
+            <Link
+              to="/admin"
+              className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-sm font-semibold transition-all text-slate-400 hover:text-white"
+            >
+              <Shield className="h-4 w-4" />
+              Admin
+            </Link>
+          </div>
+
+          {/* Header Title */}
+          <div className="text-center mb-6">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <GraduationCap className="h-5 w-5 text-primary" />
+              <h1 className="font-heading text-2xl font-bold text-foreground">
+                Student Portal
+              </h1>
+            </div>
+            <p className="text-muted-foreground text-sm">
+              Sign in to access your exams and coding challenges
+            </p>
+          </div>
 
           {/* Form */}
-          <Box
-            sx={{
-              animation: 'formSlide 0.3s ease forwards',
-              '@keyframes formSlide': {
-                from: { opacity: 0, transform: 'translateX(8px)' },
-                to: { opacity: 1, transform: 'translateX(0)' },
-              },
-              key: activeTab,
-            }}
-          >
-            {activeTab === 'student'
-              ? <StudentForm isDark={isDark} onForgotPasswordClick={() => setFpOpen(true)} />
-              : <AdminForm isDark={isDark} />
-            }
-          </Box>
-        </Box>
-      </Box>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <div className="space-y-2">
+              <Label htmlFor="rollNumber" className="flex items-center gap-2 text-sm font-medium">
+                <User className="h-4 w-4 text-primary" />
+                Username (Roll Number)
+              </Label>
+              <Input
+                id="rollNumber"
+                placeholder="e.g. 26ET103061"
+                className="input-focus h-12 uppercase"
+                {...register('rollNumber', {
+                  onChange: (e) => {
+                    e.target.value = e.target.value.toUpperCase();
+                  },
+                })}
+              />
+              {errors.rollNumber && <p className="text-sm text-destructive">{errors.rollNumber.message}</p>}
+            </div>
 
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <Label htmlFor="password" className="flex items-center gap-2 text-sm font-medium">
+                  <Lock className="h-4 w-4 text-primary" />
+                  Password
+                </Label>
+                <button
+                  type="button"
+                  onClick={() => setFpOpen(true)}
+                  className="text-xs text-primary hover:underline font-semibold"
+                >
+                  Forgot password?
+                </button>
+              </div>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter your password"
+                  className="input-focus h-12 pr-10"
+                  {...register('password')}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+              {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+            </div>
+
+            <div className="flex gap-3 mt-6">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => navigate('/student/register')}
+                className="w-1/2 h-12 text-base font-semibold border-border/60 hover:bg-white/10"
+              >
+                Register
+              </Button>
+              <Button
+                type="submit"
+                className="btn-primary-gradient w-1/2 h-12 text-base"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Signing in...
+                  </>
+                ) : (
+                  'Sign In'
+                )}
+              </Button>
+            </div>
+          </form>
+
+          {/* Footer Navigation */}
+          <div className="mt-6 text-center text-xs text-muted-foreground space-y-1.5">
+            <div>
+              Administrator?{' '}
+              <Link to="/admin" className="text-primary hover:underline font-semibold">
+                Switch to Admin Login
+              </Link>
+            </div>
+            <div>
+              IT Administrator?{' '}
+              <Link to="/it-admin" className="text-muted-foreground/75 hover:text-foreground hover:underline">
+                IT Admin Portal
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Forgot Password Dialog */}
-      <Dialog open={fpOpen} onClose={() => { if(!fpLoading) setFpOpen(false); }} PaperProps={{ sx: { background: isDark ? '#1e293b' : '#fff', color: isDark ? '#fff' : '#000', borderRadius: '16px', minWidth: 350 } }}>
-        <DialogTitle sx={{ fontWeight: 800 }}>Forgot Password</DialogTitle>
-        <DialogContent>
+      <Dialog open={fpOpen} onOpenChange={(open) => { if (!fpLoading) setFpOpen(open); }}>
+        <DialogContent className="sm:max-w-md bg-card/95 backdrop-blur-xl border border-border/50">
+          <DialogHeader>
+            <DialogTitle className="font-heading font-bold text-xl">Reset Password</DialogTitle>
+            <DialogDescription>
+              {fpStep === 1
+                ? 'Enter your registered email address to receive a verification OTP.'
+                : 'Enter the verification OTP and your new password.'}
+            </DialogDescription>
+          </DialogHeader>
+
           {fpStep === 1 ? (
-            <Stack spacing={2} sx={{ mt: 1 }}>
-              <Typography variant="body2" sx={{ color: isDark ? '#aaa' : '#555' }}>
-                Enter your registered Email Address. An OTP will be sent to confirm your identity.
-              </Typography>
-              <TextField
-                fullWidth
-                label="Email Address"
-                value={fpEmail}
-                onChange={(e) => setFpEmail(e.target.value)}
-                InputProps={{ sx: { color: isDark ? '#fff' : '#000' } }}
-                InputLabelProps={{ sx: { color: isDark ? '#aaa' : '#555' } }}
-              />
-            </Stack>
+            <div className="space-y-4 py-2">
+              <div className="space-y-2">
+                <Label htmlFor="fpEmail">Registered Email</Label>
+                <Input
+                  id="fpEmail"
+                  type="email"
+                  placeholder="student@example.com"
+                  value={fpEmail}
+                  onChange={(e) => setFpEmail(e.target.value)}
+                  className="input-focus h-11"
+                />
+              </div>
+            </div>
           ) : (
-            <Stack spacing={2} sx={{ mt: 1 }}>
-              <Typography variant="body2" sx={{ color: isDark ? '#aaa' : '#555' }}>
-                Enter the OTP sent to your email and your new password.
-              </Typography>
-              <TextField
-                fullWidth
-                label="OTP"
-                value={fpOtp}
-                onChange={(e) => setFpOtp(e.target.value)}
-                InputProps={{ sx: { color: isDark ? '#fff' : '#000' } }}
-                InputLabelProps={{ sx: { color: isDark ? '#aaa' : '#555' } }}
-              />
-              <TextField
-                fullWidth
-                type="password"
-                label="New Password"
-                value={fpNewPassword}
-                onChange={(e) => setFpNewPassword(e.target.value)}
-                InputProps={{ sx: { color: isDark ? '#fff' : '#000' } }}
-                InputLabelProps={{ sx: { color: isDark ? '#aaa' : '#555' } }}
-              />
-            </Stack>
+            <div className="space-y-4 py-2">
+              <div className="space-y-2">
+                <Label htmlFor="fpOtp">Verification OTP</Label>
+                <Input
+                  id="fpOtp"
+                  placeholder="Enter 6-digit OTP"
+                  value={fpOtp}
+                  onChange={(e) => setFpOtp(e.target.value)}
+                  className="input-focus h-11"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="fpNewPassword">New Password</Label>
+                <Input
+                  id="fpNewPassword"
+                  type="password"
+                  placeholder="Enter new password"
+                  value={fpNewPassword}
+                  onChange={(e) => setFpNewPassword(e.target.value)}
+                  className="input-focus h-11"
+                />
+              </div>
+            </div>
           )}
+
+          <DialogFooter className="flex gap-2 sm:justify-end">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setFpOpen(false)}
+              disabled={fpLoading}
+            >
+              Cancel
+            </Button>
+            {fpStep === 1 ? (
+              <Button
+                type="button"
+                onClick={handleSendOtp}
+                disabled={fpLoading}
+                className="btn-primary-gradient"
+              >
+                {fpLoading ? <Loader2 className="animate-spin h-4 w-4 mr-2" /> : null}
+                Send OTP
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                onClick={handleResetPassword}
+                disabled={fpLoading}
+                className="btn-primary-gradient"
+              >
+                {fpLoading ? <Loader2 className="animate-spin h-4 w-4 mr-2" /> : null}
+                Reset Password
+              </Button>
+            )}
+          </DialogFooter>
         </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 3 }}>
-          <Button onClick={() => setFpOpen(false)} sx={{ color: isDark ? '#aaa' : '#555' }}>Cancel</Button>
-          {fpStep === 1 ? (
-            <Button variant="contained" onClick={handleSendOtp} disabled={fpLoading}>
-              {fpLoading ? <Loader2 className="animate-spin" size={20} /> : 'Send OTP'}
-            </Button>
-          ) : (
-            <Button variant="contained" onClick={handleResetPassword} disabled={fpLoading}>
-              {fpLoading ? <Loader2 className="animate-spin" size={20} /> : 'Reset Password'}
-            </Button>
-          )}
-        </DialogActions>
       </Dialog>
-    </LoginLayout>
+    </div>
   );
 }

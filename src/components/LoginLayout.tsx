@@ -86,8 +86,8 @@ const LoginLayout: React.FC<LoginLayoutProps> = ({ children, maxWidth }) => {
             position: 'absolute',
             inset: 0,
             background: isDark
-              ? 'linear-gradient(135deg, rgba(5,10,30,0.65) 0%, rgba(15,20,50,0.78) 100%)'
-              : 'linear-gradient(135deg, rgba(230,240,255,0.60) 0%, rgba(210,230,255,0.70) 100%)',
+              ? 'rgba(2, 6, 23, 0.70)'
+              : 'rgba(2, 6, 23, 0.65)',
             backdropFilter: 'blur(2px)',
             zIndex: 1,
           },
