@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-// Roll number pattern: 23251A6601 or 23251A66A1 (A must be capital)
-const rollNumberPattern = /^[0-9]{5}[A-Z][0-9]{2}[A-Z0-9][0-9]$/;
+// Roll number pattern: 26ET103061 (2 digits, 2 letters, 6 digits)
+const rollNumberPattern = /^[0-9]{2}[A-Z]{2}[0-9]{6}$/;
 
 export const studentDetailsSchema = z.object({
   rollNumber: z
     .string()
     .min(1, 'Roll number is required')
-    .regex(rollNumberPattern, 'Invalid roll number format (e.g., 23251A6601 or 23251A66A1)'),
+    .regex(rollNumberPattern, 'Invalid roll number format (e.g., 26ET103061)'),
   name: z
     .string()
     .min(1, 'Name is required')

@@ -58,7 +58,7 @@ function StudentForm({ isDark, onForgotPasswordClick }: { isDark: boolean; onFor
       <Stack spacing={2.5}>
         <Box>
           <Typography variant="caption" sx={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)', fontWeight: 700, letterSpacing: 0.5, mb: 0.8, display: 'block' }}>USERNAME (ROLL NUMBER)</Typography>
-          <TextField fullWidth placeholder="e.g. 22251A6601" error={Boolean(errors.rollNumber)} helperText={errors.rollNumber?.message} {...register('rollNumber', { onChange: (e) => { e.target.value = e.target.value.toUpperCase(); } })} InputProps={{ sx: inputSx }} inputProps={{ sx: inputProps }} />
+          <TextField fullWidth placeholder="e.g. 26ET103061" error={Boolean(errors.rollNumber)} helperText={errors.rollNumber?.message} {...register('rollNumber', { onChange: (e) => { e.target.value = e.target.value.toUpperCase(); } })} InputProps={{ sx: inputSx }} inputProps={{ sx: inputProps }} />
         </Box>
         <Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.8 }}>

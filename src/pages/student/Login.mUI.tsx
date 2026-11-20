@@ -76,7 +76,7 @@ function StudentForm({ isDark, onForgotPasswordClick }: { isDark: boolean; onFor
           </Typography>
           <TextField
             fullWidth
-            placeholder="e.g. 22B01A0501"
+            placeholder="e.g. 26ET103061"
             error={Boolean(errors.rollNumber)}
             helperText={errors.rollNumber?.message}
             {...register('rollNumber', { onChange: (e) => { e.target.value = e.target.value.toUpperCase(); } })}

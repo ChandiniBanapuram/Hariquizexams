@@ -192,6 +192,7 @@ export default function StudentDetailsPage() {
                   Roll Number
                 </Label>
                 <Input
+                  placeholder="e.g. 26ET103061"
                   {...register('rollNumber', {
                     onChange: e =>
                       (e.target.value = e.target.value.toUpperCase()),

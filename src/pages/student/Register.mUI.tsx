@@ -26,7 +26,7 @@ const registerSchema = z
     rollNumber: z
       .string()
       .min(1, 'Roll number is required')
-      .regex(/^[0-9]{5}[A-Z][0-9]{2}[A-Z0-9][0-9]$/, 'Invalid roll number format (e.g., 23251A6601)'),
+      .regex(/^[0-9]{2}[A-Z]{2}[0-9]{6}$/, 'Invalid roll number format (e.g., 26ET103061)'),
     email: z.string().email('Valid email is required'),
     password: z.string().min(6, 'Password must be at least 6 characters'),
     confirmPassword: z.string().min(1, 'Confirm your password'),
@@ -217,7 +217,7 @@ export default function StudentRegister() {
               </Typography>
               <TextField
                 fullWidth
-                placeholder="e.g. 23251A6601"
+                placeholder="e.g. 26ET103061"
                 error={Boolean(errors.rollNumber)}
                 helperText={errors.rollNumber?.message}
                 {...register('rollNumber', {
