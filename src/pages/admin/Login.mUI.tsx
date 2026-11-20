@@ -163,12 +163,6 @@ export default function AdminLoginPage() {
                 Switch to Student Login
               </Link>
             </div>
-            <div>
-              IT Administrator?{' '}
-              <Link to="/it-admin" className="text-muted-foreground/75 hover:text-foreground hover:underline">
-                IT Admin Portal
-              </Link>
-            </div>
           </div>
         </div>
       </div>

@@ -271,18 +271,7 @@ export default function StudentLogin() {
 
           {/* Footer Navigation */}
           <div className="mt-6 text-center text-xs text-muted-foreground space-y-1.5">
-            <div>
-              Administrator?{' '}
-              <Link to="/admin" className="text-primary hover:underline font-semibold">
-                Switch to Admin Login
-              </Link>
-            </div>
-            <div>
-              IT Administrator?{' '}
-              <Link to="/it-admin" className="text-muted-foreground/75 hover:text-foreground hover:underline">
-                IT Admin Portal
-              </Link>
-            </div>
+
           </div>
         </div>
       </div>
