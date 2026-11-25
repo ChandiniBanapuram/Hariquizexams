@@ -508,10 +508,30 @@ export default function CodingExams() {
       }
     };
 
-    const handleVisibilityChange = () => {
-      if (document.hidden && examSettings.autoSubmitTabSwitch && idx !== null) {
-        toast({ title: 'Violation Detected', description: 'Tab switching detected. Auto-submitting exam...', variant: 'destructive' });
+    const handleViolationSubmit = (reason: string) => {
+      if (idx !== null) {
+        toast({ title: 'Violation Detected', description: `${reason}. Auto-submitting exam...`, variant: 'destructive' });
         execCode('submit', true);
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden && idx !== null) {
+        handleViolationSubmit('Tab switching detected');
+      }
+    };
+
+    const handleWindowBlur = () => {
+      if (idx !== null) {
+        handleViolationSubmit('Window focus lost / tab switched');
+      }
+    };
+
+    const handleFullscreenChange = () => {
+      const isFull = !!(document.fullscreenElement || (document as any).webkitFullscreenElement);
+      setIsFullscreen(isFull);
+      if (!isFull && idx !== null) {
+        handleViolationSubmit('Exited fullscreen mode');
       }
     };
 
@@ -519,12 +539,18 @@ export default function CodingExams() {
     window.addEventListener('paste', handleCopyPaste);
     window.addEventListener('cut', handleCopyPaste);
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleWindowBlur);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
 
     return () => {
       window.removeEventListener('copy', handleCopyPaste);
       window.removeEventListener('paste', handleCopyPaste);
       window.removeEventListener('cut', handleCopyPaste);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleWindowBlur);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
     };
   }, [selectedExam, examSettings, idx]);
 

@@ -526,6 +526,9 @@ router.post('/submit-exam', async (req, res) => {
       .replace('(', '')
       .replace(')', '');
     const rawSection = (section || '').toString();
+    const normalizedSection = rawSection.replace('Section ', '').trim();
+    const today = normDate(new Date());
+    const examDay = normDate(examDate) || today;
 
     let qQuery = `SELECT id, correct_option, question_type, correct_answer_index, accepted_answers,
       options, option_a, option_b, option_c, option_d
@@ -583,12 +586,15 @@ router.post('/submit-exam', async (req, res) => {
     try {
       let maxSql = `SELECT MAX(total_marks) as max_m FROM responses 
          WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
-           AND (section = ? OR section = 'ALL')
+           AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL' OR ? = 'ALL')
            AND year = ? AND semester = ? AND subject = ?`;
-      const maxParams = [normalizedDept, normalizedSection, year || '1', semester || '1', subject || ''];
+      const maxParams = [normalizedDept, rawSection, rawSection, year || '1', semester || '1', subject || ''];
       if (examDay) {
-        maxSql += ` AND exam_date IS NOT NULL AND DATE(exam_date) = ?`;
-        maxParams.push(examDay);
+        maxSql += ` AND (
+          (exam_date IS NOT NULL AND (DATE(exam_date) = ? OR CAST(exam_date AS CHAR) = ?))
+          OR (DATE(submitted_at) = ?)
+        )`;
+        maxParams.push(examDay, examDay, examDay);
       } else {
         maxSql += ` AND DATE(submitted_at) = CURDATE()`;
       }

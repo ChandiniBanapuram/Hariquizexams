@@ -54,6 +54,12 @@ export default function ExamPage() {
     const saved = localStorage.getItem('examAnswers');
     return saved ? JSON.parse(saved) : {};
   });
+  const answersRef = useRef(answers);
+  useEffect(() => {
+    answersRef.current = answers;
+  }, [answers]);
+
+  const hasSubmittedRef = useRef(false);
 
   const [markedForReview, setMarkedForReview] = useState<Set<number>>(() => {
     const saved = localStorage.getItem('examMarkedForReview');
@@ -163,28 +169,17 @@ export default function ExamPage() {
   // ── SUBMIT EXAM ─────────────────────────────────────────────────────────────
   const submitExam = useCallback(
     async (reason: string = 'manual') => {
-      if (isSubmittingRef.current) {
-        console.log('[submitExam] Submission already in progress, skipping redundant trigger');
+      if (isSubmittingRef.current || hasSubmittedRef.current) {
+        console.log('[submitExam] Submission already in progress or completed, skipping');
         return;
       }
 
       isSubmittingRef.current = true;
+      hasSubmittedRef.current = true;
       setIsSubmitting(true);
       setHasSubmitted(true);
+      setShowSubmitModal(false);
       console.log('[submitExam] Starting exam submission, reason:', reason);
-
-      if (document.fullscreenElement || (document as any).webkitFullscreenElement) {
-        isExitingFullscreenForSubmitRef.current = true;
-        try {
-          if (document.exitFullscreen) {
-            await document.exitFullscreen().catch((err) => console.log('[submitExam] exitFullscreen ignored:', err));
-          } else if ((document as any).webkitExitFullscreen) {
-            await (document as any).webkitExitFullscreen().catch((err) => console.log('[submitExam] webkitExitFullscreen ignored:', err));
-          }
-        } catch (fsErr) {
-          console.log('[submitExam] Fullscreen exit error safely caught:', fsErr);
-        }
-      }
 
       try {
         const studentObj =
@@ -240,14 +235,22 @@ export default function ExamPage() {
             ? 'B'
             : rawSec || 'A';
 
+        const currentAnswers =
+          answersRef.current && Object.keys(answersRef.current).length > 0
+            ? answersRef.current
+            : JSON.parse(localStorage.getItem('examAnswers') || '{}');
+
         console.log('[submitExam] Payload details:', {
           rollNumber: finalRoll,
           name: finalName,
           department: normalizedDepartment,
           section: normalizedSection,
           subject: studentObj.subject || '',
-          answersCount: Object.keys(answers).length,
+          answersCount: Object.keys(currentAnswers).length,
+          reason,
         });
+
+        const isViolation = tabSwitched || reason === 'tab_switch' || reason === 'fullscreen_exit';
 
         const result = await studentAPI.submitExam({
           rollNumber: finalRoll,
@@ -258,8 +261,8 @@ export default function ExamPage() {
           semester: studentObj.semester || '1',
           subject: studentObj.subject || '',
           examDate: studentObj.examDate || '',
-          answers,
-          tabSwitched: tabSwitched || reason === 'tab_switch' || reason === 'fullscreen_exit',
+          answers: currentAnswers,
+          tabSwitched: isViolation,
         });
 
         console.log('[submitExam] Backend result:', result);
@@ -298,9 +301,22 @@ export default function ExamPage() {
         localStorage.removeItem('examAnswers');
         localStorage.removeItem('examEndTime');
 
+        // Safely exit fullscreen now that submission is saved
+        try {
+          if (document.fullscreenElement || (document as any).webkitFullscreenElement) {
+            isExitingFullscreenForSubmitRef.current = true;
+            if (document.exitFullscreen) {
+              await document.exitFullscreen().catch(() => {});
+            } else if ((document as any).webkitExitFullscreen) {
+              await (document as any).webkitExitFullscreen().catch(() => {});
+            }
+          }
+        } catch (e) {}
+
         navigate('/result');
       } catch (error) {
         console.error('[submitExam] Exception caught:', error);
+        hasSubmittedRef.current = false;
         setHasSubmitted(false);
         toast({
           title: 'Submission Failed',
@@ -313,7 +329,7 @@ export default function ExamPage() {
         isExitingFullscreenForSubmitRef.current = false;
       }
     },
-    [studentDetails, answers, tabSwitched, setExamResult, navigate, toast, questions.length]
+    [studentDetails, tabSwitched, setExamResult, navigate, toast, questions.length]
   );
 
   // ── TIMER COUNTDOWN ─────────────────────────────────────────────────────────
@@ -341,55 +357,66 @@ export default function ExamPage() {
     return () => window.clearInterval(timer);
   }, [timeLeft, submitExam, toast, examStarted]);
 
-  // ── ANTI-CHEAT TAB SWITCH & FULLSCREEN DETECTOR (AUTO SUBMIT) ──────────────
+  // ── ANTI-CHEAT: TAB SWITCH, BLUR, AND FULLSCREEN DETECTOR (AUTO SUBMIT) ──────
   useEffect(() => {
+    if (!examStarted || hasSubmitted) return;
+
+    const triggerAutoSubmit = (reason: 'tab_switch' | 'fullscreen_exit') => {
+      if (isSubmittingRef.current || hasSubmittedRef.current || isExitingFullscreenForSubmitRef.current) {
+        return;
+      }
+      isSubmittingRef.current = true;
+      hasSubmittedRef.current = true;
+      setTabSwitched(true);
+      localStorage.setItem('examTabSwitched', 'true');
+      toast({
+        title: reason === 'fullscreen_exit' ? 'Exited Fullscreen!' : 'Tab Switch Detected!',
+        description: `${
+          reason === 'fullscreen_exit' ? 'Exiting fullscreen mode' : 'Opening another tab or window'
+        } is prohibited. Your exam is being submitted automatically.`,
+        variant: 'destructive',
+      });
+      submitExam(reason);
+    };
+
     const handleVisibilityChange = () => {
-      if (document.hidden && !hasSubmitted && examStarted && !isSubmittingRef.current) {
-        setTabSwitched(true);
-        localStorage.setItem('examTabSwitched', 'true');
-        toast({
-          title: 'Tab switch detected!',
-          description: 'Opening another tab or switching windows is prohibited. Your exam is being submitted automatically.',
-          variant: 'destructive',
-        });
-        submitExam('tab_switch');
+      if (document.hidden || document.visibilityState === 'hidden') {
+        console.warn('[Proctor] Visibility changed to hidden - auto submitting');
+        triggerAutoSubmit('tab_switch');
       }
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    const handleWindowBlur = () => {
+      console.warn('[Proctor] Window lost focus - auto submitting');
+      triggerAutoSubmit('tab_switch');
     };
-  }, [hasSubmitted, examStarted, toast, submitExam]);
 
-  // ── FULLSCREEN CHANGE DETECTOR ──────────────────────────────────────────────
-  useEffect(() => {
     const handleFullscreenChange = () => {
       if (isExitingFullscreenForSubmitRef.current) return;
       const isCurrentlyFullscreen = checkFullscreen();
       setIsFullscreen(isCurrentlyFullscreen);
-      if (!isCurrentlyFullscreen && !hasSubmitted && examStarted && !isSubmittingRef.current) {
-        setTabSwitched(true);
-        localStorage.setItem('examTabSwitched', 'true');
-        toast({
-          title: 'Exited Fullscreen!',
-          description: 'Exiting fullscreen mode is prohibited. Your exam is being submitted automatically.',
-          variant: 'destructive',
-        });
-        submitExam('fullscreen_exit');
+      if (!isCurrentlyFullscreen) {
+        console.warn('[Proctor] Fullscreen exited - auto submitting');
+        triggerAutoSubmit('fullscreen_exit');
       }
     };
 
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleWindowBlur);
     document.addEventListener('fullscreenchange', handleFullscreenChange);
     document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
     document.addEventListener('msfullscreenchange', handleFullscreenChange);
 
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleWindowBlur);
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
       document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
       document.removeEventListener('msfullscreenchange', handleFullscreenChange);
     };
-  }, [checkFullscreen, hasSubmitted, examStarted, toast, submitExam]);
+  }, [examStarted, hasSubmitted, checkFullscreen, submitExam, toast]);
 
   // ── KEYBOARD & CONTEXT MENU PREVENTION ──────────────────────────────────────
   useEffect(() => {
@@ -621,62 +648,28 @@ export default function ExamPage() {
     );
   }
 
-  // ── FULLSCREEN LOST WARNING (DARK THEME) ──────────────────────────────────────
-  if (!isFullscreen && examStarted) {
+  // ── SUBMISSION IN PROGRESS SCREEN ───────────────────────────────────────────
+  if (isSubmitting || hasSubmitted) {
     return (
       <Box
         sx={{
           minHeight: '100vh',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: '#000000',
           px: 2,
+          gap: 2.5,
         }}
       >
-        <Card sx={{ maxWidth: 480, width: '100%', p: 4, textAlign: 'center', bgcolor: '#0f172a', border: '1px solid #ef4444', borderRadius: 3, boxShadow: '0 0 30px rgba(239, 68, 68, 0.2)' }}>
-          <Box
-            sx={{
-              width: 64,
-              height: 64,
-              borderRadius: '50%',
-              bgcolor: 'rgba(239, 68, 68, 0.2)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mx: 'auto',
-              mb: 2,
-            }}
-          >
-            <WarningIcon sx={{ color: '#ef4444', fontSize: 36 }} />
-          </Box>
-          <Typography variant="h6" sx={{ fontWeight: 700, color: '#ffffff', mb: 1 }}>
-            Fullscreen Mode Required
-          </Typography>
-          <Typography variant="body2" sx={{ color: '#94a3b8', mb: 3 }}>
-            You exited fullscreen mode (or opened another tab). Your exam is <b>NOT submitted</b>. Click below to return and continue answering your remaining questions.
-          </Typography>
-          <Button
-            variant="contained"
-            startIcon={<FullscreenIcon />}
-            onClick={enterFullscreen}
-            fullWidth
-            sx={{
-              py: 1.5,
-              fontWeight: 700,
-              borderRadius: '24px',
-              background: '#dc2626 !important',
-              backgroundColor: '#dc2626 !important',
-              color: '#ffffff !important',
-              '&:hover': {
-                background: '#b91c1c !important',
-                backgroundColor: '#b91c1c !important',
-              },
-            }}
-          >
-            Re-enter Fullscreen & Continue Exam
-          </Button>
-        </Card>
+        <CircularProgress size={56} sx={{ color: '#2affff' }} />
+        <Typography variant="h5" sx={{ color: '#ffffff', fontWeight: 700, textAlign: 'center' }}>
+          Submitting Examination...
+        </Typography>
+        <Typography variant="body2" sx={{ color: '#94a3b8', textAlign: 'center', maxWidth: 420 }}>
+          Please wait while your answers and examination results are recorded.
+        </Typography>
       </Box>
     );
   }
@@ -1047,6 +1040,7 @@ export default function ExamPage() {
               <Button
                 onClick={handlePreSubmit}
                 variant="contained"
+                disabled={isSubmitting}
                 disableElevation
                 sx={{
                   background: '#2e7d32 !important',
