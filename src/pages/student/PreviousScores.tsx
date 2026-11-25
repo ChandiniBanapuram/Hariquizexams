@@ -41,6 +41,7 @@ export default function PreviousScores() {
   };
 
   const handleViewDetails = async (row: any) => {
+    if (row.score_hidden) return;
     setLoadingDetail(true);
     setDetailOpen(true);
     setDetailType(row.type === 'coding' ? 'coding' : 'mcq');
@@ -59,10 +60,11 @@ export default function PreviousScores() {
     }
   };
 
-  const quizScores = useMemo(() => scores.filter(s => (s as any).type === 'mcq'), [scores]);
+  const quizScores = useMemo(() => scores.filter(s => (s as any).type !== 'coding'), [scores]);
   const codingScores = useMemo(() => scores.filter(s => (s as any).type === 'coding'), [scores]);
 
-  const getScoreColor = (score: number, total: number) => {
+  const getScoreColor = (score: number | null | undefined, total: number) => {
+    if (score == null) return 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300';
     return score >= total / 2 ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
   };
 
@@ -135,9 +137,15 @@ export default function PreviousScores() {
                       <tr key={score.id} className="hover:bg-[rgba(99,102,241,0.02)] transition-colors">
                         <td className="px-6 py-4 text-sm text-[var(--text-primary)] font-medium">{score.subject}</td>
                         <td className="px-6 py-4">
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${getScoreColor(score.score, score.total_marks)}`}>
-                            {score.score}/{score.total_marks}
-                          </span>
+                          {score.score_hidden ? (
+                            <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 inline-flex items-center gap-1">
+                              Score Hidden
+                            </span>
+                          ) : (
+                            <span className={`px-2 py-1 text-xs font-medium rounded-full ${getScoreColor(score.score, score.total_marks)}`}>
+                              {score.score}/{score.total_marks}
+                            </span>
+                          )}
                         </td>
                         <td className="px-6 py-4 text-sm text-[var(--text-secondary)]">
                           {format(new Date(score.submitted_at), 'dd MMM yyyy, hh:mm a')}
@@ -153,12 +161,18 @@ export default function PreviousScores() {
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <button
-                            onClick={() => handleViewDetails(score)}
-                            className="px-3 py-1 bg-cyan-500 hover:bg-cyan-600 text-white text-xs font-bold rounded-full transition-colors"
-                          >
-                            VIEW
-                          </button>
+                          {score.score_hidden ? (
+                            <span className="px-3 py-1 bg-gray-500/10 text-gray-400 border border-gray-500/20 text-xs font-bold rounded-full cursor-not-allowed inline-flex items-center gap-1 select-none">
+                              LOCKED
+                            </span>
+                          ) : (
+                            <button
+                              onClick={() => handleViewDetails(score)}
+                              className="px-3 py-1 bg-cyan-500 hover:bg-cyan-600 text-white text-xs font-bold rounded-full transition-colors"
+                            >
+                              VIEW
+                            </button>
+                          )}
                         </td>
                       </tr>
                     ))}

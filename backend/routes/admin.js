@@ -360,8 +360,8 @@ router.get('/exam-configs', authMiddleware, async (req, res) => {
       query += ` AND REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?`;
       params.push(normalizedDept);
     }
-    if (section) {
-      query += ' AND section = ?';
+    if (section && section !== 'ALL') {
+      query += ` AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL')`;
       params.push(section);
     }
     if (year) {
@@ -408,7 +408,8 @@ router.post('/exam-config', authMiddleware, async (req, res) => {
     const normalizedDept = department.replace(/\s+/g, '').replace('(', '').replace(')', '');
     let existingQuery = `SELECT id FROM exam_configs 
       WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ? 
-      AND section = ? AND year = ? AND semester = ? AND subject = ?`;
+      AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL')
+      AND year = ? AND semester = ? AND subject = ?`;
     const existingParams = [normalizedDept, section, year, semester, subject];
     
     if (examDate) {
@@ -458,7 +459,8 @@ router.post('/exam-config/advanced', authMiddleware, async (req, res) => {
     const normalizedDept = department.replace(/\s+/g, '').replace('(', '').replace(')', '');
     let existingQuery = `SELECT id FROM exam_configs 
       WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ? 
-      AND section = ? AND year = ? AND semester = ? AND subject = ?`;
+      AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL')
+      AND year = ? AND semester = ? AND subject = ?`;
     const existingParams = [normalizedDept, section, year, semester, subject];
     
     if (examDate) {
@@ -526,7 +528,8 @@ router.post('/exam-config/toggle', authMiddleware, async (req, res) => {
     const normalizedDept = department.replace(/\s+/g, '').replace('(', '').replace(')', '');
     let existingQuery = `SELECT id FROM exam_configs 
       WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ? 
-      AND section = ? AND year = ? AND semester = ? AND subject = ?`;
+      AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL')
+      AND year = ? AND semester = ? AND subject = ?`;
     const existingParams = [normalizedDept, section, year, semester, subject];
     
     if (examDate) {
@@ -577,7 +580,8 @@ router.post('/exam-config/toggle-shuffle', authMiddleware, async (req, res) => {
     const normalizedDept = department.replace(/\s+/g, '').replace('(', '').replace(')', '');
     let existingQuery = `SELECT id FROM exam_configs 
       WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ? 
-      AND section = ? AND year = ? AND semester = ? AND subject = ?`;
+      AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL')
+      AND year = ? AND semester = ? AND subject = ?`;
     const existingParams = [normalizedDept, section, year, semester, subject];
     
     if (examDate) {
@@ -877,7 +881,8 @@ router.post('/exam-config/toggle-previous-scores', authMiddleware, async (req, r
     const normalizedDept = department.replace(/\s+/g, '').replace('(', '').replace(')', '');
     let existingQuery = `SELECT id FROM exam_configs 
       WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ? 
-      AND section = ? AND year = ? AND semester = ? AND subject = ?`;
+      AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL')
+      AND year = ? AND semester = ? AND subject = ?`;
     const existingParams = [normalizedDept, section, year, semester, subject];
     
     if (examDate) {

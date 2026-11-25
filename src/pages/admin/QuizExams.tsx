@@ -99,9 +99,9 @@ export default function QuizExams() {
   }, []);
 
   useEffect(() => {
-    if (examConf.subj) {
+    if (examConf.subj && examConf.date) {
       try {
-        const savedMap = localStorage.getItem(`quiz_config_${examConf.subj}`);
+        const savedMap = localStorage.getItem(`quiz_config_${examConf.subj}_${examConf.date}`);
         if (savedMap) {
           const parsed = JSON.parse(savedMap);
           setExamConf(prev => ({
@@ -112,7 +112,7 @@ export default function QuizExams() {
         }
       } catch (e) { }
     }
-  }, [examConf.subj]);
+  }, [examConf.subj, examConf.date]);
 
   // Reset subject when dept/year/sem changes to fix subject loading (skipped on initial mount)
   useEffect(() => {
@@ -206,7 +206,8 @@ export default function QuizExams() {
           ...prev,
           timeLimit: cfg.time_limit ?? cfg.duration ?? prev.timeLimit,
           isVisible: !!cfg.is_active,
-          shuffle: cfg.shuffle_questions ?? prev.shuffle,
+          shuffle: cfg.shuffle_questions !== undefined && cfg.shuffle_questions !== null ? !!cfg.shuffle_questions : prev.shuffle,
+          showPrev: cfg.show_previous_scores !== undefined && cfg.show_previous_scores !== null ? Number(cfg.show_previous_scores) === 1 : true,
         }));
       }
       const data = await adminAPI.getQuestions(
@@ -595,6 +596,43 @@ export default function QuizExams() {
       toast({ title: 'Error Saving Settings', description: 'Failed to update exam settings.', variant: 'destructive' });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleToggleShowPrev = async () => {
+    const nextVal = !examConf.showPrev;
+    setExamConf(prev => ({ ...prev, showPrev: nextVal }));
+
+    if (examConf.date && examConf.dept && examConf.subj) {
+      try {
+        await adminAPI.saveAdvancedExamConfig({
+          department: examConf.dept,
+          year: examConf.year,
+          semester: examConf.sem,
+          section: examConf.sec,
+          subject: examConf.subj,
+          duration: examConf.timeLimit || 15,
+          questionCount: questions.length,
+          shuffle: examConf.shuffle,
+          showPreviousScore: nextVal,
+          is_active: examConf.isVisible,
+          examDate: examConf.date
+        });
+        localStorage.setItem(`quiz_config_${examConf.subj}_${examConf.date}`, JSON.stringify({
+          shuffle: examConf.shuffle,
+          showPrev: nextVal,
+          timeLimit: examConf.timeLimit,
+          isVisible: examConf.isVisible,
+        }));
+        toast({
+          title: nextVal ? 'Previous Scores Visible' : 'Previous Scores Hidden',
+          description: nextVal
+            ? `Students can now view their scores for ${examConf.subj} on ${examConf.date}.`
+            : `Scores are now hidden for ${examConf.subj} on ${examConf.date}. (Exam entry remains visible in student history)`
+        });
+      } catch (e: any) {
+        toast({ title: 'Notice', description: 'Toggle changed locally. Click "Save changes" to persist.' });
+      }
     }
   };
 
@@ -1034,7 +1072,7 @@ export default function QuizExams() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flex: '1 1 auto' }}>
               <Typography variant="body2" sx={{ fontWeight: 600 }}>Show Previous Score:</Typography>
               <Box
-                onClick={() => setExamConf({ ...examConf, showPrev: !examConf.showPrev })}
+                onClick={handleToggleShowPrev}
                 sx={{
                   width: 80, height: 36, borderRadius: '20px', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', position: 'relative', px: 1,

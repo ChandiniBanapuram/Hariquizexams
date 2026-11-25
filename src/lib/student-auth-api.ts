@@ -85,7 +85,7 @@ export interface AvailableExam {
 export interface PreviousScore {
   id: number;
   subject: string;
-  score: number;
+  score: number | null;
   total_marks: number;
   tab_switched: boolean;
   submitted_at: string;
@@ -93,6 +93,7 @@ export interface PreviousScore {
   section: string;
   year: string;
   semester: string;
+  score_hidden?: boolean;
 }
 
 export interface ScoreDetail {

@@ -467,6 +467,12 @@ router.get('/previous-scores', studentAuth, async (req, res) => {
 
     // ---- Respect the admin "Show Previous Score" toggle ----
     const normKey = (v) => (v == null ? '' : v.toString().replace(/\s+/g, '').replace('(', '').replace(')', '').toLowerCase());
+    const normSec = (s) => (s == null ? '' : s.toString().toLowerCase().replace('section', '').trim());
+    const matchSec = (s1, s2) => {
+      const n1 = normSec(s1);
+      const n2 = normSec(s2);
+      return n1 === n2 || n1 === 'all' || n2 === 'all' || !n1 || !n2;
+    };
     const normDate = (d) => {
       if (!d) return null;
       const s = d.toString().trim();
@@ -498,33 +504,56 @@ router.get('/previous-scores', studentAuth, async (req, res) => {
       });
     }
 
-    const filtered = rows.filter(row => {
-      if (row.type === 'coding') {
-        if (!row.question_ids) return true;
-        const ids = row.question_ids.split(',').map(x => parseInt(x, 10)).filter(n => !isNaN(n));
-        // Hide only when EVERY question of that coding exam has showPrev = false
-        return ids.some(id => codingShowPrev.get(id) !== false);
+    const enrichedScores = rows.map(row => {
+      const rowItem = { ...row };
+
+      if (rowItem.type === 'coding') {
+        if (!rowItem.question_ids) {
+          rowItem.score_hidden = false;
+          return rowItem;
+        }
+        const ids = rowItem.question_ids.split(',').map(x => parseInt(x, 10)).filter(n => !isNaN(n));
+        const allHidden = ids.length > 0 && ids.every(id => codingShowPrev.get(id) === false);
+        if (allHidden) {
+          rowItem.score_hidden = true;
+          rowItem.score = null;
+        } else {
+          rowItem.score_hidden = false;
+        }
+        delete rowItem.question_ids;
+        return rowItem;
       }
-      // Quiz (mcq) rows: match exam_configs on dept/section/year/semester/subject
+
+      // Quiz (mcq) rows: match exam_configs on subject, department, section, and date
       const candidates = configs.filter(c =>
-        normKey(c.department) === normKey(row.department) &&
-        normKey(c.section) === normKey(row.section) &&
-        normKey(c.year) === normKey(row.year) &&
-        normKey(c.semester) === normKey(row.semester) &&
-        normKey(c.subject) === normKey(row.subject)
+        normKey(c.subject) === normKey(rowItem.subject) &&
+        (normKey(c.department) === normKey(rowItem.department) || normKey(c.department) === 'all' || !c.department) &&
+        matchSec(c.section, rowItem.section)
       );
-      if (candidates.length === 0) return true; // no config for this exam → legacy, keep showing
-      const rowDate = normDate(row.exam_date);
+
+      const rowDate = normDate(rowItem.exam_date) || normDate(rowItem.submitted_at);
       const dateMatched = rowDate
         ? candidates.filter(c => normDate(c.exam_date) === rowDate)
         : [];
-      const pool = dateMatched.length > 0 ? dateMatched : candidates;
-      // Hide the score only when the matching config(s) turned the toggle OFF
-      return pool.some(c => Number(c.show_previous_scores) === 1);
+      const pool = dateMatched.length > 0
+        ? dateMatched
+        : candidates.filter(c => !c.exam_date);
+
+      // Hide the score only when the matching config explicitly turned the toggle OFF (0)
+      const isHidden = pool.length > 0 && pool.some(c => c.show_previous_scores !== null && c.show_previous_scores !== undefined && Number(c.show_previous_scores) === 0);
+
+      if (isHidden) {
+        rowItem.score_hidden = true;
+        rowItem.score = null;
+      } else {
+        rowItem.score_hidden = false;
+      }
+
+      delete rowItem.question_ids;
+      return rowItem;
     });
 
-    filtered.forEach(r => { delete r.question_ids; });
-    res.json(filtered);
+    res.json(enrichedScores);
   } catch (error) {
     console.error('Previous scores error:', error);
     res.status(500).json({ message: 'Failed to fetch previous scores' });
@@ -552,6 +581,41 @@ router.get('/score-details/:responseId', studentAuth, async (req, res) => {
     if (responses.length === 0) return res.status(404).json({ message: 'Response not found' });
 
     const response = responses[0];
+
+    // Security check: if instructor has hidden previous scores for this subject and exam date, block details
+    const normKey = (v) => (v == null ? '' : v.toString().replace(/\s+/g, '').replace('(', '').replace(')', '').toLowerCase());
+    const normSec = (s) => (s == null ? '' : s.toString().toLowerCase().replace('section', '').trim());
+    const matchSec = (s1, s2) => {
+      const n1 = normSec(s1);
+      const n2 = normSec(s2);
+      return n1 === n2 || n1 === 'all' || n2 === 'all' || !n1 || !n2;
+    };
+    const normDate = (d) => {
+      if (!d) return null;
+      const s = d.toString().trim();
+      const m = s.match(/^(\d{4}-\d{2}-\d{2})/);
+      if (m) return m[1];
+      const dt = new Date(s);
+      return isNaN(dt.getTime()) ? null : dt.toISOString().slice(0, 10);
+    };
+
+    const [matchingConfigs] = await db.query(
+      `SELECT department, section, show_previous_scores, exam_date FROM exam_configs WHERE subject = ?`,
+      [response.subject]
+    );
+
+    const rowDate = normDate(response.exam_date) || normDate(response.submitted_at);
+    const candidates = matchingConfigs.filter(c =>
+      (normKey(c.department) === normKey(response.department) || normKey(c.department) === 'all' || !c.department) &&
+      matchSec(c.section, response.section)
+    );
+    const dateMatched = rowDate ? candidates.filter(c => normDate(c.exam_date) === rowDate) : [];
+    const pool = dateMatched.length > 0 ? dateMatched : candidates.filter(c => !c.exam_date);
+
+    if (pool.length > 0 && pool.some(c => c.show_previous_scores !== null && c.show_previous_scores !== undefined && Number(c.show_previous_scores) === 0)) {
+      return res.status(403).json({ message: 'Score details for this exam are currently hidden by the instructor.' });
+    }
+
     const normalizedDept = response.department.replace(/\s+/g, '').replace('(', '').replace(')', '');
 
     // Parse stored answers FIRST - the keys are the exact question IDs this student attempted
@@ -701,6 +765,10 @@ router.get('/coding-score-details/:id', studentAuth, async (req, res) => {
        try { parsed = JSON.parse(r.question_raw); } catch {}
        return { ...r, question: parsed };
     });
+
+    if (submissions.length > 0 && submissions.every(s => s.question && s.question.showPrev === false)) {
+      return res.status(403).json({ message: 'Score details for this exam are currently hidden by the instructor.' });
+    }
 
     res.json({ submissions });
   } catch (error) {
