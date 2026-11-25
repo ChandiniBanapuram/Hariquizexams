@@ -1385,31 +1385,6 @@ export default function CodingPractice() {
                     <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)', ml: 1.5, fontFamily: 'monospace', fontWeight: 700, letterSpacing: 1 }}>
                       {parsedQ.title || 'SOURCE'}.{(language === 'python' ? 'py' : language === 'java' ? 'java' : language === 'cpp' ? 'cpp' : language === 'js' ? 'js' : language ? 'c' : 'txt').toUpperCase()}
                     </Typography>
-
-                    {/* In-Editor Quick Language Selector */}
-                    <FormControl size="small" sx={{ ml: 1.5, minWidth: 125 }}>
-                      <Select
-                        value={language}
-                        displayEmpty
-                        onChange={e => handleLanguageChange(e.target.value as any)}
-                        sx={{
-                          height: 24,
-                          fontSize: '0.72rem',
-                          fontWeight: 800,
-                          borderRadius: '6px',
-                          bgcolor: 'rgba(255,255,255,0.04)',
-                          color: '#2affff',
-                          '& .MuiSelect-select': { py: '2px', px: '8px' },
-                          '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' },
-                          '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#2affff' },
-                        }}
-                      >
-                        <MenuItem value="" disabled sx={{ fontSize: '0.72rem', fontWeight: 700 }}>Select Language</MenuItem>
-                        {[['python', 'PYTHON 3'], ['java', 'JAVA 17'], ['cpp', 'C++ 20'], ['c', 'C (GCC)'], ['js', 'JAVASCRIPT']].map(([v, l]) => (
-                          <MenuItem key={v as string} value={v as string} sx={{ fontSize: '0.72rem', fontWeight: 700 }}>{l as string}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
                     <Box sx={{ flexGrow: 1 }} />
                     {isCompiling && (
                       <Chip
