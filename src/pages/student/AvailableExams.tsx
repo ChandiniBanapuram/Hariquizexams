@@ -196,7 +196,7 @@ export default function AvailableExams() {
       });
       setTimeLimit(exam.time_limit);
 
-      const qs = await studentAPI.getQuestions(
+      let qs = await studentAPI.getQuestions(
         ctxDepartment,
         ctxSection,
         ctxYear,
@@ -204,6 +204,17 @@ export default function AvailableExams() {
         exam.subject,
         exam.exam_date
       );
+
+      // Resilient fallback: if no questions found with date filter, fetch subject questions
+      if ((!Array.isArray(qs) || qs.length === 0) && exam.exam_date) {
+        qs = await studentAPI.getQuestions(
+          ctxDepartment,
+          ctxSection,
+          ctxYear,
+          ctxSemester,
+          exam.subject
+        );
+      }
 
       if (Array.isArray(qs) && qs.length > 0) {
         let finalQs = [...qs];

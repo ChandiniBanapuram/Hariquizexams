@@ -211,8 +211,9 @@ router.get('/available-exams', studentAuth, async (req, res) => {
         `SELECT ec.*,
           (SELECT COUNT(*) FROM questions q
            WHERE REPLACE(REPLACE(REPLACE(q.department, ' ', ''), '(', ''), ')', '') = REPLACE(REPLACE(REPLACE(ec.department, ' ', ''), '(', ''), ')', '')
-           AND q.section = ec.section AND q.year = ec.year AND q.semester = ec.semester
-           AND q.subject = ec.subject AND (ec.exam_date IS NULL OR DATE(q.exam_date) = DATE(ec.exam_date))
+           AND (REPLACE(q.section, 'Section ', '') = REPLACE(ec.section, 'Section ', '') OR q.section = 'ALL' OR ec.section = 'ALL')
+           AND q.year = ec.year AND q.semester = ec.semester
+           AND q.subject = ec.subject AND (ec.exam_date IS NULL OR DATE(q.exam_date) = DATE(ec.exam_date) OR CAST(q.exam_date AS CHAR) = CAST(ec.exam_date AS CHAR))
           ) as question_count
          FROM exam_configs ec
          WHERE ec.is_active = 1
@@ -234,12 +235,13 @@ router.get('/available-exams', studentAuth, async (req, res) => {
       `SELECT ec.*, 
         (SELECT COUNT(*) FROM questions q 
          WHERE REPLACE(REPLACE(REPLACE(q.department, ' ', ''), '(', ''), ')', '') = REPLACE(REPLACE(REPLACE(ec.department, ' ', ''), '(', ''), ')', '')
-         AND q.section = ec.section AND q.year = ec.year AND q.semester = ec.semester 
-         AND q.subject = ec.subject AND (ec.exam_date IS NULL OR DATE(q.exam_date) = DATE(ec.exam_date))
+         AND (REPLACE(q.section, 'Section ', '') = REPLACE(ec.section, 'Section ', '') OR q.section = 'ALL' OR ec.section = 'ALL')
+         AND q.year = ec.year AND q.semester = ec.semester 
+         AND q.subject = ec.subject AND (ec.exam_date IS NULL OR DATE(q.exam_date) = DATE(ec.exam_date) OR CAST(q.exam_date AS CHAR) = CAST(ec.exam_date AS CHAR))
         ) as question_count
        FROM exam_configs ec
        WHERE REPLACE(REPLACE(REPLACE(ec.department, ' ', ''), '(', ''), ')', '') = ?
-       AND (ec.section = ? OR ec.section = 'ALL')
+       AND (REPLACE(ec.section, 'Section ', '') = REPLACE(?, 'Section ', '') OR ec.section = 'ALL')
        AND ec.year = ?
        AND ec.semester = ?
        AND ec.is_active = 1

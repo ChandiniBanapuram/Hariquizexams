@@ -12,7 +12,25 @@ const normDate = (d) => {
   const m = s.match(/^(\d{4}-\d{2}-\d{2})/);
   if (m) return m[1];
   const dt = new Date(s);
-  return isNaN(dt.getTime()) ? null : dt.toISOString().slice(0, 10);
+  if (isNaN(dt.getTime())) return null;
+  const ist = new Date(dt.getTime() + (5.5 * 3600 * 1000));
+  return ist.toISOString().slice(0, 10);
+};
+
+// Generates candidate date strings (handles direct YYYY-MM-DD, UTC ISO, and IST offsets)
+const getExamDateCandidates = (d) => {
+  if (!d) return [];
+  const s = d.toString().trim();
+  const set = new Set();
+  const m = s.match(/^(\d{4}-\d{2}-\d{2})/);
+  if (m) set.add(m[1]);
+  const dt = new Date(s);
+  if (!isNaN(dt.getTime())) {
+    set.add(dt.toISOString().slice(0, 10));
+    const ist = new Date(dt.getTime() + (5.5 * 3600 * 1000));
+    set.add(ist.toISOString().slice(0, 10));
+  }
+  return Array.from(set);
 };
 
 
@@ -36,24 +54,29 @@ router.get('/check-attempt', async (req, res) => {
     }
 
     const normDept = (department || '').toString().replace(/\s+/g, '').replace('(', '').replace(')', '');
-    const normSection = (section || '').toString().replace('Section ', '');
+    const rawSection = (section || '').toString();
 
     let sql = `SELECT id FROM responses 
        WHERE roll_number = ? 
        AND REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
-       AND (section = ? OR section = 'ALL')
+       AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL' OR ? = 'ALL')
        AND year = ?
        AND semester = ?
        AND subject = ?`;
-    const params = [rollNumber, normDept, normSection, year || '1', semester || '1', subject || ''];
+    const params = [rollNumber, normDept, rawSection, rawSection, year || '1', semester || '1', subject || ''];
 
-    const examDay = normDate(examDate) || normDate(new Date());
-    sql += ` AND (
-      (exam_date IS NOT NULL AND DATE(exam_date) = ?)
-      OR (DATE(submitted_at) = ?)
-    )`;
-    params.push(examDay, examDay);
-
+    const dateCandidates = getExamDateCandidates(examDate);
+    if (dateCandidates.length > 0) {
+      sql += ` AND (
+        (exam_date IS NOT NULL AND (DATE(exam_date) IN (?) OR CAST(exam_date AS CHAR) IN (?)))
+        OR (DATE(submitted_at) IN (?) OR DATE(submitted_at) = DATE(?))
+      )`;
+      params.push(dateCandidates, dateCandidates, dateCandidates, dateCandidates[0]);
+    } else {
+      const today = normDate(new Date());
+      sql += ` AND (DATE(submitted_at) = ? OR (exam_date IS NOT NULL AND DATE(exam_date) = ?))`;
+      params.push(today, today);
+    }
 
     const [rows] = await db.query(sql, params);
 
@@ -69,24 +92,40 @@ router.get('/exam-config', async (req, res) => {
   try {
     let { department, section, year, semester, subject, examDate } = req.query;
 
-    department = department?.replace(/\s+/g, '').replace('(', '').replace(')', '');
-    section = section?.replace('Section ', '');
+    const normDept = department?.replace(/\s+/g, '').replace('(', '').replace(')', '');
+    const rawSection = section || '';
 
     let query = `SELECT * FROM exam_configs
        WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
-       AND (section = ? OR section = 'ALL')
+       AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL' OR ? = 'ALL')
        AND year = ?
        AND semester = ?
        AND subject = ?`;
-    const params = [department, section, year || '1', semester || '1', subject || ''];
+    const params = [normDept, rawSection, rawSection, year || '1', semester || '1', subject || ''];
 
     // Add date filter if provided
-    if (examDate) {
-      query += ` AND DATE(exam_date) = ?`;
-      params.push(examDate);
+    const dateCandidates = getExamDateCandidates(examDate);
+    if (dateCandidates.length > 0) {
+      query += ` AND (DATE(exam_date) IN (?) OR CAST(exam_date AS CHAR) IN (?) OR exam_date IN (?))`;
+      params.push(dateCandidates, dateCandidates, dateCandidates);
     }
 
-    const [rows] = await db.query(query, params);
+    let [rows] = await db.query(query, params);
+
+    // Fallback without date filter if not found
+    if (rows.length === 0 && dateCandidates.length > 0) {
+      const [fallbackRows] = await db.query(
+        `SELECT * FROM exam_configs
+         WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
+         AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL' OR ? = 'ALL')
+         AND year = ?
+         AND semester = ?
+         AND subject = ?
+         ORDER BY id DESC LIMIT 1`,
+        [normDept, rawSection, rawSection, year || '1', semester || '1', subject || '']
+      );
+      if (fallbackRows.length > 0) rows = fallbackRows;
+    }
 
     if (rows.length > 0) {
       res.json(rows[0]);
@@ -104,26 +143,27 @@ router.get('/exam-config', async (req, res) => {
 router.get('/questions', async (req, res) => {
   let { department, section, year, semester, subject, examDate } = req.query;
 
-  department = department?.replace(/\s+/g, '').replace('(', '').replace(')', '');
-  section = section?.replace('Section ', '');
+  const normDept = department?.replace(/\s+/g, '').replace('(', '').replace(')', '');
+  const rawSection = section || '';
+  const dateCandidates = getExamDateCandidates(examDate);
 
   try {
     // Check if shuffle is enabled for this exam config
     let configQuery = `SELECT shuffle_questions FROM exam_configs
        WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
-       AND (section = ? OR section = 'ALL')
+       AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL' OR ? = 'ALL')
        AND year = ?
        AND semester = ?`;
-    const configParams = [department, section, year || '1', semester || '1'];
+    const configParams = [normDept, rawSection, rawSection, year || '1', semester || '1'];
 
     if (subject) {
       configQuery += ` AND subject = ?`;
       configParams.push(subject);
     }
 
-    if (examDate) {
-      configQuery += ` AND DATE(exam_date) = ?`;
-      configParams.push(examDate);
+    if (dateCandidates.length > 0) {
+      configQuery += ` AND (DATE(exam_date) IN (?) OR CAST(exam_date AS CHAR) IN (?) OR exam_date IN (?))`;
+      configParams.push(dateCandidates, dateCandidates, dateCandidates);
     }
 
     const [configRows] = await db.query(configQuery, configParams);
@@ -134,10 +174,10 @@ router.get('/questions', async (req, res) => {
        question_type, options, correct_answer_index, accepted_answers
        FROM questions
        WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
-       AND (section = ? OR section = 'ALL')
+       AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL' OR ? = 'ALL')
        AND year = ?
        AND semester = ?`;
-    const questionParams = [department, section, year || '1', semester || '1'];
+    const questionParams = [normDept, rawSection, rawSection, year || '1', semester || '1'];
 
     if (subject) {
       questionsQuery += ` AND subject = ?`;
@@ -145,12 +185,30 @@ router.get('/questions', async (req, res) => {
     }
 
     // Filter by exam date if provided
-    if (examDate) {
-      questionsQuery += ` AND DATE(exam_date) = ?`;
-      questionParams.push(examDate);
+    if (dateCandidates.length > 0) {
+      questionsQuery += ` AND (DATE(exam_date) IN (?) OR CAST(exam_date AS CHAR) IN (?) OR exam_date IN (?))`;
+      questionParams.push(dateCandidates, dateCandidates, dateCandidates);
     }
 
-    const [rows] = await db.query(questionsQuery, questionParams);
+    let [rows] = await db.query(questionsQuery, questionParams);
+
+    // Fallback: If date-specific search yielded 0 questions, query without date filter
+    if (rows.length === 0 && dateCandidates.length > 0) {
+      console.log(`[questions] Fallback to subject-level questions for ${subject} (${normDept}, ${rawSection})`);
+      const fallbackQuery = `SELECT id, department, section, year, semester, subject, question,
+         option_a, option_b, option_c, option_d, correct_option, image_url,
+         question_type, options, correct_answer_index, accepted_answers
+         FROM questions
+         WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
+         AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL' OR ? = 'ALL')
+         AND year = ?
+         AND semester = ?
+         AND subject = ?`;
+      const [fallbackRows] = await db.query(fallbackQuery, [normDept, rawSection, rawSection, year || '1', semester || '1', subject]);
+      if (fallbackRows.length > 0) {
+        rows = fallbackRows;
+      }
+    }
 
     // Hydrate: parse JSON, fill options[] from legacy option_a..d, drop correct_option for security
     for (const q of rows) {
@@ -435,18 +493,25 @@ router.post('/submit-exam', async (req, res) => {
     // Block duplicate attempts for THIS EXACT exam only (master student is exempt)
     if (!isMasterRoll(rollNumber)) {
       const dupDept = (department || '').toString().replace(/\s+/g, '').replace('(', '').replace(')', '');
-      const dupSection = (section || '').toString().replace('Section ', '');
+      const rawSection = (section || '').toString();
       let dupSql = `SELECT id FROM responses 
          WHERE roll_number = ? 
          AND REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
-         AND (section = ? OR section = 'ALL') AND year = ? AND semester = ? AND subject = ?`;
-      const dupParams = [rollNumber, dupDept, dupSection, year || '1', semester || '1', subject || ''];
-      const dupDay = normDate(examDate) || normDate(new Date());
-      dupSql += ` AND (
-        (exam_date IS NOT NULL AND DATE(exam_date) = ?)
-        OR (DATE(submitted_at) = ?)
-      )`;
-      dupParams.push(dupDay, dupDay);
+         AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL' OR ? = 'ALL')
+         AND year = ? AND semester = ? AND subject = ?`;
+      const dupParams = [rollNumber, dupDept, rawSection, rawSection, year || '1', semester || '1', subject || ''];
+      const dateCandidates = getExamDateCandidates(examDate);
+      if (dateCandidates.length > 0) {
+        dupSql += ` AND (
+          (exam_date IS NOT NULL AND (DATE(exam_date) IN (?) OR CAST(exam_date AS CHAR) IN (?)))
+          OR (DATE(submitted_at) IN (?) OR DATE(submitted_at) = DATE(?))
+        )`;
+        dupParams.push(dateCandidates, dateCandidates, dateCandidates, dateCandidates[0]);
+      } else {
+        const today = normDate(new Date());
+        dupSql += ` AND (DATE(submitted_at) = ? OR (exam_date IS NOT NULL AND DATE(exam_date) = ?))`;
+        dupParams.push(today, today);
+      }
 
       const [dupRows] = await db.query(dupSql, dupParams);
       if (dupRows.length > 0) {
@@ -460,21 +525,21 @@ router.post('/submit-exam', async (req, res) => {
       .replace(/\s+/g, '')
       .replace('(', '')
       .replace(')', '');
-    const normalizedSection = (section || '').toString().replace('Section ', '');
+    const rawSection = (section || '').toString();
 
     let qQuery = `SELECT id, correct_option, question_type, correct_answer_index, accepted_answers,
       options, option_a, option_b, option_c, option_d
       FROM questions
       WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
-      AND (section = ? OR section = 'ALL') AND year = ? AND semester = ? AND subject = ?`;
-    const qParams = [normalizedDept, normalizedSection, year || '1', semester || '1', subject || ''];
+      AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL' OR ? = 'ALL')
+      AND year = ? AND semester = ? AND subject = ?`;
+    const qParams = [normalizedDept, rawSection, rawSection, year || '1', semester || '1', subject || ''];
 
-    const examDay = normDate(examDate) || normDate(new Date());
-    if (examDay) {
-      qQuery += ` AND exam_date IS NOT NULL AND DATE(exam_date) = ?`;
-      qParams.push(examDay);
+    const dateCandidates = getExamDateCandidates(examDate);
+    if (dateCandidates.length > 0) {
+      qQuery += ` AND exam_date IS NOT NULL AND (DATE(exam_date) IN (?) OR CAST(exam_date AS CHAR) IN (?))`;
+      qParams.push(dateCandidates, dateCandidates);
     }
-
 
     let [questions] = await db.query(qQuery, qParams);
 
@@ -485,8 +550,9 @@ router.post('/submit-exam', async (req, res) => {
           options, option_a, option_b, option_c, option_d
           FROM questions
           WHERE REPLACE(REPLACE(REPLACE(department, ' ', ''), '(', ''), ')', '') = ?
-          AND (section = ? OR section = 'ALL') AND year = ? AND semester = ? AND subject = ?`,
-        [normalizedDept, normalizedSection, year || '1', semester || '1', subject || '']
+          AND (REPLACE(section, 'Section ', '') = REPLACE(?, 'Section ', '') OR section = 'ALL' OR ? = 'ALL')
+          AND year = ? AND semester = ? AND subject = ?`,
+        [normalizedDept, rawSection, rawSection, year || '1', semester || '1', subject || '']
       );
       if (allDeptQuestions.length > 0) {
         questions = allDeptQuestions;

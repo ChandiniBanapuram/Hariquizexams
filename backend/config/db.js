@@ -50,6 +50,7 @@ const pool = mysql.createPool({
   enableKeepAlive: true,
   keepAliveInitialDelay: 10000,
   ssl: sslConfig,
+  dateStrings: true,
 });
 
 // Test connection with retry
