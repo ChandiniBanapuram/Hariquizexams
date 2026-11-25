@@ -118,10 +118,26 @@ export default function CodingPractice() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const loadedFromDbRef = React.useRef(false);
 
-  // Auto-enter browser fullscreen on mount & listen to state changes
+  const handleLanguageChange = (newLang: 'python' | 'java' | 'cpp' | 'c' | 'js' | '') => {
+    setLanguage(newLang);
+    if (!newLang) return;
+
+    let codeToUse = DEFAULT_CODE[newLang] || '';
+    if (student && currentQ) {
+      localStorage.setItem(`cp_${student.id}_${currentQ.id}_last_lang`, newLang);
+      const lKey = `cp_${student.id}_${currentQ.id}_${newLang}`;
+      const savedCode = localStorage.getItem(lKey);
+      if (savedCode && savedCode.trim() && !savedCode.includes('Please select a programming language')) {
+        codeToUse = savedCode;
+      }
+    }
+    setCode(codeToUse);
+  };
+
+  // Sync fullscreen state with document
   useEffect(() => {
     const handleFullscreenChange = () => {
-      const isCurrentlyFullscreen = !!document.fullscreenElement;
+      const isCurrentlyFullscreen = !!(document.fullscreenElement || (document as any).webkitFullscreenElement);
       setIsFullscreen(isCurrentlyFullscreen);
     };
 
@@ -130,21 +146,9 @@ export default function CodingPractice() {
     document.addEventListener('mozfullscreenchange', handleFullscreenChange);
     document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 
-    // Initial sync
-    setIsFullscreen(!!document.fullscreenElement);
-
-    const tryFullscreen = () => {
-      try {
-        const elem: any = document.documentElement;
-        if (!document.fullscreenElement && elem.requestFullscreen) {
-          elem.requestFullscreen().catch(() => {});
-        }
-      } catch { /* noop */ }
-    };
-    const t = setTimeout(tryFullscreen, 300);
+    setIsFullscreen(!!(document.fullscreenElement || (document as any).webkitFullscreenElement));
 
     return () => {
-      clearTimeout(t);
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
       document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
       document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
@@ -152,28 +156,32 @@ export default function CodingPractice() {
     };
   }, []);
 
-  const toggleBrowserFullscreen = () => {
+  const toggleBrowserFullscreen = async () => {
     try {
-      if (!document.fullscreenElement) {
+      const isFull = !!(document.fullscreenElement || (document as any).webkitFullscreenElement);
+      if (!isFull) {
         const elem: any = document.documentElement;
         if (elem.requestFullscreen) {
-          elem.requestFullscreen().catch(() => {});
+          await elem.requestFullscreen();
         } else if (elem.webkitRequestFullscreen) {
-          elem.webkitRequestFullscreen();
+          await elem.webkitRequestFullscreen();
         } else if (elem.msRequestFullscreen) {
-          elem.msRequestFullscreen();
+          await elem.msRequestFullscreen();
         }
+        setIsFullscreen(true);
       } else {
         if (document.exitFullscreen) {
-          document.exitFullscreen().catch(() => {});
+          await document.exitFullscreen();
         } else if ((document as any).webkitExitFullscreen) {
-          (document as any).webkitExitFullscreen();
+          await (document as any).webkitExitFullscreen();
         } else if ((document as any).msExitFullscreen) {
-          (document as any).msExitFullscreen();
+          await (document as any).msExitFullscreen();
         }
+        setIsFullscreen(false);
       }
     } catch (e) {
-      console.error("Error toggling fullscreen:", e);
+      console.warn("Fullscreen toggle fallback:", e);
+      setIsFullscreen(prev => !prev);
     }
   };
 
@@ -1050,103 +1058,115 @@ export default function CodingPractice() {
   };
 
   return (
-    <StudentLayout user={student} onLogout={logout} noPadding>
+    <StudentLayout user={student} onLogout={logout} noPadding hideNav={isFullscreen}>
 
       {/* ── Top control bar (subject + question nav + lang + fullscreen) ── */}
-      {!isFullscreen && (
-        <Box
-          sx={{
-            display: 'flex', alignItems: 'center', gap: 2,
-            flexWrap: 'wrap', px: 3, py: 1,
-            bgcolor: 'rgba(9,9,11,0.9)',
-            borderBottom: '1px solid rgba(255,255,255,0.05)',
-          }}
-        >
-          {/* Subject picker */}
-          <FormControl size="small" sx={{ minWidth: 200 }}>
-            <Select
-              value={selSubject}
-              onChange={e => { setSelSubject(e.target.value); }}
-              sx={{ borderRadius: '50px', bgcolor: 'rgba(255,255,255,0.02)', color: '#fff', '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' }, fontSize: '0.8rem', fontWeight: 700 }}
-            >
-              {subjects.map(s => <MenuItem key={s} value={s} sx={{ fontSize: '0.8rem' }}>{s}</MenuItem>)}
-            </Select>
-          </FormControl>
+      <Box
+        sx={{
+          display: 'flex', alignItems: 'center', gap: 2,
+          flexWrap: 'wrap', px: 3, py: 1,
+          bgcolor: 'rgba(9,9,11,0.95)',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          zIndex: 10,
+          position: 'relative',
+        }}
+      >
+        {/* Subject picker */}
+        <FormControl size="small" sx={{ minWidth: 200 }}>
+          <Select
+            value={selSubject}
+            onChange={e => { setSelSubject(e.target.value); }}
+            sx={{ borderRadius: '50px', bgcolor: 'rgba(255,255,255,0.02)', color: '#fff', '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' }, fontSize: '0.8rem', fontWeight: 700 }}
+          >
+            {subjects.map(s => <MenuItem key={s} value={s} sx={{ fontSize: '0.8rem' }}>{s}</MenuItem>)}
+          </Select>
+        </FormControl>
 
-          <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+        <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.1)' }} />
 
-          {/* Prev / Question info / Next */}
-          <Stack direction="row" spacing={1} alignItems="center">
-            <IconButton size="small" disabled={idx === 0} onClick={() => { setIdx(i => i - 1); resetEnv(); }} sx={{ color: 'rgba(255,255,255,0.4)', '&:hover': { color: '#2affff', bgcolor: 'rgba(42, 255, 255, 0.05)' } }}>
-              <ChevronLeft fontSize="small" />
-            </IconButton>
-            <Chip
-              label={`${idx + 1} / ${questions.length}`}
-              size="small"
-              sx={{ fontWeight: 900, bgcolor: 'rgba(255,255,255,0.05)', color: '#fff', fontSize: '0.7rem', height: 24, borderRadius: '50px', px: 1 }}
-            />
-            <IconButton size="small" disabled={idx === questions.length - 1} onClick={() => { setIdx(i => i + 1); resetEnv(); }} sx={{ color: 'rgba(255,255,255,0.4)', '&:hover': { color: '#2affff', bgcolor: 'rgba(42, 255, 255, 0.05)' } }}>
-              <ChevronRight fontSize="small" />
-            </IconButton>
-          </Stack>
+        {/* Prev / Question info / Next */}
+        <Stack direction="row" spacing={1} alignItems="center">
+          <IconButton size="small" disabled={idx === 0} onClick={() => { setIdx(i => i - 1); resetEnv(); }} sx={{ color: 'rgba(255,255,255,0.4)', '&:hover': { color: '#2affff', bgcolor: 'rgba(42, 255, 255, 0.05)' } }}>
+            <ChevronLeft fontSize="small" />
+          </IconButton>
+          <Chip
+            label={`${idx + 1} / ${questions.length}`}
+            size="small"
+            sx={{ fontWeight: 900, bgcolor: 'rgba(255,255,255,0.05)', color: '#fff', fontSize: '0.7rem', height: 24, borderRadius: '50px', px: 1 }}
+          />
+          <IconButton size="small" disabled={idx === questions.length - 1} onClick={() => { setIdx(i => i + 1); resetEnv(); }} sx={{ color: 'rgba(255,255,255,0.4)', '&:hover': { color: '#2affff', bgcolor: 'rgba(42, 255, 255, 0.05)' } }}>
+            <ChevronRight fontSize="small" />
+          </IconButton>
+        </Stack>
 
-          <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.1)' }} />
+        <Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.1)' }} />
 
-          {/* Language selector */}
-          <FormControl size="small" sx={{ minWidth: 140 }}>
-            <Select
-              value={language}
-              displayEmpty
-              onChange={e => setLanguage(e.target.value as any)}
-              sx={{ borderRadius: '50px', bgcolor: 'rgba(255,255,255,0.02)', color: '#fff', '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' }, fontSize: '0.8rem', fontWeight: 900 }}
-            >
-              <MenuItem value="" disabled sx={{ fontSize: '0.75rem', fontWeight: 700 }}>Select Language</MenuItem>
-              {[['python', 'PYTHON 3'], ['java', 'JAVA 17'], ['cpp', 'C++ 20'], ['c', 'C (GCC)'], ['js', 'JAVASCRIPT']].map(([v, l]) => (
-                <MenuItem key={v as string} value={v as string} sx={{ fontSize: '0.75rem', fontWeight: 700 }}>{l as string}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+        {/* Language selector */}
+        <FormControl size="small" sx={{ minWidth: 150 }}>
+          <Select
+            value={language}
+            displayEmpty
+            onChange={e => handleLanguageChange(e.target.value as any)}
+            sx={{
+              borderRadius: '50px',
+              bgcolor: language ? 'rgba(42, 255, 255, 0.1)' : 'rgba(255,255,255,0.05)',
+              color: language ? '#2affff' : '#fff',
+              border: language ? '1px solid rgba(42, 255, 255, 0.4)' : '1px solid rgba(255,255,255,0.15)',
+              '& .MuiOutlinedInput-notchedOutline': { borderColor: 'transparent' },
+              fontSize: '0.8rem',
+              fontWeight: 900
+            }}
+          >
+            <MenuItem value="" disabled sx={{ fontSize: '0.75rem', fontWeight: 700 }}>Select Language</MenuItem>
+            {[['python', 'PYTHON 3'], ['java', 'JAVA 17'], ['cpp', 'C++ 20'], ['c', 'C (GCC)'], ['js', 'JAVASCRIPT']].map(([v, l]) => (
+              <MenuItem key={v as string} value={v as string} sx={{ fontSize: '0.75rem', fontWeight: 700 }}>{l as string}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-          <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{ flexGrow: 1 }} />
 
-          {/* Fullscreen toggle */}
-          <Tooltip title={isFullscreen ? 'Exit Fullscreen (F11)' : 'Fullscreen (F11)'}>
-            <IconButton size="small" onClick={toggleBrowserFullscreen} sx={{ color: 'rgba(255,255,255,0.4)', '&:hover': { color: '#2affff', bgcolor: 'rgba(42, 255, 255, 0.05)' } }}>
-              {isFullscreen ? <FullscreenExit fontSize="small" /> : <Fullscreen fontSize="small" />}
-            </IconButton>
-          </Tooltip>
-        </Box>
-      )}
+        {/* Fullscreen toggle button */}
+        <Tooltip title={isFullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}>
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={toggleBrowserFullscreen}
+            startIcon={isFullscreen ? <FullscreenExit fontSize="small" /> : <Fullscreen fontSize="small" />}
+            sx={{
+              borderRadius: '50px',
+              textTransform: 'none',
+              fontWeight: 700,
+              fontSize: '0.75rem',
+              color: isFullscreen ? '#2affff' : 'rgba(255,255,255,0.8)',
+              borderColor: isFullscreen ? 'rgba(42,255,255,0.4)' : 'rgba(255,255,255,0.2)',
+              bgcolor: isFullscreen ? 'rgba(42,255,255,0.1)' : 'rgba(255,255,255,0.02)',
+              '&:hover': {
+                borderColor: '#2affff',
+                color: '#2affff',
+                bgcolor: 'rgba(42,255,255,0.15)'
+              }
+            }}
+          >
+            {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+          </Button>
+        </Tooltip>
+      </Box>
 
       {/* ════════════════════════════════════════════════
            MAIN SPLIT WORKSPACE
          ════════════════════════════════════════════════ */}
       <Box
         sx={{
-          height: isFullscreen ? '100vh' : 'calc(100vh - 64px - 50px)',
+          height: isFullscreen ? 'calc(100vh - 52px)' : 'calc(100vh - 70px - 52px)',
           minHeight: 400,
           flexGrow: 1,
-          position: isFullscreen ? 'fixed' : 'relative',
-          top: isFullscreen ? 0 : 'auto',
-          left: isFullscreen ? 0 : 'auto',
-          right: isFullscreen ? 0 : 'auto',
-          bottom: isFullscreen ? 0 : 'auto',
-          zIndex: isFullscreen ? 1300 : 'auto',
+          position: 'relative',
+          width: '100%',
           bgcolor: '#09090b',
           overflow: 'hidden',
         }}
       >
-        {/* Fullscreen exit button overlay */}
-        {isFullscreen && (
-          <Box sx={{ position: 'absolute', top: 8, right: 8, zIndex: 1400 }}>
-            <Tooltip title="Exit Fullscreen (Esc)">
-              <IconButton size="small" onClick={toggleBrowserFullscreen} sx={{ bgcolor: '#1c1c1c', color: '#fff', '&:hover': { bgcolor: '#27272a' } }}>
-                <FullscreenExit fontSize="small" />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        )}
-
         {/* ── Horizontal split: LEFT (problem) | RIGHT (editor + console) ── */}
         <PanelGroup direction="horizontal" style={{ height: '100%' }}>
 
@@ -1362,9 +1382,34 @@ export default function CodingPractice() {
                         <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#fbbf24', boxShadow: '0 0 8px #fbbf24' }} />
                         <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#4ade80', boxShadow: '0 0 8px #4ade80' }} />
                     </Stack>
-                    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)', ml: 2, fontFamily: 'monospace', fontWeight: 700, letterSpacing: 1 }}>
-                      {parsedQ.title || 'SOURCE'}.{(language === 'python' ? 'py' : language === 'java' ? 'java' : language === 'cpp' ? 'cpp' : language === 'js' ? 'js' : 'c').toUpperCase()}
+                    <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)', ml: 1.5, fontFamily: 'monospace', fontWeight: 700, letterSpacing: 1 }}>
+                      {parsedQ.title || 'SOURCE'}.{(language === 'python' ? 'py' : language === 'java' ? 'java' : language === 'cpp' ? 'cpp' : language === 'js' ? 'js' : language ? 'c' : 'txt').toUpperCase()}
                     </Typography>
+
+                    {/* In-Editor Quick Language Selector */}
+                    <FormControl size="small" sx={{ ml: 1.5, minWidth: 125 }}>
+                      <Select
+                        value={language}
+                        displayEmpty
+                        onChange={e => handleLanguageChange(e.target.value as any)}
+                        sx={{
+                          height: 24,
+                          fontSize: '0.72rem',
+                          fontWeight: 800,
+                          borderRadius: '6px',
+                          bgcolor: 'rgba(255,255,255,0.04)',
+                          color: '#2affff',
+                          '& .MuiSelect-select': { py: '2px', px: '8px' },
+                          '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.1)' },
+                          '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#2affff' },
+                        }}
+                      >
+                        <MenuItem value="" disabled sx={{ fontSize: '0.72rem', fontWeight: 700 }}>Select Language</MenuItem>
+                        {[['python', 'PYTHON 3'], ['java', 'JAVA 17'], ['cpp', 'C++ 20'], ['c', 'C (GCC)'], ['js', 'JAVASCRIPT']].map(([v, l]) => (
+                          <MenuItem key={v as string} value={v as string} sx={{ fontSize: '0.72rem', fontWeight: 700 }}>{l as string}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                     <Box sx={{ flexGrow: 1 }} />
                     {isCompiling && (
                       <Chip
